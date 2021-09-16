@@ -5,13 +5,11 @@ import { Container, Col, Row } from "@bootstrap-styled/v4";
 export const Palette = (props) => {
   const swatchProps = {
     size: 8,
-    // TODO: this should be a spacing variable inside swatch
-    style: { marginTop: "4rem" },
   };
 
   return (
-    <Container>
-      <Row>
+    <>
+      <Row style={{ marginTop: "10%" }}>
         <Col>
           <Swatch color={"#8080ff"} {...swatchProps} />
         </Col>
@@ -25,7 +23,7 @@ export const Palette = (props) => {
           <Swatch color={"#8080ff"} {...swatchProps} />
         </Col>
       </Row>
-      <Row style={{ marginBottom: "6rem" }}>
+      <Row style={{ marginTop: "5%", marginBottom: "15%" }}>
         <Col>
           <Swatch color={"#8080ff"} {...swatchProps} />
         </Col>
@@ -39,6 +37,6 @@ export const Palette = (props) => {
           <Swatch color={"#8080ff"} {...swatchProps} />
         </Col>
       </Row>
-    </Container>
+    </>
   );
 };

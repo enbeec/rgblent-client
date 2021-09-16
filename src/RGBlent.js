@@ -4,6 +4,7 @@ import { HexColorPicker } from "react-colorful";
 import { Container, Col, Row, Button } from "@bootstrap-styled/v4";
 import { Palette } from "./components/Palette.js";
 import { Swatch } from "./components/Swatch.js";
+import { ColorDetail } from "./components/ColorDetail.js";
 
 export const RGBlent = (props) => {
   const [pickerColor, setPickerColor] = useState("#80ff80");
@@ -13,23 +14,24 @@ export const RGBlent = (props) => {
     <Container>
       <Row>
         <Col>
-          <Row style={{ margin: "auto", marginTop: "6rem" }}>
-            <Col style={{ margin: "auto", marginTop: "6rem" }}>
+          <Row className="picker__" style={{ marginTop: "15%" }}>
+            <Col style={{ margin: "auto" }}>
               <HexColorPicker
                 style={{ margin: "auto" }}
                 color={pickerColor}
                 onChange={setPickerColor}
               />
             </Col>
-            <Col style={{ margin: "auto" }}>
+            <Col>
               <Button onClick={() => setColor(pickerColor)}>Load Color</Button>
             </Col>
           </Row>
-          <Row style={{ marginTop: "4rem" }}>
-            <Swatch style={{ marginTop: "4rem" }} color={color} size={12} />
-            <Container></Container>
+          <Row className="detail__row" style={{ marginTop: "5%" }}>
+            <ColorDetail color={color} />
           </Row>
-          <Palette />
+          <Row className="palette__row">
+            <Palette />
+          </Row>
         </Col>
         <RightColumn>
           <MockSidebar />
