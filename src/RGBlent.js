@@ -29,9 +29,13 @@ export const RGBlent = (props) => {
 const RightColumn = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px dotted black;
 `;
 
 const MockSidebar = styled.div`
+  margin-top: auto;
+  margin-bottom: auto;
   width: 24rem;
+  height: 90%;
+  border-radius: 8px;
+  background-color: darkgrey;
 `;
