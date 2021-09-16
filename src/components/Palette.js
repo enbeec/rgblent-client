@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { Swatch } from "./Swatch.js";
 import { Container, Col, Row } from "@bootstrap-styled/v4";
 
 export const Palette = (props) => {
@@ -24,7 +25,7 @@ export const Palette = (props) => {
           <Swatch color={"#8080ff"} {...swatchProps} />
         </Col>
       </Row>
-      <Row>
+      <Row style={{ marginBottom: "2rem" }}>
         <Col>
           <Swatch color={"#8080ff"} {...swatchProps} />
         </Col>
