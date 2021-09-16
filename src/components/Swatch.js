@@ -10,23 +10,25 @@ import {
 
 export const Swatch = (props) => {
   const [dropState, setDropState] = useState(false);
-  const [swatchRef, swatchHover] = useHover();
+  const [hoverRef, swatchHover] = useHover();
 
   return (
-    <SWATCH {...props} ref={swatchRef}>
-      <ButtonDropdown
-        isOpen={dropState}
-        toggle={() => setDropState(!dropState)}
-        className={"w-30 mx-auto my-auto"}
-        hidden={!swatchHover}
-      >
-        <DropdownToggle>☰</DropdownToggle>
-        <DropdownMenu>
-          <DropdownItem>Blend</DropdownItem>
-          <DropdownItem>Favorite</DropdownItem>
-        </DropdownMenu>
-      </ButtonDropdown>
-    </SWATCH>
+    <div ref={hoverRef}>
+      <SWATCH {...props}>
+        <ButtonDropdown
+          isOpen={dropState}
+          toggle={() => setDropState(!dropState)}
+          className={"w-30 mx-auto my-auto"}
+          hidden={!swatchHover}
+        >
+          <DropdownToggle>☰</DropdownToggle>
+          <DropdownMenu>
+            <DropdownItem>Blend</DropdownItem>
+            <DropdownItem>Favorite</DropdownItem>
+          </DropdownMenu>
+        </ButtonDropdown>
+      </SWATCH>
+    </div>
   );
 };
 
