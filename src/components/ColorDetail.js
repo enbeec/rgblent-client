@@ -12,7 +12,7 @@ import { Swatch } from "./Swatch.js";
 export const ColorDetail = ({ color, ...props }) => {
   return (
     <>
-      <Swatch style={{ marginTop: "4rem" }} color={color} size={12} />
+      <Swatch color={color} size={12} />
       <Container></Container>
     </>
   );

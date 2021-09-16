@@ -5,6 +5,7 @@ import { Container, Col, Row } from "@bootstrap-styled/v4";
 export const Palette = (props) => {
   const swatchProps = {
     size: 8,
+    style: { margin: "auto" },
   };
 
   return (

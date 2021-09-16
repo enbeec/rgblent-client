@@ -26,7 +26,7 @@ export const RGBlent = (props) => {
               <Button onClick={() => setColor(pickerColor)}>Load Color</Button>
             </Col>
           </Row>
-          <Row className="detail__row" style={{ marginTop: "5%" }}>
+          <Row className="detail__row" style={{ marginTop: "10%" }}>
             <ColorDetail color={color} />
           </Row>
           <Row className="palette__row">
