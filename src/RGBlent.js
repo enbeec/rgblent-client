@@ -13,22 +13,22 @@ export const RGBlent = (props) => {
     <Container>
       <Row>
         <Col>
-          <Row
-            // TODO set up proper breakpoints so this spacing works on mobile
-            style={{ margin: "auto", marginLeft: "4rem", marginTop: "6rem" }}
-          >
-            <Col style={{ margin: "auto" }}>
+          <Row style={{ margin: "auto", marginTop: "6rem" }}>
+            <Col style={{ margin: "auto", marginTop: "6rem" }}>
               <HexColorPicker
-                style={{ margin: "auto", marginLeft: "8rem" }}
+                style={{ margin: "auto" }}
                 color={pickerColor}
                 onChange={setPickerColor}
               />
             </Col>
-            <Col style={{ margin: "0" }}>
+            <Col style={{ margin: "auto" }}>
               <Button onClick={() => setColor(pickerColor)}>Load Color</Button>
             </Col>
           </Row>
-          <Swatch style={{ marginTop: "4rem" }} color={color} size={12} />
+          <Row style={{ marginTop: "4rem" }}>
+            <Swatch style={{ marginTop: "4rem" }} color={color} size={12} />
+            <Container></Container>
+          </Row>
           <Palette />
         </Col>
         <RightColumn>
