@@ -13,7 +13,7 @@ export const RGBlent = (props) => {
       <Row>
         <Col>
           <HexColorPicker
-            style={{ margin: "auto", marginTop: "2rem" }}
+            style={{ margin: "auto", marginTop: "6rem" }}
             color={pickerColor}
             onChange={setPickerColor}
           />
