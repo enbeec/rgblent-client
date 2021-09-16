@@ -21,7 +21,7 @@ export const Swatch = (props) => {
           className={"w-30 mx-auto my-auto"}
           hidden={!swatchHover}
         >
-          <DropdownToggle>☰</DropdownToggle>
+          <DropdownToggle style={{ fontSize: "1.2em" }}>☰</DropdownToggle>
           <DropdownMenu>
             <DropdownItem>Blend</DropdownItem>
             <DropdownItem>Favorite</DropdownItem>
