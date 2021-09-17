@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
-import { HexColorPicker } from "react-colorful";
-import "./css/HexColorPicker.css";
 import { Container, Col, Row, Button } from "@bootstrap-styled/v4";
 import { Palette } from "./components/Palette.js";
+import { Picker } from "./components/Picker.js";
 import { ColorDetail } from "./components/ColorDetail.js";
 import { apiURL } from "./utils/api.js";
 import { authToken } from "./utils/auth.js";
 
 export const RGBlent = (props) => {
-  const [pickerColor, setPickerColor] = useState("#80ff80");
   const [color, setColor] = useState("#80ff80");
   const [colorInfo, setColorInfo] = useState(undefined);
   useEffect(() => {
@@ -25,20 +23,20 @@ export const RGBlent = (props) => {
       .then(setColorInfo);
   }, [color]);
 
+  const pickerColor = useRef("#80ff80");
+
   return (
     <Container>
       <Row>
         <Col>
           <Row className="picker__" style={{ marginTop: "15%" }}>
             <Col style={{ margin: "auto" }}>
-              <HexColorPicker
-                style={{ margin: "auto" }}
-                color={pickerColor}
-                onChange={setPickerColor}
-              />
+              <Picker colorRef={pickerColor} style={{ margin: "auto" }} />
             </Col>
             <Col>
-              <Button onClick={() => setColor(pickerColor)}>Load Color</Button>
+              <Button onClick={() => setColor(pickerColor.current)}>
+                Load Color
+              </Button>
             </Col>
           </Row>
           <Row className="detail__row" style={{ marginTop: "10%" }}>
