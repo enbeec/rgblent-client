@@ -1,44 +1,46 @@
 import React from "react";
 import { Swatch } from "./Swatch.js";
-import { Container, Col, Row } from "@bootstrap-styled/v4";
+import { Col, Row } from "@bootstrap-styled/v4";
 
 export const Palette = (props) => {
   const swatchProps = {
     size: 8,
-    // TODO: this should be a spacing variable inside swatch
-    style: { marginTop: "4rem" },
+  };
+
+  const colProps = {
+    style: { margin: "auto" },
   };
 
   return (
-    <Container>
-      <Row>
-        <Col>
+    <>
+      <Row style={{ marginTop: "10%" }}>
+        <Col {...colProps}>
           <Swatch color={"#8080ff"} {...swatchProps} />
         </Col>
-        <Col>
+        <Col {...colProps}>
           <Swatch color={"#8080ff"} {...swatchProps} />
         </Col>
-        <Col>
+        <Col {...colProps}>
           <Swatch color={"#8080ff"} {...swatchProps} />
         </Col>
-        <Col>
-          <Swatch color={"#8080ff"} {...swatchProps} />
-        </Col>
-      </Row>
-      <Row style={{ marginBottom: "6rem" }}>
-        <Col>
-          <Swatch color={"#8080ff"} {...swatchProps} />
-        </Col>
-        <Col>
-          <Swatch color={"#8080ff"} {...swatchProps} />
-        </Col>
-        <Col>
-          <Swatch color={"#8080ff"} {...swatchProps} />
-        </Col>
-        <Col>
+        <Col {...colProps}>
           <Swatch color={"#8080ff"} {...swatchProps} />
         </Col>
       </Row>
-    </Container>
+      <Row style={{ marginTop: "5%", marginBottom: "15%" }}>
+        <Col {...colProps}>
+          <Swatch color={"#8080ff"} {...swatchProps} />
+        </Col>
+        <Col {...colProps}>
+          <Swatch color={"#8080ff"} {...swatchProps} />
+        </Col>
+        <Col {...colProps}>
+          <Swatch color={"#8080ff"} {...swatchProps} />
+        </Col>
+        <Col {...colProps}>
+          <Swatch color={"#8080ff"} {...swatchProps} />
+        </Col>
+      </Row>
+    </>
   );
 };
