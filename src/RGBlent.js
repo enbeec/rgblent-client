@@ -5,15 +5,20 @@ import "./css/HexColorPicker.css";
 import { Container, Col, Row, Button } from "@bootstrap-styled/v4";
 import { Palette } from "./components/Palette.js";
 import { ColorDetail } from "./components/ColorDetail.js";
+import { apiURL } from "./utils/api.js";
+import { authToken } from "./utils/auth.js";
 
 export const RGBlent = (props) => {
   const [pickerColor, setPickerColor] = useState("#80ff80");
   const [color, setColor] = useState("#80ff80");
   const [colorInfo, setColorInfo] = useState(undefined);
   useEffect(() => {
-    fetch("http://localhost:8000/colorinfo", {
+    const postHeaders = { "Content-Type": "application/json" };
+    const token = authToken();
+    if (token) postHeaders["Authentication"] = token;
+    fetch(`${apiURL}/colorinfo`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: postHeaders,
       body: JSON.stringify({ rgb_hex: color }),
     })
       .then((res) => res.json())
