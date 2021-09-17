@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { HexColorPicker } from "react-colorful";
 import { Container, Col, Row, Button } from "@bootstrap-styled/v4";
@@ -9,6 +9,16 @@ import { ColorDetail } from "./components/ColorDetail.js";
 export const RGBlent = (props) => {
   const [pickerColor, setPickerColor] = useState("#80ff80");
   const [color, setColor] = useState("#80ff80");
+  const [colorInfo, setColorInfo] = useState(undefined);
+  useEffect(() => {
+    fetch("http://localhost:8000/colorinfo", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ rgb_hex: color }),
+    })
+      .then((res) => res.json())
+      .then(setColorInfo);
+  }, [color]);
 
   return (
     <Container>
@@ -27,7 +37,7 @@ export const RGBlent = (props) => {
             </Col>
           </Row>
           <Row className="detail__row" style={{ marginTop: "10%" }}>
-            <ColorDetail color={color} />
+            <ColorDetail color={color} colorInfo={colorInfo} />
           </Row>
           <Row className="palette__row">
             <Palette />

@@ -5,36 +5,39 @@ import { Container, Col, Row } from "@bootstrap-styled/v4";
 export const Palette = (props) => {
   const swatchProps = {
     size: 8,
+  };
+
+  const colProps = {
     style: { margin: "auto" },
   };
 
   return (
     <>
       <Row style={{ marginTop: "10%" }}>
-        <Col>
+        <Col {...colProps}>
           <Swatch color={"#8080ff"} {...swatchProps} />
         </Col>
-        <Col>
+        <Col {...colProps}>
           <Swatch color={"#8080ff"} {...swatchProps} />
         </Col>
-        <Col>
+        <Col {...colProps}>
           <Swatch color={"#8080ff"} {...swatchProps} />
         </Col>
-        <Col>
+        <Col {...colProps}>
           <Swatch color={"#8080ff"} {...swatchProps} />
         </Col>
       </Row>
       <Row style={{ marginTop: "5%", marginBottom: "15%" }}>
-        <Col>
+        <Col {...colProps}>
           <Swatch color={"#8080ff"} {...swatchProps} />
         </Col>
-        <Col>
+        <Col {...colProps}>
           <Swatch color={"#8080ff"} {...swatchProps} />
         </Col>
-        <Col>
+        <Col {...colProps}>
           <Swatch color={"#8080ff"} {...swatchProps} />
         </Col>
-        <Col>
+        <Col {...colProps}>
           <Swatch color={"#8080ff"} {...swatchProps} />
         </Col>
       </Row>
