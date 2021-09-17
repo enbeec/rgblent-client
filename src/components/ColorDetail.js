@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   Col,
   ListGroup,
-  ListGroupItemHeading as LIST_GROUP_ITEM_HEADING,
   ListGroupItem,
   AccordionGroup,
   Accordion,
@@ -19,10 +18,6 @@ export const ColorDetail = ({ color, colorInfo, loading, ...props }) => {
       setActiveAccordion(clickedName);
     }
   };
-
-  const ListGroupItemHeading = (props) => (
-    <LIST_GROUP_ITEM_HEADING style={{ textAlign: "center" }} {...props} />
-  );
 
   return (
     <>

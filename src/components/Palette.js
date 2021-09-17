@@ -1,6 +1,6 @@
 import React from "react";
 import { Swatch } from "./Swatch.js";
-import { Container, Col, Row } from "@bootstrap-styled/v4";
+import { Col, Row } from "@bootstrap-styled/v4";
 
 export const Palette = (props) => {
   const swatchProps = {

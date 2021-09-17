@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { HexColorPicker } from "react-colorful";
+import "./css/HexColorPicker.css";
 import { Container, Col, Row, Button } from "@bootstrap-styled/v4";
 import { Palette } from "./components/Palette.js";
-import { Swatch } from "./components/Swatch.js";
 import { ColorDetail } from "./components/ColorDetail.js";
 
 export const RGBlent = (props) => {
