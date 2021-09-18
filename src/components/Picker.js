@@ -3,7 +3,9 @@ import "../css/HexColorPicker.css";
 import { HexColorPicker } from "react-colorful";
 
 export const Picker = ({ colorRef, ...props }) => {
-  const [pickerColor, setPickerColorState] = useState("#80ff80");
+  const [pickerColor, setPickerColorState] = useState(
+    colorRef.current || "#80ff80"
+  );
 
   const setPickerColor = (color) => {
     colorRef.current = color;

@@ -6,10 +6,14 @@ import { Picker } from "./components/Picker.js";
 import { ColorDetail } from "./components/ColorDetail.js";
 import { apiURL } from "./utils/api.js";
 import { authToken } from "./utils/auth.js";
+import { useQuery } from "react-query";
 
 export const RGBlent = (props) => {
+  // TODO (query): change to => useQuery(() => pickerColor.current)
   const [color, setColor] = useState("#80ff80");
+  // TODO (query): change to => useQuery(fetch)
   const [colorInfo, setColorInfo] = useState(undefined);
+  // TODO (query): replaced by => useQuery
   useEffect(() => {
     const postHeaders = { "Content-Type": "application/json" };
     const token = authToken();
@@ -39,14 +43,20 @@ export const RGBlent = (props) => {
             <Col>
               <Button
                 style={{ marginLeft: "10%" }}
-                onClick={() => setColor(pickerColor.current)}
+                onClick={() => {
+                  // TODO (query): change to => invalidate query
+                  setColor(pickerColor.current);
+                }}
               >
                 Load Color
               </Button>
             </Col>
           </LeftColumnRow>
           <LeftColumnRow className="detail__row">
-            <ColorDetail color={color} colorInfo={colorInfo} />
+            <ColorDetail
+              color={color /*TODO (query) add => .data -- also loading prop*/}
+              colorInfo={colorInfo}
+            />
           </LeftColumnRow>
           <LeftColumnRow className="palette__row">
             <Palette />
