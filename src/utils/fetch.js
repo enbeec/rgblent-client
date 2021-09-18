@@ -18,3 +18,14 @@ export const getDefaultColors = () => {
   if (authToken()) return authFetch(path).then((res) => res.json());
   return noAuthFetch(path).then((res) => res.json());
 };
+
+export const getColorInfo = (colorString) => {
+  const path = "/colorinfo";
+  const options = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ rgb_hex: colorString }),
+  };
+  if (authToken()) return authFetch(path, options).then((res) => res.json());
+  return noAuthFetch(path, options).then((res) => res.json());
+};

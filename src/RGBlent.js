@@ -1,33 +1,20 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import { Container, Col, Row, Button } from "@bootstrap-styled/v4";
 import { Palette } from "./components/Palette.js";
 import { Picker } from "./components/Picker.js";
 import { ColorDetail } from "./components/ColorDetail.js";
-import { apiURL } from "./utils/api.js";
-import { authToken } from "./utils/auth.js";
+import { getColorInfo } from "./utils/fetch.js";
 import { useQuery, useQueryClient } from "react-query";
 
-const CURRENT_COLOR = "color";
+const CURRENT_COLOR_INFO = "color_info";
 
 export const RGBlent = (props) => {
   const client = useQueryClient();
-  const color = (CURRENT_COLOR, () => pickerColor.current);
-  // TODO (query): change to => useQuery(fetch)
-  const [colorInfo, setColorInfo] = useState(undefined);
-  // TODO (query): replaced by => useQuery
-  useEffect(() => {
-    const postHeaders = { "Content-Type": "application/json" };
-    const token = authToken();
-    if (token) postHeaders["Authentication"] = token;
-    fetch(`${apiURL}/colorinfo`, {
-      method: "POST",
-      headers: postHeaders,
-      body: JSON.stringify({ rgb_hex: color }),
-    })
-      .then((res) => res.json())
-      .then(setColorInfo);
-  }, [color.current]);
+  const color = useRef("#80ff80");
+  const colorInfo = useQuery(CURRENT_COLOR_INFO, () => {
+    return getColorInfo(color.current);
+  });
 
   const pickerColor = useRef("#80ff80");
 
@@ -46,7 +33,8 @@ export const RGBlent = (props) => {
               <Button
                 style={{ marginLeft: "10%" }}
                 onClick={() => {
-                  client.invalidateQueries(CURRENT_COLOR);
+                  color.current = pickerColor.current;
+                  client.invalidateQueries(CURRENT_COLOR_INFO);
                 }}
               >
                 Load Color
@@ -54,7 +42,11 @@ export const RGBlent = (props) => {
             </Col>
           </LeftColumnRow>
           <LeftColumnRow className="detail__row">
-            <ColorDetail color={color.data} colorInfo={colorInfo} />
+            <ColorDetail
+              color={color.current}
+              colorInfo={colorInfo.data}
+              colorInfoLoading={colorInfo.isLoading}
+            />
           </LeftColumnRow>
           <LeftColumnRow className="palette__row">
             <Palette />
