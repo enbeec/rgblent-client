@@ -9,26 +9,21 @@ import {
 import { Swatch } from "./Swatch.js";
 
 export const ColorDetail = ({ color, colorInfo, loading, ...props }) => {
-  const [activeAccordion, setActiveAccordion] = useState("");
-
-  const accordionChange = (clickedName) => {
-    if (clickedName === activeAccordion) {
-      setActiveAccordion("");
-    } else {
-      setActiveAccordion(clickedName);
-    }
-  };
+  const [activeAccordion, setActiveAccordion] = useState("RGB");
 
   return (
     <>
       <Col>
-        <Swatch color={color} size={20} style={{ margin: "auto" }} />
+        <Swatch
+          color={color}
+          size={20}
+          style={{ margin: "auto", marginTop: "20%" }}
+        />
       </Col>
       <Col>
         <AccordionGroup
           activeAccordionName={activeAccordion}
-          onChange={accordionChange}
-          style={{ marginRight: "50%" }}
+          onChange={setActiveAccordion}
         >
           <Accordion heading="RGB" name="RGB">
             {loading || !colorInfo ? (

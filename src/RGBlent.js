@@ -28,24 +28,30 @@ export const RGBlent = (props) => {
   return (
     <Container>
       <Row>
-        <Col>
-          <Row className="picker__" style={{ marginTop: "15%" }}>
-            <Col style={{ margin: "auto" }}>
-              <Picker colorRef={pickerColor} style={{ margin: "auto" }} />
+        <LeftColumn>
+          <LeftColumnRow className="picker__">
+            <Col>
+              <Picker
+                style={{ marginTop: "15%", marginBottom: "20%" }}
+                colorRef={pickerColor}
+              />
             </Col>
             <Col>
-              <Button onClick={() => setColor(pickerColor.current)}>
+              <Button
+                style={{ marginLeft: "10%" }}
+                onClick={() => setColor(pickerColor.current)}
+              >
                 Load Color
               </Button>
             </Col>
-          </Row>
-          <Row className="detail__row" style={{ marginTop: "10%" }}>
+          </LeftColumnRow>
+          <LeftColumnRow className="detail__row">
             <ColorDetail color={color} colorInfo={colorInfo} />
-          </Row>
-          <Row className="palette__row">
+          </LeftColumnRow>
+          <LeftColumnRow className="palette__row">
             <Palette />
-          </Row>
-        </Col>
+          </LeftColumnRow>
+        </LeftColumn>
         <RightColumn>
           <MockSidebar />
         </RightColumn>
@@ -57,6 +63,17 @@ export const RGBlent = (props) => {
 const RightColumn = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const LeftColumn = styled(Col)`
+  margin-left: auto;
+  margin-right: auto;
+`;
+
+const LeftColumnRow = styled(Row)`
+  margin-top: 10%;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 const MockSidebar = styled.div`
