@@ -6,11 +6,13 @@ import { Picker } from "./components/Picker.js";
 import { ColorDetail } from "./components/ColorDetail.js";
 import { apiURL } from "./utils/api.js";
 import { authToken } from "./utils/auth.js";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
+
+const CURRENT_COLOR = "color";
 
 export const RGBlent = (props) => {
-  // TODO (query): change to => useQuery(() => pickerColor.current)
-  const [color, setColor] = useState("#80ff80");
+  const client = useQueryClient();
+  const color = (CURRENT_COLOR, () => pickerColor.current);
   // TODO (query): change to => useQuery(fetch)
   const [colorInfo, setColorInfo] = useState(undefined);
   // TODO (query): replaced by => useQuery
@@ -25,7 +27,7 @@ export const RGBlent = (props) => {
     })
       .then((res) => res.json())
       .then(setColorInfo);
-  }, [color]);
+  }, [color.current]);
 
   const pickerColor = useRef("#80ff80");
 
@@ -33,7 +35,7 @@ export const RGBlent = (props) => {
     <Container>
       <Row>
         <LeftColumn>
-          <LeftColumnRow className="picker__">
+          <LeftColumnRow className="picker__row">
             <Col>
               <Picker
                 style={{ marginTop: "15%", marginBottom: "20%" }}
@@ -44,8 +46,7 @@ export const RGBlent = (props) => {
               <Button
                 style={{ marginLeft: "10%" }}
                 onClick={() => {
-                  // TODO (query): change to => invalidate query
-                  setColor(pickerColor.current);
+                  client.invalidateQueries(CURRENT_COLOR);
                 }}
               >
                 Load Color
@@ -53,10 +54,7 @@ export const RGBlent = (props) => {
             </Col>
           </LeftColumnRow>
           <LeftColumnRow className="detail__row">
-            <ColorDetail
-              color={color /*TODO (query) add => .data -- also loading prop*/}
-              colorInfo={colorInfo}
-            />
+            <ColorDetail color={color.data} colorInfo={colorInfo} />
           </LeftColumnRow>
           <LeftColumnRow className="palette__row">
             <Palette />
