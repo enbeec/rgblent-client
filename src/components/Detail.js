@@ -13,8 +13,13 @@ import { ColorContext } from "./ColorProvider.js";
 export const Detail = ({ ...props }) => {
   const { color, getColorInfo, KEYS } = useContext(ColorContext);
   const [activeAccordion, setActiveAccordion] = useState("RGB");
-  const colorInfo = useQuery([KEYS.CURRENT_COLOR_INFO, color], () =>
-    getColorInfo(color)
+  const colorInfo = useQuery(
+    [KEYS.CURRENT_COLOR_INFO, color],
+    () => getColorInfo(color),
+    {
+      // since a color's info will never change (even though the queried color will change)
+      staleTime: Infinity,
+    }
   );
 
   return (
