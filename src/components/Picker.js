@@ -5,7 +5,7 @@ import { useQueryClient } from "react-query";
 import { HexColorPicker } from "react-colorful";
 import { ColorContext } from "./ColorProvider.js";
 
-export const Picker = ({ colorRef, ...props }) => {
+export const Picker = (props) => {
   const { setColor, KEYS } = useContext(ColorContext);
   const [pickerColor, setPickerColor] = useState("#80ff80");
   useContext(ColorContext);
@@ -25,7 +25,7 @@ export const Picker = ({ colorRef, ...props }) => {
           style={{ marginLeft: "10%" }}
           onClick={() => {
             setColor(pickerColor);
-            client.invalidateQueries(KEYS.CURRENT_COLOR_INFO);
+            client.refetchQueries(KEYS.CURRENT_COLOR_INFO, { active: true });
           }}
         >
           Load Color

@@ -13,7 +13,7 @@ import { ColorContext } from "./ColorProvider.js";
 export const Detail = ({ ...props }) => {
   const { color, getColorInfo, KEYS } = useContext(ColorContext);
   const [activeAccordion, setActiveAccordion] = useState("RGB");
-  const colorInfo = useQuery(KEYS.CURRENT_COLOR_INFO, () =>
+  const colorInfo = useQuery([KEYS.CURRENT_COLOR_INFO, color], () =>
     getColorInfo(color)
   );
 
