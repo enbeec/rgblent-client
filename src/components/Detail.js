@@ -49,7 +49,24 @@ export const Detail = ({ ...props }) => {
           activeAccordionName={activeAccordion}
           onChange={setActiveAccordion}
         >
-          <Accordion heading="RGB" name="RGB">
+          <Accordion
+            heading={
+              <div style={{ display: "flex", flexDirection: "row" }}>
+                <div>RGB</div>
+                {activeAccordion === "RGB" && (
+                  <div
+                    style={{
+                      textAlign: "right",
+                      margin: "auto",
+                      marginRight: 0,
+                    }}
+                    children={color}
+                  />
+                )}
+              </div>
+            }
+            name="RGB"
+          >
             <ListGroup>
               <LabelledItem
                 label="Red"
