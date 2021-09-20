@@ -53,15 +53,15 @@ export const Detail = ({ ...props }) => {
             <ListGroup>
               <LabelledItem
                 label="Red"
-                data={colorInfo.isFetching || colorInfo.data.rgb.rgb_r}
+                data={colorInfo?.data && colorInfo.data.rgb.rgb_r}
               />
               <LabelledItem
                 label="Green"
-                data={colorInfo.isFetching || colorInfo.data.rgb.rgb_g}
+                data={colorInfo?.data && colorInfo.data.rgb.rgb_g}
               />
               <LabelledItem
                 label="Blue"
-                data={colorInfo.isFetching || colorInfo.data.rgb.rgb_b}
+                data={colorInfo?.data && colorInfo.data.rgb.rgb_b}
               />
             </ListGroup>
           </Accordion>
@@ -70,21 +70,21 @@ export const Detail = ({ ...props }) => {
               <LabelledItem
                 label="Hue"
                 data={
-                  colorInfo.isFetching ||
+                  colorInfo?.data &&
                   parseFloat(colorInfo.data.hsv.hsv_h.toFixed(2))
                 }
               />
               <LabelledItem
                 label="Saturation"
                 data={
-                  colorInfo.isFetching ||
+                  colorInfo?.data &&
                   parseFloat(colorInfo.data.hsv.hsv_s.toFixed(2))
                 }
               />
               <LabelledItem
                 label="Value"
                 data={
-                  colorInfo.isFetching ||
+                  colorInfo?.data &&
                   parseFloat(colorInfo.data.hsv.hsv_v.toFixed(2))
                 }
               />
@@ -95,21 +95,21 @@ export const Detail = ({ ...props }) => {
               <LabelledItem
                 label="Hue"
                 data={
-                  colorInfo.isFetching ||
+                  colorInfo?.data &&
                   parseFloat(colorInfo.data.hsl.hsl_h.toFixed(2))
                 }
               />
               <LabelledItem
                 label="Saturation"
                 data={
-                  colorInfo.isFetching ||
+                  colorInfo?.data &&
                   parseFloat(colorInfo.data.hsl.hsl_s.toFixed(2))
                 }
               />
               <LabelledItem
                 label="Lightness"
                 data={
-                  colorInfo.isFetching ||
+                  colorInfo?.data &&
                   parseFloat(colorInfo.data.hsl.hsl_l.toFixed(2))
                 }
               />
@@ -121,7 +121,7 @@ export const Detail = ({ ...props }) => {
                 label="L*"
                 separator=" =>"
                 data={
-                  colorInfo.isFetching ||
+                  colorInfo?.data &&
                   parseFloat(colorInfo.data.lab.lab_l.toFixed(2))
                 }
               />
@@ -129,7 +129,7 @@ export const Detail = ({ ...props }) => {
                 label="a*"
                 separator=" =>"
                 data={
-                  colorInfo.isFetching ||
+                  colorInfo?.data &&
                   parseFloat(colorInfo.data.lab.lab_a.toFixed(2))
                 }
               />
@@ -137,7 +137,7 @@ export const Detail = ({ ...props }) => {
                 label="b*"
                 separator=" =>"
                 data={
-                  colorInfo.isFetching ||
+                  colorInfo?.data &&
                   parseFloat(colorInfo.data.lab.lab_b.toFixed(2))
                 }
               />
@@ -149,7 +149,7 @@ export const Detail = ({ ...props }) => {
                 label="X"
                 separator=" =>"
                 data={
-                  colorInfo.isFetching ||
+                  colorInfo?.data &&
                   parseFloat(colorInfo.data.xyz.xyz_x.toFixed(2))
                 }
               />
@@ -157,7 +157,7 @@ export const Detail = ({ ...props }) => {
                 label="Y"
                 separator=" =>"
                 data={
-                  colorInfo.isFetching ||
+                  colorInfo?.data &&
                   parseFloat(colorInfo.data.xyz.xyz_y.toFixed(2))
                 }
               />
@@ -165,7 +165,7 @@ export const Detail = ({ ...props }) => {
                 label="Z"
                 separator=" =>"
                 data={
-                  colorInfo.isFetching ||
+                  colorInfo?.data &&
                   parseFloat(colorInfo.data.xyz.xyz_z.toFixed(2))
                 }
               />
