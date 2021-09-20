@@ -5,6 +5,7 @@ import {
   ListGroupItem,
   AccordionGroup,
   Accordion,
+  H3,
 } from "@bootstrap-styled/v4";
 import { Swatch } from "./Swatch.js";
 import { useQuery } from "react-query";
@@ -19,16 +20,27 @@ export const Detail = ({ ...props }) => {
     {
       // since a color's info will never change (even though the queried color will change)
       staleTime: Infinity,
+      keepPreviousData: true,
     }
   );
+
+  const LabelledItem = ({ label, data, separator }) => {
+    separator = separator || ":";
+    if (!colorInfo.data) {
+      return `...loading ${label}...`;
+    } else {
+      return <ListGroupItem>{`${label}${separator} ${data}`}</ListGroupItem>;
+    }
+  };
 
   return (
     <>
       <Col>
+        <H3 style={{ textAlign: "center", marginTop: "10%" }}>{color}</H3>
         <Swatch
           color={color}
           size={20}
-          style={{ margin: "auto", marginTop: "20%" }}
+          style={{ margin: "auto", marginTop: "10%" }}
         />
       </Col>
       <Col>
@@ -37,83 +49,126 @@ export const Detail = ({ ...props }) => {
           onChange={setActiveAccordion}
         >
           <Accordion heading="RGB" name="RGB">
-            {colorInfo.isLoading ? (
-              "...loading RGB info..."
-            ) : (
-              <ListGroup>
-                <ListGroupItem>Red: {colorInfo.data.rgb.rgb_r}</ListGroupItem>
-                <ListGroupItem>Green: {colorInfo.data.rgb.rgb_g}</ListGroupItem>
-                <ListGroupItem>Blue: {colorInfo.data.rgb.rgb_b}</ListGroupItem>
-              </ListGroup>
-            )}
+            <ListGroup>
+              <LabelledItem
+                label="Red"
+                data={colorInfo.isFetching || colorInfo.data.rgb.rgb_r}
+              />
+              <LabelledItem
+                label="Green"
+                data={colorInfo.isFetching || colorInfo.data.rgb.rgb_g}
+              />
+              <LabelledItem
+                label="Blue"
+                data={colorInfo.isFetching || colorInfo.data.rgb.rgb_b}
+              />
+            </ListGroup>
           </Accordion>
           <Accordion heading="HSV" name="HSV">
-            {colorInfo.isLoading ? (
-              "...loading HSV info..."
-            ) : (
-              <ListGroup>
-                <ListGroupItem>
-                  Hue: {colorInfo.data.hsv.hsv_h.toFixed(2)}
-                </ListGroupItem>
-                <ListGroupItem>
-                  Saturation: {colorInfo.data.hsv.hsv_s.toFixed(2)}
-                </ListGroupItem>
-                <ListGroupItem>
-                  Value: {colorInfo.data.hsv.hsv_v.toFixed(2)}
-                </ListGroupItem>
-              </ListGroup>
-            )}
+            <ListGroup>
+              <LabelledItem
+                label="Hue"
+                data={
+                  colorInfo.isFetching ||
+                  parseFloat(colorInfo.data.hsv.hsv_h.toFixed(2))
+                }
+              />
+              <LabelledItem
+                label="Saturation"
+                data={
+                  colorInfo.isFetching ||
+                  parseFloat(colorInfo.data.hsv.hsv_s.toFixed(2))
+                }
+              />
+              <LabelledItem
+                label="Value"
+                data={
+                  colorInfo.isFetching ||
+                  parseFloat(colorInfo.data.hsv.hsv_v.toFixed(2))
+                }
+              />
+            </ListGroup>
           </Accordion>
           <Accordion heading="HSL" name="HSL">
-            {colorInfo.isLoading ? (
-              "...loading HSL info..."
-            ) : (
-              <ListGroup>
-                <ListGroupItem>
-                  Hue: {colorInfo.data.hsl.hsl_h.toFixed(2)}
-                </ListGroupItem>
-                <ListGroupItem>
-                  Saturation: {colorInfo.data.hsl.hsl_s.toFixed(2)}
-                </ListGroupItem>
-                <ListGroupItem>
-                  Lightness: {colorInfo.data.hsl.hsl_l.toFixed(2)}
-                </ListGroupItem>
-              </ListGroup>
-            )}
+            <ListGroup>
+              <LabelledItem
+                label="Hue"
+                data={
+                  colorInfo.isFetching ||
+                  parseFloat(colorInfo.data.hsl.hsl_h.toFixed(2))
+                }
+              />
+              <LabelledItem
+                label="Saturation"
+                data={
+                  colorInfo.isFetching ||
+                  parseFloat(colorInfo.data.hsl.hsl_s.toFixed(2))
+                }
+              />
+              <LabelledItem
+                label="Lightness"
+                data={
+                  colorInfo.isFetching ||
+                  parseFloat(colorInfo.data.hsl.hsl_l.toFixed(2))
+                }
+              />
+            </ListGroup>
           </Accordion>
           <Accordion heading="CIELAB" name="LAB">
-            {colorInfo.isLoading ? (
-              "...loading LAB info..."
-            ) : (
-              <ListGroup>
-                <ListGroupItem>
-                  L* {"=>"} {colorInfo.data.lab.lab_l.toFixed(2)}
-                </ListGroupItem>
-                <ListGroupItem>
-                  a* {"=>"} {colorInfo.data.lab.lab_a.toFixed(2)}
-                </ListGroupItem>
-                <ListGroupItem>
-                  b* {"=>"} {colorInfo.data.lab.lab_b.toFixed(2)}
-                </ListGroupItem>
-              </ListGroup>
-            )}
+            <ListGroup>
+              <LabelledItem
+                label="L*"
+                separator=" =>"
+                data={
+                  colorInfo.isFetching ||
+                  parseFloat(colorInfo.data.lab.lab_l.toFixed(2))
+                }
+              />
+              <LabelledItem
+                label="a*"
+                separator=" =>"
+                data={
+                  colorInfo.isFetching ||
+                  parseFloat(colorInfo.data.lab.lab_a.toFixed(2))
+                }
+              />
+              <LabelledItem
+                label="b*"
+                separator=" =>"
+                data={
+                  colorInfo.isFetching ||
+                  parseFloat(colorInfo.data.lab.lab_b.toFixed(2))
+                }
+              />
+            </ListGroup>
           </Accordion>
           <Accordion heading="CIEXYZ" name="XYZ">
-            {colorInfo.isLoading ? (
-              "...loading XYZ info..."
-            ) : (
-              <ListGroup>
-                <ListGroupItem>
-                  X {"=>"} {colorInfo.data.xyz.xyz_x.toFixed(2)}
-                </ListGroupItem>
-                <ListGroupItem>
-                  Y {"=>"} {colorInfo.data.xyz.xyz_y.toFixed(2)}
-                </ListGroupItem>
-                <ListGroupItem>
-                  Z {"=>"} {colorInfo.data.xyz.xyz_z.toFixed(2)}
-                </ListGroupItem>
-              </ListGroup>
-            )}
+            <ListGroup>
+              <LabelledItem
+                label="X"
+                separator=" =>"
+                data={
+                  colorInfo.isFetching ||
+                  parseFloat(colorInfo.data.xyz.xyz_x.toFixed(2))
+                }
+              />
+              <LabelledItem
+                label="Y"
+                separator=" =>"
+                data={
+                  colorInfo.isFetching ||
+                  parseFloat(colorInfo.data.xyz.xyz_y.toFixed(2))
+                }
+              />
+              <LabelledItem
+                label="Z"
+                separator=" =>"
+                data={
+                  colorInfo.isFetching ||
+                  parseFloat(colorInfo.data.xyz.xyz_z.toFixed(2))
+                }
+              />
+            </ListGroup>
           </Accordion>
         </AccordionGroup>
       </Col>
