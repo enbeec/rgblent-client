@@ -43,7 +43,7 @@ export const Detail = ({ color, loading, ...props }) => {
             )}
           </Accordion>
           <Accordion heading="HSV" name="HSV">
-            {colorInfo.isLoading ? (
+            {colorInfo.isLoading && colorInfo.data ? (
               ""
             ) : (
               <ListGroup>
@@ -60,7 +60,7 @@ export const Detail = ({ color, loading, ...props }) => {
             )}
           </Accordion>
           <Accordion heading="HSL" name="HSL">
-            {colorInfo.isLoading ? (
+            {colorInfo.isLoading && colorInfo.data ? (
               ""
             ) : (
               <ListGroup>
@@ -77,7 +77,7 @@ export const Detail = ({ color, loading, ...props }) => {
             )}
           </Accordion>
           <Accordion heading="CIELAB" name="LAB">
-            {colorInfo.isLoading ? (
+            {colorInfo.isLoading && colorInfo.data ? (
               ""
             ) : (
               <ListGroup>
@@ -94,7 +94,7 @@ export const Detail = ({ color, loading, ...props }) => {
             )}
           </Accordion>
           <Accordion heading="CIEXYZ" name="XYZ">
-            {colorInfo.isLoading ? (
+            {colorInfo.isLoading && colorInfo.data ? (
               ""
             ) : (
               <ListGroup>
