@@ -13,12 +13,15 @@ export const RGBlent = (props) => {
         <Row>
           <LeftColumn>
             <LeftColumnRow className="picker__row">
-              <Picker style={{ marginTop: "15%", marginBottom: "20%" }} />
+              <Picker style={{ marginTop: "10%", marginBottom: "0%" }} />
             </LeftColumnRow>
             <LeftColumnRow className="detail__row">
               <Detail />
             </LeftColumnRow>
-            <LeftColumnRow className="palette__row">
+            <LeftColumnRow
+              style={{ marginBottom: "15%" }}
+              className="palette__row"
+            >
               <Palette />
             </LeftColumnRow>
           </LeftColumn>

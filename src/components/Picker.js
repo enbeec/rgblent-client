@@ -22,7 +22,7 @@ export const Picker = (props) => {
         />
       </Col>
       <Col>
-        <H4 style={{ textAlign: "center" }}> {pickerColor}</H4>
+        <H4> {pickerColor}</H4>
         <Row style={{ marginTop: "10%" }}>
           <Button
             onClick={() => {

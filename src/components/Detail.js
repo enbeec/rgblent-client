@@ -37,12 +37,12 @@ export const Detail = ({ ...props }) => {
   return (
     <>
       <Col>
-        <H3 style={{ textAlign: "center", marginTop: "5%" }}>{color}</H3>
         <Swatch
           color={color}
           size={20}
           style={{ margin: "auto", marginTop: "10%" }}
         />
+        <H3 style={{ textAlign: "center", marginTop: "5%" }}>{color}</H3>
       </Col>
       <Col>
         <AccordionGroup
