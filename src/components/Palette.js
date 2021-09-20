@@ -13,7 +13,7 @@ export const Palette = (props) => {
 
   return (
     <>
-      <Row style={{ marginTop: "10%" }}>
+      <Row>
         <Col {...colProps}>
           <Swatch color={"#8080ff"} {...swatchProps} />
         </Col>

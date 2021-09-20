@@ -1,59 +1,50 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import { HexColorPicker } from "react-colorful";
-import "./css/HexColorPicker.css";
-import { Container, Col, Row, Button } from "@bootstrap-styled/v4";
+import { Container, Col, Row } from "@bootstrap-styled/v4";
+import { ColorProvider } from "./components/ColorProvider.js";
 import { Palette } from "./components/Palette.js";
-import { ColorDetail } from "./components/ColorDetail.js";
+import { Picker } from "./components/Picker.js";
+import { Detail } from "./components/Detail.js";
 
 export const RGBlent = (props) => {
-  const [pickerColor, setPickerColor] = useState("#80ff80");
-  const [color, setColor] = useState("#80ff80");
-  const [colorInfo, setColorInfo] = useState(undefined);
-  useEffect(() => {
-    fetch("http://localhost:8000/colorinfo", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ rgb_hex: color }),
-    })
-      .then((res) => res.json())
-      .then(setColorInfo);
-  }, [color]);
-
   return (
-    <Container>
-      <Row>
-        <Col>
-          <Row className="picker__" style={{ marginTop: "15%" }}>
-            <Col style={{ margin: "auto" }}>
-              <HexColorPicker
-                style={{ margin: "auto" }}
-                color={pickerColor}
-                onChange={setPickerColor}
-              />
-            </Col>
-            <Col>
-              <Button onClick={() => setColor(pickerColor)}>Load Color</Button>
-            </Col>
-          </Row>
-          <Row className="detail__row" style={{ marginTop: "10%" }}>
-            <ColorDetail color={color} colorInfo={colorInfo} />
-          </Row>
-          <Row className="palette__row">
-            <Palette />
-          </Row>
-        </Col>
-        <RightColumn>
-          <MockSidebar />
-        </RightColumn>
-      </Row>
-    </Container>
+    <ColorProvider>
+      <Container>
+        <Row>
+          <LeftColumn>
+            <LeftColumnRow className="picker__row">
+              <Picker style={{ marginTop: "15%", marginBottom: "20%" }} />
+            </LeftColumnRow>
+            <LeftColumnRow className="detail__row">
+              <Detail />
+            </LeftColumnRow>
+            <LeftColumnRow className="palette__row">
+              <Palette />
+            </LeftColumnRow>
+          </LeftColumn>
+          <RightColumn>
+            <MockSidebar />
+          </RightColumn>
+        </Row>
+      </Container>
+    </ColorProvider>
   );
 };
 
 const RightColumn = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const LeftColumn = styled(Col)`
+  margin-left: auto;
+  margin-right: auto;
+`;
+
+const LeftColumnRow = styled(Row)`
+  margin-top: 10%;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 const MockSidebar = styled.div`
