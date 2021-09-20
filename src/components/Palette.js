@@ -1,16 +1,27 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { Swatch } from "./Swatch.js";
 import {
   Col,
-  Row,
   Button as BUTTON,
   Card as CARD,
   CardHeader,
   CardFooter,
 } from "@bootstrap-styled/v4";
+import { ColorContext } from "./ColorProvider.js";
 
 export const Palette = (props) => {
+  const { color } = useContext(ColorContext);
+  const [colors, setColors] = useState([
+    "#8080ff",
+    "#8080ff",
+    "#8080ff",
+    "#8080ff",
+    "#8080ff",
+    "#8080ff",
+    "#8080ff",
+    "#8080ff",
+  ]);
   const swatchProps = {
     size: 8,
     style: { margin: "8%", display: "inline-block" },
@@ -21,6 +32,14 @@ export const Palette = (props) => {
     style: { margin: "auto", paddingRight: "4%" },
   };
 
+  const loadFunc = (index) => () => {
+    setColors(
+      colors.map((this_color, this_index) =>
+        index === this_index ? color : this_color
+      )
+    );
+  };
+
   const Color = (props) => {
     return (
       <Col {...colProps}>
@@ -28,7 +47,10 @@ export const Palette = (props) => {
           <CardHeader>{props.label || props.color}</CardHeader>
           <Swatch {...props} {...swatchProps} />
           <CardFooter>
-            {props.label ? props.color : <Button>Save</Button>}
+            <FlexRow>
+              {props.label ? props.color : <Button>Save</Button>}
+              <Button onClick={loadFunc(props.index)}>Load</Button>
+            </FlexRow>
           </CardFooter>
         </Card>
       </Col>
@@ -37,14 +59,9 @@ export const Palette = (props) => {
 
   return (
     <>
-      <Color color={"#8080ff"} />
-      <Color color={"#8080ff"} />
-      <Color color={"#8080ff"} />
-      <Color color={"#8080ff"} />
-      <Color color={"#8080ff"} />
-      <Color color={"#8080ff"} />
-      <Color color={"#8080ff"} />
-      <Color color={"#8080ff"} />
+      {colors.map((color, index) => (
+        <Color index={index} color={colors[index]} />
+      ))}
     </>
   );
 };
@@ -55,4 +72,11 @@ const Button = styled(BUTTON)`
 
 const Card = styled(CARD)`
   margin-bottom: 4%;
+`;
+
+const FlexRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-left: 0%;
+  margin-right: 0%;
 `;
