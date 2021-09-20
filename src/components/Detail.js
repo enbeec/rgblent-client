@@ -32,7 +32,7 @@ export const Detail = ({ color, loading, ...props }) => {
           onChange={setActiveAccordion}
         >
           <Accordion heading="RGB" name="RGB">
-            {colorInfo.isLoading ? (
+            {colorInfo.isLoading && colorInfo.data ? (
               ""
             ) : (
               <ListGroup>

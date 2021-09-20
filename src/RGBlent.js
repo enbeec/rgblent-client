@@ -1,15 +1,18 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import styled from "styled-components";
 import { Container, Col, Row } from "@bootstrap-styled/v4";
 import { Palette } from "./components/Palette.js";
 import { Picker } from "./components/Picker.js";
 import { Detail } from "./components/Detail.js";
 
+// query keys go here
 export const CURRENT_COLOR_INFO = "color_info";
 
 export const RGBlent = (props) => {
   const pickerColor = useRef("#80ff80");
   const color = useRef("#80ff80");
+
+  useEffect(() => {}, [color]);
 
   return (
     <Container>
