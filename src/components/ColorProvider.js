@@ -11,7 +11,6 @@ export const ColorProvider = (props) => {
   };
 
   const [color, setColor] = useState("#80ff80");
-  const [pickerColor, setPickerColor] = useState("#80ff80");
 
   // there is one of these for each global fetch
   const getDefaultColors = () => {
@@ -39,8 +38,6 @@ export const ColorProvider = (props) => {
         KEYS,
         color,
         setColor,
-        pickerColor,
-        setPickerColor,
       }}
     >
       {props.children}

@@ -6,8 +6,9 @@ import { HexColorPicker } from "react-colorful";
 import { ColorContext } from "./ColorProvider.js";
 
 export const Picker = ({ colorRef, ...props }) => {
-  const { setColor, pickerColor, setPickerColor, KEYS } =
-    useContext(ColorContext);
+  const { setColor, KEYS } = useContext(ColorContext);
+  const [pickerColor, setPickerColor] = useState("#80ff80");
+  useContext(ColorContext);
   const client = useQueryClient();
 
   return (
