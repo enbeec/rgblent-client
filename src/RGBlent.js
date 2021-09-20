@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Container, Col, Row } from "@bootstrap-styled/v4";
 import { Palette } from "./components/Palette.js";
 import { Picker } from "./components/Picker.js";
-import { ColorDetail } from "./components/ColorDetail.js";
+import { Detail } from "./components/Detail.js";
 
 export const CURRENT_COLOR_INFO = "color_info";
 
@@ -22,7 +22,7 @@ export const RGBlent = (props) => {
             />
           </LeftColumnRow>
           <LeftColumnRow className="detail__row">
-            <ColorDetail color={color.current} />
+            <Detail color={color.current} />
           </LeftColumnRow>
           <LeftColumnRow className="palette__row">
             <Palette />

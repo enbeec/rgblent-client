@@ -11,7 +11,7 @@ import { getColorInfo } from "../utils/fetch.js";
 import { useQuery } from "react-query";
 import { CURRENT_COLOR_INFO } from "../RGBlent.js";
 
-export const ColorDetail = ({ color, loading, ...props }) => {
+export const Detail = ({ color, loading, ...props }) => {
   const [activeAccordion, setActiveAccordion] = useState("RGB");
   const colorInfo = useQuery(CURRENT_COLOR_INFO, () => {
     return getColorInfo(color);
