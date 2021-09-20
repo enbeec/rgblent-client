@@ -1,9 +1,10 @@
 import React, { useState, useContext } from "react";
+import styled from "styled-components";
 import {
   Col,
   ListGroup,
   ListGroupItem,
-  AccordionGroup,
+  AccordionGroup as ACCORDION_GROUP,
   Accordion,
   H3,
 } from "@bootstrap-styled/v4";
@@ -36,7 +37,7 @@ export const Detail = ({ ...props }) => {
   return (
     <>
       <Col>
-        <H3 style={{ textAlign: "center", marginTop: "10%" }}>{color}</H3>
+        <H3 style={{ textAlign: "center", marginTop: "5%" }}>{color}</H3>
         <Swatch
           color={color}
           size={20}
@@ -175,3 +176,7 @@ export const Detail = ({ ...props }) => {
     </>
   );
 };
+
+const AccordionGroup = styled(ACCORDION_GROUP)`
+  padding-right: 8%;
+`;
