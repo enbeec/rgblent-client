@@ -1,20 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "../css/HexColorPicker.css";
 import { Col, Button } from "@bootstrap-styled/v4";
 import { useQueryClient } from "react-query";
 import { HexColorPicker } from "react-colorful";
-import { CURRENT_COLOR_INFO } from "../RGBlent.js";
+import { ColorContext } from "./ColorProvider.js";
 
 export const Picker = ({ colorRef, ...props }) => {
+  const { setColor, pickerColor, setPickerColor, KEYS } =
+    useContext(ColorContext);
   const client = useQueryClient();
-  const [pickerColor, setPickerColorState] = useState(
-    colorRef.current || "#80ff80"
-  );
-
-  const setPickerColor = (color) => {
-    colorRef.current = color;
-    setPickerColorState(color);
-  };
 
   return (
     <>
@@ -29,8 +23,8 @@ export const Picker = ({ colorRef, ...props }) => {
         <Button
           style={{ marginLeft: "10%" }}
           onClick={() => {
-            colorRef.current = pickerColor.current;
-            client.invalidateQueries(CURRENT_COLOR_INFO);
+            setColor(pickerColor);
+            client.invalidateQueries(KEYS.CURRENT_COLOR_INFO);
           }}
         >
           Load Color

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Col,
   ListGroup,
@@ -7,15 +7,15 @@ import {
   Accordion,
 } from "@bootstrap-styled/v4";
 import { Swatch } from "./Swatch.js";
-import { getColorInfo } from "../utils/fetch.js";
 import { useQuery } from "react-query";
-import { CURRENT_COLOR_INFO } from "../RGBlent.js";
+import { ColorContext } from "./ColorProvider.js";
 
-export const Detail = ({ color, loading, ...props }) => {
+export const Detail = ({ ...props }) => {
+  const { color, getColorInfo, KEYS } = useContext(ColorContext);
   const [activeAccordion, setActiveAccordion] = useState("RGB");
-  const colorInfo = useQuery(CURRENT_COLOR_INFO, () => {
-    return getColorInfo(color);
-  });
+  const colorInfo = useQuery(KEYS.CURRENT_COLOR_INFO, () =>
+    getColorInfo(color)
+  );
 
   return (
     <>
@@ -32,8 +32,8 @@ export const Detail = ({ color, loading, ...props }) => {
           onChange={setActiveAccordion}
         >
           <Accordion heading="RGB" name="RGB">
-            {colorInfo.isLoading && colorInfo.data ? (
-              ""
+            {colorInfo.isLoading ? (
+              "...loading RGB info..."
             ) : (
               <ListGroup>
                 <ListGroupItem>Red: {colorInfo.data.rgb.rgb_r}</ListGroupItem>
@@ -43,8 +43,8 @@ export const Detail = ({ color, loading, ...props }) => {
             )}
           </Accordion>
           <Accordion heading="HSV" name="HSV">
-            {colorInfo.isLoading && colorInfo.data ? (
-              ""
+            {colorInfo.isLoading ? (
+              "...loading HSV info..."
             ) : (
               <ListGroup>
                 <ListGroupItem>
@@ -60,8 +60,8 @@ export const Detail = ({ color, loading, ...props }) => {
             )}
           </Accordion>
           <Accordion heading="HSL" name="HSL">
-            {colorInfo.isLoading && colorInfo.data ? (
-              ""
+            {colorInfo.isLoading ? (
+              "...loading HSL info..."
             ) : (
               <ListGroup>
                 <ListGroupItem>
@@ -77,8 +77,8 @@ export const Detail = ({ color, loading, ...props }) => {
             )}
           </Accordion>
           <Accordion heading="CIELAB" name="LAB">
-            {colorInfo.isLoading && colorInfo.data ? (
-              ""
+            {colorInfo.isLoading ? (
+              "...loading LAB info..."
             ) : (
               <ListGroup>
                 <ListGroupItem>
@@ -94,8 +94,8 @@ export const Detail = ({ color, loading, ...props }) => {
             )}
           </Accordion>
           <Accordion heading="CIEXYZ" name="XYZ">
-            {colorInfo.isLoading && colorInfo.data ? (
-              ""
+            {colorInfo.isLoading ? (
+              "...loading XYZ info..."
             ) : (
               <ListGroup>
                 <ListGroupItem>
