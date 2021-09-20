@@ -1,10 +1,9 @@
 import React, { useState, useContext } from "react";
-import styled from "styled-components";
 import {
   Col,
   ListGroup,
   ListGroupItem,
-  AccordionGroup as ACCORDION_GROUP,
+  AccordionGroup,
   Accordion,
   H3,
 } from "@bootstrap-styled/v4";
@@ -48,6 +47,7 @@ export const Detail = ({ ...props }) => {
         <AccordionGroup
           activeAccordionName={activeAccordion}
           onChange={setActiveAccordion}
+          style={{ paddingRight: "8%" }}
         >
           <Accordion
             heading={
@@ -193,7 +193,3 @@ export const Detail = ({ ...props }) => {
     </>
   );
 };
-
-const AccordionGroup = styled(ACCORDION_GROUP)`
-  padding-right: 8%;
-`;
