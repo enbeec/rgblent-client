@@ -40,17 +40,6 @@ export const Palette = (props) => {
     );
   };
 
-  const [tooltipStates, setTooltipStates] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
-
   const Color = (props) => {
     const loadColor = () => setColor(colors[props.index]);
     return (
