@@ -71,10 +71,11 @@ export const Palette = (props) => {
         ],
       },
       keepPreviousData: true,
+      staleTime: Infinity,
     }
   );
 
-  const loadFunc = (index) => () => {
+  const editFunc = (index) => () => {
     setColors(
       colors.map((this_color, this_index) =>
         index === this_index ? color : this_color
@@ -83,7 +84,7 @@ export const Palette = (props) => {
   };
 
   const Color = (props) => {
-    const loadColor = () => setColor(colors[props.index]);
+    const editColor = () => setColor(colors[props.index]);
     return (
       <Col style={{ margin: "auto", paddingRight: "4%" }}>
         <Card>
@@ -98,12 +99,12 @@ export const Palette = (props) => {
             color={colors[props.index]}
             size={8}
             style={{ margin: "8%", display: "inline-block" }}
-            dropdownExtras={[{ children: "View Details", onClick: loadColor }]}
-            onDoubleClick={loadColor}
+            dropdownExtras={[{ children: "View Details", onClick: editColor }]}
+            onDoubleClick={editColor}
           />
           <CardFooter>
             <FlexRow>
-              <Button onClick={loadFunc(props.index)}>Load</Button>
+              <Button onClick={editFunc(props.index)}>Replace</Button>
               {palette.data.colors[props.index].color.rgb_hex ===
               colors[props.index] ? (
                 colors[props.index]
