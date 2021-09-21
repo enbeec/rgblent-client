@@ -1,16 +1,23 @@
 import React, { createContext, useState } from "react";
+import { useQueryClient } from "react-query";
 import { authFetch, noAuthFetch } from "../utils/fetch.js";
 import { authToken } from "../utils/auth.js";
 
 export const ColorContext = createContext();
 
 export const ColorProvider = (props) => {
+  const client = useQueryClient();
   const KEYS = {
     CURRENT_COLOR: "color",
     CURRENT_COLOR_INFO: "color-info",
   };
 
-  const [color, setColor] = useState("#80ff80");
+  const [color, _setColor] = useState("#80ff80");
+
+  const setColor = (newState) => {
+    _setColor(newState);
+    client.refetchQueries(KEYS.CURRENT_COLOR_INFO);
+  };
 
   // there is one of these for each global fetch
   const getDefaultColors = () => {
