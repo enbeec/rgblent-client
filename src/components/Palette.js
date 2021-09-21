@@ -156,8 +156,6 @@ const Button = styled(BUTTON)`
   scale: 0.9;
 `;
 
-const DummyButton = (props) => <Button {...props} color="secondary" />;
-
 const Card = styled(CARD)`
   margin-bottom: 4%;
 `;
