@@ -5,7 +5,7 @@ import {
   ListGroupItem,
   AccordionGroup,
   Accordion,
-  H3,
+  H4,
 } from "@bootstrap-styled/v4";
 import { Swatch } from "./Swatch.js";
 import { useQuery } from "react-query";
@@ -41,7 +41,7 @@ export const Detail = ({ ...props }) => {
           size={20}
           style={{ margin: "auto", marginTop: "10%" }}
         />
-        <H3 style={{ textAlign: "center", marginTop: "5%" }}>{color}</H3>
+        <H4 style={{ textAlign: "center", marginTop: "5%" }}>{color}</H4>
       </Col>
       <Col>
         <AccordionGroup

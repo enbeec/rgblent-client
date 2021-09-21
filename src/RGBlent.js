@@ -18,12 +18,8 @@ export const RGBlent = (props) => {
             <LeftColumnRow className="detail__row">
               <Detail />
             </LeftColumnRow>
-            <LeftColumnRow
-              style={{ marginBottom: "15%" }}
-              className="palette__row"
-            >
-              <Palette />
-            </LeftColumnRow>
+            {/* Palette renders it's own row */}
+            <Palette />
           </LeftColumn>
           <RightColumn>
             <MockSidebar />
