@@ -127,7 +127,7 @@ export const Palette = ({ ...props }) => {
             isOpen={openTooltip === props.index}
             toggle={toggleTooltipFunc(props.index)}
             target={id}
-            placement="right"
+            placement="top"
           >
             Login/Register to edit palettes
           </Tooltip>
