@@ -103,13 +103,13 @@ export const Palette = (props) => {
           />
           <CardFooter>
             <FlexRow>
+              <Button onClick={loadFunc(props.index)}>Load</Button>
               {palette.data.colors[props.index].color.rgb_hex ===
               colors[props.index] ? (
                 colors[props.index]
               ) : (
                 <Button>Save</Button>
               )}
-              <Button onClick={loadFunc(props.index)}>Load</Button>
             </FlexRow>
           </CardFooter>
         </Card>
