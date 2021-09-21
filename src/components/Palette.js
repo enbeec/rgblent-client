@@ -10,10 +10,11 @@ import {
   Card as CARD,
   CardHeader,
   CardFooter,
+  Tooltip,
 } from "@bootstrap-styled/v4";
 import { ColorContext } from "./ColorProvider.js";
 import { DEFAULT_PALETTE_MINIMAL } from "../utils/color.js";
-import { authToken } from "../utils/auth.js";
+import { isNobody } from "../utils/auth.js";
 
 export const Palette = ({ ...props }) => {
   const { color, setColor, getPalette, KEYS } = useContext(ColorContext);
@@ -34,7 +35,7 @@ export const Palette = ({ ...props }) => {
           palette.data.colors.map((colorObj) => colorObj.color.rgb_hex)
         );
       },
-      placeholderData: DEFAULT_PALETTE_MINIMAL,
+      initialData: DEFAULT_PALETTE_MINIMAL,
       keepPreviousData: true,
       staleTime: Infinity,
     }
@@ -62,45 +63,73 @@ export const Palette = ({ ...props }) => {
     }
   };
 
+  const [openTooltip, setOpenTooltip] = useState(-1);
+  const toggleTooltipFunc = (index) => () => {
+    if (openTooltip === index) {
+      setOpenTooltip(-1);
+    } else {
+      setOpenTooltip(index);
+    }
+  };
+
   const Color = (props) => {
     const editColor = () => setColor(colors[props.index]);
-    const paletteColor = palette.data.colors[props.index];
+    const paletteColor = palette.data?.colors[props.index];
     const displayedColor = colors[props.index];
     const colorIsDirty = dirtyColor === props.index;
+    const id = "palette-color-" + props.index;
     return (
-      <Col style={{ margin: "auto", paddingRight: "4%" }}>
-        <Card
-          style={{
-            border: colorIsDirty ? "2px dotted darkgrey" : "",
-          }}
-        >
-          <CardHeader>
-            {paletteColor.color.rgb_hex === displayedColor
-              ? paletteColor.label
-              : displayedColor}
-          </CardHeader>
-          <Swatch
-            {...props}
-            color={displayedColor}
-            size={8}
-            style={{ margin: "8%", display: "inline-block" }}
-            dropdownExtras={[{ children: "View Details", onClick: editColor }]}
-            onDoubleClick={editColor}
-          />
-          <CardFooter>
-            <FlexRow>
-              <Button onClick={editFunc(props.index)}>
-                {colorIsDirty ? "Restore" : "Replace"}
-              </Button>
-              {paletteColor.color.rgb_hex === displayedColor ? (
-                <DummyButton>{displayedColor}</DummyButton>
-              ) : (
-                <Button>Save</Button>
-              )}
-            </FlexRow>
-          </CardFooter>
-        </Card>
-      </Col>
+      <>
+        <Col style={{ margin: "auto", paddingRight: "4%" }}>
+          <Card
+            style={{
+              border: colorIsDirty ? "2px dotted darkgrey" : "",
+            }}
+          >
+            <CardHeader>
+              {paletteColor.color.rgb_hex === displayedColor
+                ? paletteColor.label
+                : displayedColor}
+            </CardHeader>
+            <Swatch
+              {...props}
+              color={displayedColor}
+              size={8}
+              style={{ margin: "8%", display: "inline-block" }}
+              dropdownExtras={[
+                { children: "View Details", onClick: editColor },
+              ]}
+              onDoubleClick={editColor}
+            />
+            <CardFooter>
+              <FlexRow>
+                <Button
+                  id={id}
+                  disabled={isNobody()}
+                  onClick={editFunc(props.index)}
+                >
+                  {colorIsDirty ? "Restore" : "Replace"}
+                </Button>
+                {paletteColor.color.rgb_hex === displayedColor ? (
+                  <DummyButton>{displayedColor}</DummyButton>
+                ) : (
+                  <Button>Save</Button>
+                )}
+              </FlexRow>
+            </CardFooter>
+          </Card>
+        </Col>
+        {isNobody() && (
+          <Tooltip
+            isOpen={openTooltip === props.index}
+            toggle={toggleTooltipFunc(props.index)}
+            target={id}
+            placement="right"
+          >
+            Login/Register to edit palettes
+          </Tooltip>
+        )}
+      </>
     );
   };
 
