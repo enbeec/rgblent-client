@@ -7,7 +7,7 @@ import {
   Accordion,
   H4,
 } from "@bootstrap-styled/v4";
-import { Swatch } from "./Swatch.js";
+import { Swatch } from "./reusable/Swatch.js";
 import { useQuery } from "react-query";
 import { ColorContext } from "./ColorProvider.js";
 

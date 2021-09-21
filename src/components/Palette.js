@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useQuery } from "react-query";
 import styled from "styled-components";
-import { Swatch } from "./Swatch.js";
+import { Swatch } from "./reusable/Swatch.js";
 import {
   H4,
   Col,
@@ -15,6 +15,7 @@ import {
 import { ColorContext } from "./ColorProvider.js";
 import { DEFAULT_PALETTE_MINIMAL } from "../utils/color.js";
 import { isNobody } from "../utils/auth.js";
+import { CopyButton } from "./reusable/CopyButton.js";
 
 export const Palette = ({ ...props }) => {
   const { color, setColor, getPalette, KEYS } = useContext(ColorContext);
@@ -111,7 +112,9 @@ export const Palette = ({ ...props }) => {
                   {colorIsDirty ? "Restore" : "Replace"}
                 </Button>
                 {paletteColor.color.rgb_hex === displayedColor ? (
-                  <DummyButton>{displayedColor}</DummyButton>
+                  <CopyButton id={`palette-color__copy-button-${props.index}`}>
+                    {displayedColor}
+                  </CopyButton>
                 ) : (
                   <Button>Save</Button>
                 )}
@@ -124,7 +127,7 @@ export const Palette = ({ ...props }) => {
             isOpen={openTooltip === props.index}
             toggle={toggleTooltipFunc(props.index)}
             target={id}
-            placement="right"
+            placement="top"
           >
             Login/Register to edit palettes
           </Tooltip>
@@ -152,8 +155,6 @@ export const Palette = ({ ...props }) => {
 const Button = styled(BUTTON)`
   scale: 0.9;
 `;
-
-const DummyButton = (props) => <Button {...props} color="secondary" />;
 
 const Card = styled(CARD)`
   margin-bottom: 4%;
