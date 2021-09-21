@@ -15,6 +15,7 @@ export const Palette = (props) => {
   const { color, setColor, getPalette, KEYS } = useContext(ColorContext);
   const [name, setName] = useState("default");
   const [colors, setColors] = useState([
+    // if you see these colors, the backend is not responding
     "#8080ff",
     "#8080ff",
     "#8080ff",

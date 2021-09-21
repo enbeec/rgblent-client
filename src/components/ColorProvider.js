@@ -38,7 +38,8 @@ export const ColorProvider = (props) => {
   };
 
   const getPalette = (name) => {
-    const path = "/default/palette";
+    const path =
+      name === "default" ? "/default/palette" : `/palettes?name=${name}`;
     if (authToken()) return authFetch(path).then((res) => res.json());
     return noAuthFetch(path).then((res) => res.json());
   };
