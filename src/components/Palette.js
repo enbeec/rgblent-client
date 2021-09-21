@@ -51,15 +51,8 @@ export const Palette = (props) => {
     false,
   ]);
 
-  const toggleFunc = (index) => () => {
-    setTooltipStates(
-      tooltipStates.map((this_state, this_index) =>
-        index === this_index ? !this_state : this_state
-      )
-    );
-  };
-
   const Color = (props) => {
+    const loadColor = () => setColor(colors[props.index]);
     return (
       <Col {...colProps}>
         <Card>
@@ -67,7 +60,8 @@ export const Palette = (props) => {
           <Swatch
             {...props}
             {...swatchProps}
-            onDoubleClick={() => setColor(colors[props.index])}
+            dropdownExtras={[{ children: "View Details", onClick: loadColor }]}
+            onDoubleClick={loadColor}
           />
           <CardFooter>
             <FlexRow>
