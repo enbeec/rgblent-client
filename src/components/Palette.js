@@ -15,6 +15,7 @@ import {
 import { ColorContext } from "./ColorProvider.js";
 import { DEFAULT_PALETTE_MINIMAL } from "../utils/color.js";
 import { isNobody } from "../utils/auth.js";
+import { CopyButton } from "./reusable/CopyButton.js";
 
 export const Palette = ({ ...props }) => {
   const { color, setColor, getPalette, KEYS } = useContext(ColorContext);
@@ -111,7 +112,9 @@ export const Palette = ({ ...props }) => {
                   {colorIsDirty ? "Restore" : "Replace"}
                 </Button>
                 {paletteColor.color.rgb_hex === displayedColor ? (
-                  <DummyButton>{displayedColor}</DummyButton>
+                  <CopyButton id={`palette-color__copy-button-${props.index}`}>
+                    {displayedColor}
+                  </CopyButton>
                 ) : (
                   <Button>Save</Button>
                 )}
