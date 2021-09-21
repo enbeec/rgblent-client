@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { useQuery } from "react-query";
 import styled from "styled-components";
 import { Swatch } from "./Swatch.js";
 import {
@@ -11,7 +12,8 @@ import {
 import { ColorContext } from "./ColorProvider.js";
 
 export const Palette = (props) => {
-  const { color, setColor } = useContext(ColorContext);
+  const { color, setColor, getPalette, KEYS } = useContext(ColorContext);
+  const [name, setName] = useState("default");
   const [colors, setColors] = useState([
     "#8080ff",
     "#8080ff",
@@ -22,15 +24,55 @@ export const Palette = (props) => {
     "#8080ff",
     "#8080ff",
   ]);
-  const swatchProps = {
-    size: 8,
-    style: { margin: "8%", display: "inline-block" },
-  };
 
-  // FIXME: this is very forced styling
-  const colProps = {
-    style: { margin: "auto", paddingRight: "4%" },
-  };
+  const palette = useQuery(
+    [KEYS.CURRENT_PALETTE, name],
+    () => getPalette(name),
+    {
+      onSuccess: () =>
+        setColors(
+          palette.data.colors.map((colorObj) => colorObj.color.rgb_hex)
+        ),
+      placeholderData: {
+        // just the necessary placeholder parts
+        colors: [
+          {
+            label: "yellow-orange",
+            color: { rgb_hex: "#FFDF80" },
+          },
+          {
+            label: "yellow-green",
+            color: { rgb_hex: "#BFFF80" },
+          },
+          {
+            label: "green",
+            color: { rgb_hex: "#80FF9F" },
+          },
+          {
+            label: "cyan",
+            color: { rgb_hex: "#80FFFF" },
+          },
+          {
+            label: "blue",
+            color: { rgb_hex: "#809FFF" },
+          },
+          {
+            label: "purple",
+            color: { rgb_hex: "#BF80FF" },
+          },
+          {
+            label: "pink",
+            color: { rgb_hex: "#FF80DF" },
+          },
+          {
+            label: "red",
+            color: { rgb_hex: "#FF8080" },
+          },
+        ],
+      },
+      keepPreviousData: true,
+    }
+  );
 
   const loadFunc = (index) => () => {
     setColors(
@@ -43,18 +85,30 @@ export const Palette = (props) => {
   const Color = (props) => {
     const loadColor = () => setColor(colors[props.index]);
     return (
-      <Col {...colProps}>
+      <Col style={{ margin: "auto", paddingRight: "4%" }}>
         <Card>
-          <CardHeader>{props.label || props.color}</CardHeader>
+          <CardHeader>
+            {palette.data.colors[props.index].color.rgb_hex ===
+            colors[props.index]
+              ? palette.data.colors[props.index].label
+              : colors[props.index]}
+          </CardHeader>
           <Swatch
             {...props}
-            {...swatchProps}
+            color={colors[props.index]}
+            size={8}
+            style={{ margin: "8%", display: "inline-block" }}
             dropdownExtras={[{ children: "View Details", onClick: loadColor }]}
             onDoubleClick={loadColor}
           />
           <CardFooter>
             <FlexRow>
-              {props.label ? props.color : <Button>Save</Button>}
+              {palette.data.colors[props.index].color.rgb_hex ===
+              colors[props.index] ? (
+                colors[props.index]
+              ) : (
+                <Button>Save</Button>
+              )}
               <Button onClick={loadFunc(props.index)}>Load</Button>
             </FlexRow>
           </CardFooter>
@@ -66,7 +120,7 @@ export const Palette = (props) => {
   return (
     <>
       {colors.map((color, index) => (
-        <Color key={index} index={index} color={colors[index]} />
+        <Color key={index} index={index} />
       ))}
     </>
   );

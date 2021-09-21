@@ -10,6 +10,7 @@ export const ColorProvider = (props) => {
   const KEYS = {
     CURRENT_COLOR: "color",
     CURRENT_COLOR_INFO: "color-info",
+    CURRENT_PALETTE: "palette",
   };
 
   const [color, _setColor] = useState("#80ff80");
@@ -19,7 +20,6 @@ export const ColorProvider = (props) => {
     client.refetchQueries(KEYS.CURRENT_COLOR_INFO);
   };
 
-  // there is one of these for each global fetch
   const getDefaultColors = () => {
     const path = "/default/colors";
     if (authToken()) return authFetch(path).then((res) => res.json());
@@ -37,6 +37,12 @@ export const ColorProvider = (props) => {
     return noAuthFetch(path, options).then((res) => res.json());
   };
 
+  const getPalette = (name) => {
+    const path = "/default/palette";
+    if (authToken()) return authFetch(path).then((res) => res.json());
+    return noAuthFetch(path).then((res) => res.json());
+  };
+
   return (
     <ColorContext.Provider
       value={{
@@ -45,6 +51,7 @@ export const ColorProvider = (props) => {
         KEYS,
         color,
         setColor,
+        getPalette,
       }}
     >
       {props.children}
