@@ -10,21 +10,14 @@ import {
   CardFooter,
 } from "@bootstrap-styled/v4";
 import { ColorContext } from "./ColorProvider.js";
+import { DEFAULT_PALETTE_MINIMAL } from "../utils/color.js";
 
 export const Palette = (props) => {
   const { color, setColor, getPalette, KEYS } = useContext(ColorContext);
   const [name, setName] = useState("default");
-  const [colors, setColors] = useState([
-    // if you see these colors, the backend is not responding
-    "#8080ff",
-    "#8080ff",
-    "#8080ff",
-    "#8080ff",
-    "#8080ff",
-    "#8080ff",
-    "#8080ff",
-    "#8080ff",
-  ]);
+  const [colors, setColors] = useState(
+    DEFAULT_PALETTE_MINIMAL.colors.map((c) => c.color.rgb_hex)
+  );
 
   const palette = useQuery(
     [KEYS.CURRENT_PALETTE, name],
@@ -34,43 +27,7 @@ export const Palette = (props) => {
         setColors(
           palette.data.colors.map((colorObj) => colorObj.color.rgb_hex)
         ),
-      placeholderData: {
-        // just the necessary placeholder parts
-        colors: [
-          {
-            label: "yellow-orange",
-            color: { rgb_hex: "#FFDF80" },
-          },
-          {
-            label: "yellow-green",
-            color: { rgb_hex: "#BFFF80" },
-          },
-          {
-            label: "green",
-            color: { rgb_hex: "#80FF9F" },
-          },
-          {
-            label: "cyan",
-            color: { rgb_hex: "#80FFFF" },
-          },
-          {
-            label: "blue",
-            color: { rgb_hex: "#809FFF" },
-          },
-          {
-            label: "purple",
-            color: { rgb_hex: "#BF80FF" },
-          },
-          {
-            label: "pink",
-            color: { rgb_hex: "#FF80DF" },
-          },
-          {
-            label: "red",
-            color: { rgb_hex: "#FF8080" },
-          },
-        ],
-      },
+      placeholderData: DEFAULT_PALETTE_MINIMAL,
       keepPreviousData: true,
       staleTime: Infinity,
     }
@@ -86,18 +43,19 @@ export const Palette = (props) => {
 
   const Color = (props) => {
     const editColor = () => setColor(colors[props.index]);
+    const paletteColor = palette.data.colors[props.index];
+    const displayedColor = colors[props.index];
     return (
       <Col style={{ margin: "auto", paddingRight: "4%" }}>
         <Card>
           <CardHeader>
-            {palette.data.colors[props.index].color.rgb_hex ===
-            colors[props.index]
-              ? palette.data.colors[props.index].label
-              : colors[props.index]}
+            {paletteColor.color.rgb_hex === displayedColor
+              ? paletteColor.label
+              : displayedColor}
           </CardHeader>
           <Swatch
             {...props}
-            color={colors[props.index]}
+            color={displayedColor}
             size={8}
             style={{ margin: "8%", display: "inline-block" }}
             dropdownExtras={[{ children: "View Details", onClick: editColor }]}
@@ -106,9 +64,8 @@ export const Palette = (props) => {
           <CardFooter>
             <FlexRow>
               <Button onClick={editFunc(props.index)}>Replace</Button>
-              {palette.data.colors[props.index].color.rgb_hex ===
-              colors[props.index] ? (
-                colors[props.index]
+              {paletteColor.color.rgb_hex === displayedColor ? (
+                displayedColor
               ) : (
                 <Button>Save</Button>
               )}
