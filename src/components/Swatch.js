@@ -23,6 +23,10 @@ export const Swatch = (props) => {
         >
           <DropdownToggle style={{ fontSize: "1.2em" }}>☰</DropdownToggle>
           <DropdownMenu>
+            {props?.dropdownExtras &&
+              props.dropdownExtras.map((itemProps, index) => (
+                <DropdownItem {...itemProps} key={index} />
+              ))}
             <DropdownItem>Blend</DropdownItem>
             <DropdownItem>Favorite</DropdownItem>
           </DropdownMenu>

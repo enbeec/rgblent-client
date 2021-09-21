@@ -1,18 +1,25 @@
 import React, { createContext, useState } from "react";
+import { useQueryClient } from "react-query";
 import { authFetch, noAuthFetch } from "../utils/fetch.js";
 import { authToken } from "../utils/auth.js";
 
 export const ColorContext = createContext();
 
 export const ColorProvider = (props) => {
+  const client = useQueryClient();
   const KEYS = {
     CURRENT_COLOR: "color",
     CURRENT_COLOR_INFO: "color-info",
+    CURRENT_PALETTE: "palette",
   };
 
-  const [color, setColor] = useState("#80ff80");
+  const [color, _setColor] = useState("#80ff80");
 
-  // there is one of these for each global fetch
+  const setColor = (newState) => {
+    _setColor(newState);
+    client.refetchQueries(KEYS.CURRENT_COLOR_INFO);
+  };
+
   const getDefaultColors = () => {
     const path = "/default/colors";
     if (authToken()) return authFetch(path).then((res) => res.json());
@@ -30,6 +37,13 @@ export const ColorProvider = (props) => {
     return noAuthFetch(path, options).then((res) => res.json());
   };
 
+  const getPalette = (name) => {
+    const path =
+      name === "default" ? "/default/palette" : `/palettes?name=${name}`;
+    if (authToken()) return authFetch(path).then((res) => res.json());
+    return noAuthFetch(path).then((res) => res.json());
+  };
+
   return (
     <ColorContext.Provider
       value={{
@@ -38,6 +52,7 @@ export const ColorProvider = (props) => {
         KEYS,
         color,
         setColor,
+        getPalette,
       }}
     >
       {props.children}
