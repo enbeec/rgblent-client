@@ -11,7 +11,7 @@ import {
 import { ColorContext } from "./ColorProvider.js";
 
 export const Palette = (props) => {
-  const { color } = useContext(ColorContext);
+  const { color, setColor } = useContext(ColorContext);
   const [colors, setColors] = useState([
     "#8080ff",
     "#8080ff",
@@ -40,12 +40,35 @@ export const Palette = (props) => {
     );
   };
 
+  const [tooltipStates, setTooltipStates] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
+
+  const toggleFunc = (index) => () => {
+    setTooltipStates(
+      tooltipStates.map((this_state, this_index) =>
+        index === this_index ? !this_state : this_state
+      )
+    );
+  };
+
   const Color = (props) => {
     return (
       <Col {...colProps}>
         <Card>
           <CardHeader>{props.label || props.color}</CardHeader>
-          <Swatch {...props} {...swatchProps} />
+          <Swatch
+            {...props}
+            {...swatchProps}
+            onDoubleClick={() => setColor(colors[props.index])}
+          />
           <CardFooter>
             <FlexRow>
               {props.label ? props.color : <Button>Save</Button>}
@@ -60,7 +83,7 @@ export const Palette = (props) => {
   return (
     <>
       {colors.map((color, index) => (
-        <Color index={index} color={colors[index]} />
+        <Color key={index} index={index} color={colors[index]} />
       ))}
     </>
   );
