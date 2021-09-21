@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useQuery } from "react-query";
 import styled from "styled-components";
-import { Swatch } from "./Swatch.js";
+import { Swatch } from "./reusable/Swatch.js";
 import {
   H4,
   Col,
