@@ -10,7 +10,7 @@ import {
   Card as CARD,
 } from "@bootstrap-styled/v4";
 
-export const Auth = (props) => {
+export const AuthForm = (props) => {
   const [isLogin, setIsLogin] = useState(true);
   const toggleLogin = () => setIsLogin(!isLogin);
   const [loginState, setLoginState] = useState({

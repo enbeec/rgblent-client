@@ -5,7 +5,7 @@ import { ColorProvider } from "./components/ColorProvider.js";
 import { Palette } from "./components/Palette.js";
 import { Picker } from "./components/Picker.js";
 import { Detail } from "./components/Detail.js";
-import { Auth } from "./components/Auth.js";
+import { AuthForm } from "./components/AuthForm.js";
 
 export const RGBlent = (props) => {
   return (
@@ -25,7 +25,7 @@ export const RGBlent = (props) => {
           </LeftColumn>
           <RightColumn>
             <Sidebar>
-              <Auth />
+              <AuthForm />
             </Sidebar>
           </RightColumn>
         </Row>
