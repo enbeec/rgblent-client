@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { Container, Col, Row } from "@bootstrap-styled/v4";
+import { Container, Col, Row, Hr } from "@bootstrap-styled/v4";
 import { ColorProvider } from "./components/ColorProvider.js";
 import { Palette } from "./components/Palette.js";
 import { Picker } from "./components/Picker.js";
 import { Detail } from "./components/Detail.js";
+import { Auth } from "./components/Auth.js";
 
 export const RGBlent = (props) => {
   return (
@@ -19,10 +20,13 @@ export const RGBlent = (props) => {
               <Detail />
             </LeftColumnRow>
             {/* Palette renders it's own row */}
+            <Hr />
             <Palette />
           </LeftColumn>
           <RightColumn>
-            <MockSidebar />
+            <Sidebar>
+              <Auth />
+            </Sidebar>
           </RightColumn>
         </Row>
       </Container>
@@ -46,11 +50,12 @@ const LeftColumnRow = styled(Row)`
   margin-right: auto;
 `;
 
-const MockSidebar = styled.div`
+const Sidebar = styled.div`
   margin-top: auto;
   margin-bottom: auto;
+  padding: 1rem;
   width: 24rem;
-  height: 90%;
+  height: 98%;
   border-radius: 8px;
   background-color: darkgrey;
 `;
