@@ -1,14 +1,13 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import {
   Accordion,
   AccordionGroup,
+  Form,
   FormGroup,
-  // FIXME: I should be using Label, but it's undocumented for v4??
-  H6 as Label,
   Input,
   Button,
-  ListGroup,
-  ListGroupItem,
+  Card as CARD,
 } from "@bootstrap-styled/v4";
 
 export const Auth = (props) => {
@@ -18,6 +17,43 @@ export const Auth = (props) => {
     username: "",
     password: "",
   });
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    // look at login state one key at a time
+    // 	- if a field is empty (remember: "" is falsy), the reducer will return allFieldsValid
+    // 	- allFieldsValid starts as true (also falsy)
+    // 	- whole statement evaluates to true if all entries in loginState are truthy
+    // 	- alt explanation:
+    // 		- if any value in loginState is falsy...
+    // 		- allFieldsValid will end up false...
+    // 		- which will cause all other returns to be false
+    if (
+      Object.keys(loginState).reduce(
+        (allFieldsValid, key) => !!loginState[key] && allFieldsValid,
+        true
+      )
+    ) {
+      // inputs valid
+    } else {
+      // inputs invalid
+    }
+  };
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    if (
+      Object.keys(registerState).reduce(
+        (allFieldsValid, key) => !!registerState[key] && allFieldsValid,
+        true
+      ) &&
+      registerState.password === registerState.confirm
+    ) {
+      // inputs valid
+    } else {
+      // inputs invalid
+    }
+  };
 
   const [registerState, setRegisterState] = useState({
     username: "",
@@ -35,11 +71,12 @@ export const Auth = (props) => {
           heading={<div onClick={toggleLogin}>Login</div>}
           name="login"
         >
-          <ListGroup>
-            <ListGroupItem>
+          <Card>
+            <Form>
               <FormGroup>
-                <Label>Username</Label>
                 <Input
+                  required
+                  placeholder="Username"
                   type="text"
                   onChange={(e) => {
                     const copy = { ...loginState };
@@ -48,11 +85,10 @@ export const Auth = (props) => {
                   }}
                 />
               </FormGroup>
-            </ListGroupItem>
-            <ListGroupItem>
               <FormGroup>
-                <Label>Password</Label>
                 <Input
+                  required
+                  placeholder="Password"
                   type="password"
                   onChange={(e) => {
                     const copy = { ...loginState };
@@ -61,21 +97,22 @@ export const Auth = (props) => {
                   }}
                 />
               </FormGroup>
-            </ListGroupItem>
-            <ListGroupItem>
-              <Button>Login</Button>
-            </ListGroupItem>
-          </ListGroup>
+              <Button type="submit" onClick={handleLogin}>
+                Login
+              </Button>
+            </Form>
+          </Card>
         </Accordion>
         <Accordion
           heading={<div onClick={toggleLogin}>Register</div>}
           name="register"
         >
-          <ListGroup>
-            <ListGroupItem>
+          <Card>
+            <Form>
               <FormGroup>
-                <Label>First Name</Label>
                 <Input
+                  required
+                  placeholder="First Name"
                   type="text"
                   onChange={(e) => {
                     const copy = { ...registerState };
@@ -84,11 +121,10 @@ export const Auth = (props) => {
                   }}
                 />
               </FormGroup>
-            </ListGroupItem>
-            <ListGroupItem>
               <FormGroup>
-                <Label>Last Name</Label>
                 <Input
+                  required
+                  placeholder="Last Name"
                   type="text"
                   onChange={(e) => {
                     const copy = { ...registerState };
@@ -97,11 +133,10 @@ export const Auth = (props) => {
                   }}
                 />
               </FormGroup>
-            </ListGroupItem>
-            <ListGroupItem>
               <FormGroup>
-                <Label>Email</Label>
                 <Input
+                  required
+                  placeholder="Email"
                   type="text"
                   onChange={(e) => {
                     const copy = { ...registerState };
@@ -110,11 +145,10 @@ export const Auth = (props) => {
                   }}
                 />
               </FormGroup>
-            </ListGroupItem>
-            <ListGroupItem>
               <FormGroup>
-                <Label>Username</Label>
                 <Input
+                  required
+                  placeholder="Username"
                   type="text"
                   onChange={(e) => {
                     const copy = { ...registerState };
@@ -123,11 +157,10 @@ export const Auth = (props) => {
                   }}
                 />
               </FormGroup>
-            </ListGroupItem>
-            <ListGroupItem>
               <FormGroup>
-                <Label>Password</Label>
                 <Input
+                  required
+                  placeholder="Password"
                   type="password"
                   onChange={(e) => {
                     const copy = { ...registerState };
@@ -136,11 +169,10 @@ export const Auth = (props) => {
                   }}
                 />
               </FormGroup>
-            </ListGroupItem>
-            <ListGroupItem>
               <FormGroup>
-                <Label>Confirm Password</Label>
                 <Input
+                  required
+                  placeholder="Confirm Password"
                   type="password"
                   onChange={(e) => {
                     const copy = { ...registerState };
@@ -149,13 +181,15 @@ export const Auth = (props) => {
                   }}
                 />
               </FormGroup>
-            </ListGroupItem>
-            <ListGroupItem>
               <Button>Register</Button>
-            </ListGroupItem>
-          </ListGroup>
+            </Form>
+          </Card>
         </Accordion>
       </AccordionGroup>
     </>
   );
 };
+
+const Card = styled(CARD)`
+  padding: 1rem;
+`;
