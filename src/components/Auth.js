@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import {
   Accordion,
   AccordionGroup,
@@ -14,63 +14,142 @@ import {
 export const Auth = (props) => {
   const [isLogin, setIsLogin] = useState(true);
   const toggleLogin = () => setIsLogin(!isLogin);
+  const [loginState, setLoginState] = useState({
+    username: "",
+    password: "",
+  });
 
-  // the ListGroupItemFormGroup component :P
-  const LGIFG = ({ children, itemProps, formGroupProps, ...props }) => (
-    <ListGroupItem {...props} {...itemProps}>
-      <FormGroup {...props} {...formGroupProps}>
-        {children}
-      </FormGroup>
-    </ListGroupItem>
-  );
+  const [registerState, setRegisterState] = useState({
+    username: "",
+    email: "",
+    firstName: "",
+    lastName: "",
+    password: "",
+    confirm: "",
+  });
 
   return (
     <>
-      <AccordionGroup
-        activeAccordionName={isLogin ? "login" : "register"}
-        onChange={toggleLogin}
-      >
-        <Accordion heading="Login" name="login">
+      <AccordionGroup activeAccordionName={isLogin ? "login" : "register"}>
+        <Accordion
+          heading={<div onClick={toggleLogin}>Login</div>}
+          name="login"
+        >
           <ListGroup>
-            <LGIFG>
-              <Label>Username</Label>
-              <Input type="text" />
-            </LGIFG>
-            <LGIFG>
-              <Label>Password</Label>
-              <Input type="text" />
-            </LGIFG>
+            <ListGroupItem>
+              <FormGroup>
+                <Label>Username</Label>
+                <Input
+                  type="text"
+                  onChange={(e) => {
+                    const copy = { ...loginState };
+                    copy.username = e.target.value;
+                    setLoginState(copy);
+                  }}
+                />
+              </FormGroup>
+            </ListGroupItem>
+            <ListGroupItem>
+              <FormGroup>
+                <Label>Password</Label>
+                <Input
+                  type="password"
+                  onChange={(e) => {
+                    const copy = { ...loginState };
+                    copy.password = e.target.value;
+                    setLoginState(copy);
+                  }}
+                />
+              </FormGroup>
+            </ListGroupItem>
             <ListGroupItem>
               <Button>Login</Button>
             </ListGroupItem>
           </ListGroup>
         </Accordion>
-        <Accordion heading="Register" name="register">
+        <Accordion
+          heading={<div onClick={toggleLogin}>Register</div>}
+          name="register"
+        >
           <ListGroup>
-            <LGIFG>
-              <Label>First Name</Label>
-              <Input type="text" />
-            </LGIFG>
-            <LGIFG>
-              <Label>Last Name</Label>
-              <Input type="text" />
-            </LGIFG>
-            <LGIFG>
-              <Label>Email</Label>
-              <Input type="text" />
-            </LGIFG>
-            <LGIFG>
-              <Label>Username</Label>
-              <Input type="text" />
-            </LGIFG>
-            <LGIFG>
-              <Label>Password</Label>
-              <Input type="password" />
-            </LGIFG>
-            <LGIFG>
-              <Label>Confirm Password</Label>
-              <Input type="password" />
-            </LGIFG>
+            <ListGroupItem>
+              <FormGroup>
+                <Label>First Name</Label>
+                <Input
+                  type="text"
+                  onChange={(e) => {
+                    const copy = { ...registerState };
+                    copy.firstName = e.target.value;
+                    setRegisterState(copy);
+                  }}
+                />
+              </FormGroup>
+            </ListGroupItem>
+            <ListGroupItem>
+              <FormGroup>
+                <Label>Last Name</Label>
+                <Input
+                  type="text"
+                  onChange={(e) => {
+                    const copy = { ...registerState };
+                    copy.lastName = e.target.value;
+                    setRegisterState(copy);
+                  }}
+                />
+              </FormGroup>
+            </ListGroupItem>
+            <ListGroupItem>
+              <FormGroup>
+                <Label>Email</Label>
+                <Input
+                  type="text"
+                  onChange={(e) => {
+                    const copy = { ...registerState };
+                    copy.email = e.target.value;
+                    setRegisterState(copy);
+                  }}
+                />
+              </FormGroup>
+            </ListGroupItem>
+            <ListGroupItem>
+              <FormGroup>
+                <Label>Username</Label>
+                <Input
+                  type="text"
+                  onChange={(e) => {
+                    const copy = { ...registerState };
+                    copy.username = e.target.value;
+                    setRegisterState(copy);
+                  }}
+                />
+              </FormGroup>
+            </ListGroupItem>
+            <ListGroupItem>
+              <FormGroup>
+                <Label>Password</Label>
+                <Input
+                  type="password"
+                  onChange={(e) => {
+                    const copy = { ...registerState };
+                    copy.password = e.target.value;
+                    setRegisterState(copy);
+                  }}
+                />
+              </FormGroup>
+            </ListGroupItem>
+            <ListGroupItem>
+              <FormGroup>
+                <Label>Confirm Password</Label>
+                <Input
+                  type="password"
+                  onChange={(e) => {
+                    const copy = { ...registerState };
+                    copy.confirm = e.target.value;
+                    setRegisterState(copy);
+                  }}
+                />
+              </FormGroup>
+            </ListGroupItem>
             <ListGroupItem>
               <Button>Register</Button>
             </ListGroupItem>
