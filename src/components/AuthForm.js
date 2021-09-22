@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import {
   Accordion,
@@ -9,8 +9,11 @@ import {
   Button,
   Card as CARD,
 } from "@bootstrap-styled/v4";
+import { AuthContext } from "./AuthProvider.js";
+import { isNobody } from "../utils/auth.js";
 
 export const AuthForm = (props) => {
+  const { login, logout, profile } = useContext(AuthContext);
   const [isLogin, setIsLogin] = useState(true);
   const toggleLogin = () => setIsLogin(!isLogin);
   const [loginState, setLoginState] = useState({
@@ -34,7 +37,8 @@ export const AuthForm = (props) => {
         true
       )
     ) {
-      // inputs valid
+      console.log("logging in: ", loginState.username, loginState.password);
+      login(loginState.username, loginState.password);
     } else {
       // inputs invalid
     }
@@ -66,126 +70,130 @@ export const AuthForm = (props) => {
 
   return (
     <>
-      <AccordionGroup activeAccordionName={isLogin ? "login" : "register"}>
-        <Accordion
-          heading={<div onClick={toggleLogin}>Login</div>}
-          name="login"
-        >
-          <Card>
-            <Form>
-              <FormGroup>
-                <Input
-                  required
-                  placeholder="Username"
-                  type="text"
-                  onChange={(e) => {
-                    const copy = { ...loginState };
-                    copy.username = e.target.value;
-                    setLoginState(copy);
-                  }}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Input
-                  required
-                  placeholder="Password"
-                  type="password"
-                  onChange={(e) => {
-                    const copy = { ...loginState };
-                    copy.password = e.target.value;
-                    setLoginState(copy);
-                  }}
-                />
-              </FormGroup>
-              <Button type="submit" onClick={handleLogin}>
-                Login
-              </Button>
-            </Form>
-          </Card>
-        </Accordion>
-        <Accordion
-          heading={<div onClick={toggleLogin}>Register</div>}
-          name="register"
-        >
-          <Card>
-            <Form>
-              <FormGroup>
-                <Input
-                  required
-                  placeholder="First Name"
-                  type="text"
-                  onChange={(e) => {
-                    const copy = { ...registerState };
-                    copy.firstName = e.target.value;
-                    setRegisterState(copy);
-                  }}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Input
-                  required
-                  placeholder="Last Name"
-                  type="text"
-                  onChange={(e) => {
-                    const copy = { ...registerState };
-                    copy.lastName = e.target.value;
-                    setRegisterState(copy);
-                  }}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Input
-                  required
-                  placeholder="Email"
-                  type="text"
-                  onChange={(e) => {
-                    const copy = { ...registerState };
-                    copy.email = e.target.value;
-                    setRegisterState(copy);
-                  }}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Input
-                  required
-                  placeholder="Username"
-                  type="text"
-                  onChange={(e) => {
-                    const copy = { ...registerState };
-                    copy.username = e.target.value;
-                    setRegisterState(copy);
-                  }}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Input
-                  required
-                  placeholder="Password"
-                  type="password"
-                  onChange={(e) => {
-                    const copy = { ...registerState };
-                    copy.password = e.target.value;
-                    setRegisterState(copy);
-                  }}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Input
-                  required
-                  placeholder="Confirm Password"
-                  type="password"
-                  onChange={(e) => {
-                    const copy = { ...registerState };
-                    copy.confirm = e.target.value;
-                    setRegisterState(copy);
-                  }}
-                />
-              </FormGroup>
-              <Button>Register</Button>
-            </Form>
-          </Card>
-        </Accordion>
-      </AccordionGroup>
+      {isNobody() ? (
+        <AccordionGroup activeAccordionName={isLogin ? "login" : "register"}>
+          <Accordion
+            heading={<div onClick={toggleLogin}>Login</div>}
+            name="login"
+          >
+            <Card>
+              <Form>
+                <FormGroup>
+                  <Input
+                    required
+                    placeholder="Username"
+                    type="text"
+                    onChange={(e) => {
+                      const copy = { ...loginState };
+                      copy.username = e.target.value;
+                      setLoginState(copy);
+                    }}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Input
+                    required
+                    placeholder="Password"
+                    type="password"
+                    onChange={(e) => {
+                      const copy = { ...loginState };
+                      copy.password = e.target.value;
+                      setLoginState(copy);
+                    }}
+                  />
+                </FormGroup>
+                <Button type="submit" onClick={handleLogin}>
+                  Login
+                </Button>
+              </Form>
+            </Card>
+          </Accordion>
+          <Accordion
+            heading={<div onClick={toggleLogin}>Register</div>}
+            name="register"
+          >
+            <Card>
+              <Form>
+                <FormGroup>
+                  <Input
+                    required
+                    placeholder="First Name"
+                    type="text"
+                    onChange={(e) => {
+                      const copy = { ...registerState };
+                      copy.firstName = e.target.value;
+                      setRegisterState(copy);
+                    }}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Input
+                    required
+                    placeholder="Last Name"
+                    type="text"
+                    onChange={(e) => {
+                      const copy = { ...registerState };
+                      copy.lastName = e.target.value;
+                      setRegisterState(copy);
+                    }}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Input
+                    required
+                    placeholder="Email"
+                    type="text"
+                    onChange={(e) => {
+                      const copy = { ...registerState };
+                      copy.email = e.target.value;
+                      setRegisterState(copy);
+                    }}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Input
+                    required
+                    placeholder="Username"
+                    type="text"
+                    onChange={(e) => {
+                      const copy = { ...registerState };
+                      copy.username = e.target.value;
+                      setRegisterState(copy);
+                    }}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Input
+                    required
+                    placeholder="Password"
+                    type="password"
+                    onChange={(e) => {
+                      const copy = { ...registerState };
+                      copy.password = e.target.value;
+                      setRegisterState(copy);
+                    }}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Input
+                    required
+                    placeholder="Confirm Password"
+                    type="password"
+                    onChange={(e) => {
+                      const copy = { ...registerState };
+                      copy.confirm = e.target.value;
+                      setRegisterState(copy);
+                    }}
+                  />
+                </FormGroup>
+                <Button onClick={handleRegister}>Register</Button>
+              </Form>
+            </Card>
+          </Accordion>
+        </AccordionGroup>
+      ) : (
+        profile.name
+      )}
     </>
   );
 };
