@@ -13,7 +13,7 @@ import { AuthContext } from "./AuthProvider.js";
 import { isNobody } from "../utils/auth.js";
 
 export const AuthForm = (props) => {
-  const { login, logout, profile } = useContext(AuthContext);
+  const { doLogin, doLogout } = useContext(AuthContext);
   const [isLogin, setIsLogin] = useState(true);
   const toggleLogin = () => setIsLogin(!isLogin);
   const [loginState, setLoginState] = useState({
@@ -38,7 +38,7 @@ export const AuthForm = (props) => {
       )
     ) {
       console.log("logging in: ", loginState.username, loginState.password);
-      login(loginState.username, loginState.password);
+      doLogin(loginState.username, loginState.password);
     } else {
       // inputs invalid
     }
@@ -192,7 +192,7 @@ export const AuthForm = (props) => {
           </Accordion>
         </AccordionGroup>
       ) : (
-        profile.name
+        <Button onClick={doLogout}>Logout</Button>
       )}
     </>
   );

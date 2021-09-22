@@ -1,13 +1,14 @@
-import React, { createContext } from "react";
+import React, { useState, createContext } from "react";
 import { useQuery, useQueryClient } from "react-query";
 import { authFetch, noAuthFetch } from "../utils/fetch.js";
-import { doLogin, doLogout, isNobody } from "../utils/auth.js";
+import { tokenKey } from "../utils/auth.js";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = (props) => {
+  const [profileOrDefaults, setProfileOrDefaults] = useState("defaults");
   const getProfileOrDefaults = () => {
-    if (isNobody()) {
+    if (profileOrDefaults === "defaults") {
       return noAuthFetch("/default/palette").then((res) => ({
         // this mimics how you would get a palette from a profile
         palettes: [res],
@@ -16,10 +17,16 @@ export const AuthProvider = (props) => {
       return authFetch("/profile").then((res) => res.json());
     }
   };
+  const profile = useQuery(
+    ["profileOrDefaults", profileOrDefaults],
+    getProfileOrDefaults
+  );
+  const client = useQueryClient();
+  const profileStale = () => {
+    client.invalidateQueries("getProfileOrDefaults");
+  };
 
-  const profile = useQuery("profileOrDefaults", getProfileOrDefaults);
-
-  const login = (username, password) => {
+  const doLogin = (username, password) => {
     return noAuthFetch("/login", {
       method: "POST",
       headers: {
@@ -27,20 +34,29 @@ export const AuthProvider = (props) => {
         Accept: "application/json",
       },
       body: JSON.stringify({ username: username, password: password }),
-    }).then((res) => {
-      const response = res.json();
-      if (response.success) {
-        doLogin(response.token);
-      }
-    });
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("got response: ", data);
+        if (data.success) {
+          console.log("logging in with token: ", data.token);
+          localStorage.setItem(tokenKey, data.token);
+        }
+      })
+      .then(() => {
+        setProfileOrDefaults("profile");
+        profileStale();
+      });
   };
 
-  const logout = () => {
-    doLogout();
+  const doLogout = () => {
+    localStorage.removeItem(tokenKey);
+    setProfileOrDefaults("defaults");
+    profileStale();
   };
 
   return (
-    <AuthContext.Provider value={{ login, logout, profile }}>
+    <AuthContext.Provider value={{ doLogin, doLogout, profile, profileStale }}>
       {props.children}
     </AuthContext.Provider>
   );
