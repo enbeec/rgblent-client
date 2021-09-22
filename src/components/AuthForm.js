@@ -13,7 +13,7 @@ import { AuthContext } from "./AuthProvider.js";
 import { isNobody } from "../utils/auth.js";
 
 export const AuthForm = (props) => {
-  const { doLogin, doLogout } = useContext(AuthContext);
+  const { doLogin, doLogout, doRegister } = useContext(AuthContext);
   const [isLogin, setIsLogin] = useState(true);
   const toggleLogin = () => setIsLogin(!isLogin);
   const [loginState, setLoginState] = useState({
@@ -37,7 +37,6 @@ export const AuthForm = (props) => {
         true
       )
     ) {
-      console.log("logging in: ", loginState.username, loginState.password);
       doLogin(loginState.username, loginState.password);
     } else {
       // inputs invalid
@@ -53,7 +52,13 @@ export const AuthForm = (props) => {
       ) &&
       registerState.password === registerState.confirm
     ) {
-      // inputs valid
+      doRegister(
+        registerState.username,
+        registerState.password,
+        registerState.email,
+        registerState.firstName,
+        registerState.lastName
+      );
     } else {
       // inputs invalid
     }

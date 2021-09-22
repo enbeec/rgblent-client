@@ -19,11 +19,42 @@ export const AuthProvider = (props) => {
   };
   const profile = useQuery(
     ["profileOrDefaults", profileOrDefaults],
-    getProfileOrDefaults
+    getProfileOrDefaults,
+    {
+      staleTime: Infinity,
+    }
   );
   const client = useQueryClient();
   const profileStale = () => {
     client.invalidateQueries("getProfileOrDefaults");
+  };
+
+  const doRegister = (username, password, email, firstName, lastName) => {
+    console.log(password);
+    return noAuthFetch("/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+        email: email,
+        first_name: firstName,
+        last_name: lastName,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          localStorage.setItem(tokenKey, data.token);
+        }
+      })
+      .then(() => {
+        setProfileOrDefaults("profile");
+        profileStale();
+      });
   };
 
   const doLogin = (username, password) => {
@@ -37,9 +68,7 @@ export const AuthProvider = (props) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("got response: ", data);
         if (data.success) {
-          console.log("logging in with token: ", data.token);
           localStorage.setItem(tokenKey, data.token);
         }
       })
@@ -56,7 +85,9 @@ export const AuthProvider = (props) => {
   };
 
   return (
-    <AuthContext.Provider value={{ doLogin, doLogout, profile, profileStale }}>
+    <AuthContext.Provider
+      value={{ doLogin, doLogout, doRegister, profile, profileStale }}
+    >
       {props.children}
     </AuthContext.Provider>
   );
