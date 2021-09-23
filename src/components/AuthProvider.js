@@ -17,7 +17,7 @@ export const AuthProvider = (props) => {
       ])
         .then((res) => Promise.all(res.map(resToJSON)))
         .then((res) => ({
-          name: "",
+          name: "default",
           palettes: [res[0]],
           colors: res[1].map((rawColor) => ({ color: rawColor })),
         }));

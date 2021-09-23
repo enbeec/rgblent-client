@@ -7,7 +7,9 @@ import { Scroll } from "./Scroll.js";
 export const Profile = ({ isLoading, profile, ...props }) => {
   return (
     <>
-      <Card style={{ padding: "1rem" }}>{profile.name}</Card>
+      {profile.name !== "default" && (
+        <Card style={{ padding: "1rem" }}>{profile.name}</Card>
+      )}
       {profile.palettes && (
         <Scroll>
           {profile.palettes.map((palette) => (
