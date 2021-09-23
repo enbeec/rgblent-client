@@ -21,7 +21,7 @@ export const ColorProvider = (props) => {
 
   const getDefaultColors = () => {
     const path = "/default/colors";
-    return authFetch(path).then((res) => res.json());
+    return authFetch(path, { noAuth: true }).then((res) => res.json());
   };
 
   const getColorInfo = (colorString) => {

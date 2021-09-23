@@ -7,6 +7,7 @@ import { Palette } from "./components/Palette.js";
 import { Picker } from "./components/Picker.js";
 import { Detail } from "./components/Detail.js";
 import { AuthForm } from "./components/AuthForm.js";
+import { Profile } from "./components/Profile.js";
 
 export const RGBlent = (props) => {
   return (
@@ -28,6 +29,7 @@ export const RGBlent = (props) => {
             <RightColumn>
               <Sidebar>
                 <AuthForm />
+                <Profile />
               </Sidebar>
             </RightColumn>
           </Row>
