@@ -1,6 +1,6 @@
 import React, { useState, createContext } from "react";
 import { useQuery, useQueryClient } from "react-query";
-import { authFetch } from "../utils/fetch.js";
+import { authFetch, resToJSON } from "../utils/fetch.js";
 import { tokenKey } from "../utils/auth.js";
 
 export const AuthContext = createContext();
@@ -9,10 +9,12 @@ export const AuthProvider = (props) => {
   const [profileOrDefaults, setProfileOrDefaults] = useState("defaults");
   const getProfileOrDefaults = () => {
     if (profileOrDefaults === "defaults") {
-      return authFetch("/default/palette").then((res) => ({
-        // this mimics how you would get a palette from a profile
-        palettes: [res],
-      }));
+      return authFetch("/default/palette")
+        .then(resToJSON)
+        .then((res) => ({
+          // this mimics how you would get a palette from a profile
+          palettes: [res],
+        }));
     } else {
       return authFetch("/profile").then((res) => res.json());
     }
