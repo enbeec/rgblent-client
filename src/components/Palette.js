@@ -116,9 +116,13 @@ export const Palette = ({ ...props }) => {
             }}
           >
             <CardHeader>
-              {paletteColor.color.rgb_hex === displayedColor
-                ? paletteColor.label
-                : displayedColor}
+              {allDirty ? (
+                <Input placeholder={displayedColor} />
+              ) : paletteColor.color.rgb_hex === displayedColor ? (
+                paletteColor.label
+              ) : (
+                <Input placeholder={displayedColor} />
+              )}
             </CardHeader>
             <Swatch
               {...props}
@@ -193,6 +197,7 @@ export const Palette = ({ ...props }) => {
               <Button
                 children="New"
                 onClick={() => {
+                  setDirtyColor(-1);
                   setNewPalette({
                     name: "",
                     colors: ["", "", "", "", "", "", "", ""],
