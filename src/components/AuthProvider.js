@@ -7,7 +7,7 @@ export const AuthContext = createContext();
 export const AuthProvider = (props) => {
   const apiURL = "http://localhost:8000";
   const [profileOrDefaults, setProfileOrDefaults] = useState(
-    isNobody ? "defaults" : "profile"
+    isNobody() ? "defaults" : "profile"
   );
   const getProfileOrDefaults = () => {
     if (profileOrDefaults === "defaults") {
@@ -17,7 +17,7 @@ export const AuthProvider = (props) => {
       ])
         .then((res) => Promise.all(res.map(resToJSON)))
         .then((res) => ({
-          name: "defaults",
+          name: "",
           palettes: [res[0]],
           colors: res[1].map((rawColor) => ({ color: rawColor })),
         }));
@@ -34,6 +34,7 @@ export const AuthProvider = (props) => {
     colors: [],
     palettes: [],
   });
+
   useEffect(() => {
     setIsLoading(true);
     setProfile({ name: "loading" });
