@@ -1,6 +1,6 @@
 import React, { useState, createContext } from "react";
 import { useQuery, useQueryClient } from "react-query";
-import { authFetch, noAuthFetch } from "../utils/fetch.js";
+import { authFetch } from "../utils/fetch.js";
 import { tokenKey } from "../utils/auth.js";
 
 export const AuthContext = createContext();
@@ -9,7 +9,7 @@ export const AuthProvider = (props) => {
   const [profileOrDefaults, setProfileOrDefaults] = useState("defaults");
   const getProfileOrDefaults = () => {
     if (profileOrDefaults === "defaults") {
-      return noAuthFetch("/default/palette").then((res) => ({
+      return authFetch("/default/palette").then((res) => ({
         // this mimics how you would get a palette from a profile
         palettes: [res],
       }));
@@ -31,7 +31,7 @@ export const AuthProvider = (props) => {
 
   const doRegister = (username, password, email, firstName, lastName) => {
     console.log(password);
-    return noAuthFetch("/register", {
+    return authFetch("/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -58,7 +58,7 @@ export const AuthProvider = (props) => {
   };
 
   const doLogin = (username, password) => {
-    return noAuthFetch("/login", {
+    return authFetch("/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
