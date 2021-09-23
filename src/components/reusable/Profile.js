@@ -1,11 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
-import { CardGroup, Card, CardText } from "@bootstrap-styled/v4";
-import { AuthContext } from "./AuthProvider.js";
-import { PaletteCard } from "./reusable/PaletteCard.js";
+import { Card, CardText } from "@bootstrap-styled/v4";
+import { PaletteCard } from "./PaletteCard.js";
 
-export const Profile = (props) => {
-  const { profile, isLoading } = useContext(AuthContext);
+export const Profile = ({ isLoading, profile, ...props }) => {
   return (
     <>
       <Card style={{ padding: "1rem" }}>{profile.name}</Card>
