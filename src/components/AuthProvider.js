@@ -11,11 +11,15 @@ export const AuthProvider = (props) => {
   );
   const getProfileOrDefaults = () => {
     if (profileOrDefaults === "defaults") {
-      return fetch(apiURL + "/default/palette")
-        .then(resToJSON)
-        .then((palette) => ({
+      return Promise.all([
+        fetch(apiURL + "/default/palette"),
+        fetch(apiURL + "/default/colors"),
+      ])
+        .then((res) => Promise.all(res.map(resToJSON)))
+        .then((res) => ({
           name: "defaults",
-          palettes: [palette],
+          palettes: [res[0]],
+          colors: res[1].map((rawColor) => ({ color: rawColor })),
         }));
     } else {
       return fetch(apiURL + "/profile", {
@@ -36,7 +40,7 @@ export const AuthProvider = (props) => {
     getProfileOrDefaults()
       .then(setProfile)
       .then(() => setIsLoading(false));
-  }, [profileOrDefaults]);
+  }, [profileOrDefaults]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const doRegister = (username, password, email, firstName, lastName) => {
     console.log(password);
