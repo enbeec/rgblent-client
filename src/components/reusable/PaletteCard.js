@@ -5,14 +5,16 @@ import { Swatch } from "./Swatch.js";
 
 export const PaletteCard = ({ palette, ...props }) => {
   const { setColor } = useContext(ColorContext);
-  return (
+  return palette ? (
     <Card>
-      <CardText style={{ textAlign: "center", marginBottom: 0 }}>
-        {palette.name}
-      </CardText>
+      {palette.name !== "default" && (
+        <CardText style={{ textAlign: "center", marginBottom: 0 }}>
+          {palette.name}
+        </CardText>
+      )}
       <Row style={{ padding: "1.2em" }}>
         {palette.colors.map((color) => (
-          <Col>
+          <Col key={color?.label || color.color.rgb_hex}>
             <Swatch
               style={{ margin: "0.6em" }}
               noHover
@@ -27,5 +29,5 @@ export const PaletteCard = ({ palette, ...props }) => {
         ))}
       </Row>
     </Card>
-  );
+  ) : null;
 };

@@ -8,6 +8,7 @@ import { Picker } from "./components/Picker.js";
 import { Detail } from "./components/Detail.js";
 import { AuthForm } from "./components/AuthForm.js";
 import { UserProfile } from "./components/UserProfile.js";
+import { OtherUsers } from "./components/OtherUsers.js";
 
 export const RGBlent = (props) => {
   return (
@@ -32,6 +33,7 @@ export const RGBlent = (props) => {
                 <Hr />
                 <UserProfile />
                 <Hr />
+                <OtherUsers />
               </Sidebar>
             </RightColumn>
           </Row>
@@ -65,4 +67,6 @@ const Sidebar = styled.div`
   height: 98%;
   border-radius: 8px;
   background-color: darkgrey;
+  overflow-x: hidden;
+  overflow-y: auto;
 `;

@@ -25,7 +25,7 @@ export const UserColorCard = ({ colors, ...props }) => {
                 />
               </>
             }
-            key={color.color.rgb_hex}
+            key={color?.label || color.color.rgb_hex}
             style={{
               textAlign: "center",
               margin: "0.4rem",
