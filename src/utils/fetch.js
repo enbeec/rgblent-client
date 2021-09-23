@@ -5,9 +5,14 @@ export const resToJSON = (res) => res.json();
 
 export const authFetch = (path, options) => {
   const url = apiURL + path;
-  options = options || {};
-  if (!isNobody()) {
+  options = options || { headers: {} };
+
+  if (!isNobody() && !options?.noAuth) {
     options.headers.Authentication = "Token " + authToken();
+  }
+
+  if (!options?.noJSON) {
+    options.headers.Accept = "application/json";
   }
   return fetch(url, { ...options });
 };
