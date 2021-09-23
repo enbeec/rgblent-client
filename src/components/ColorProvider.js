@@ -34,6 +34,13 @@ export const ColorProvider = (props) => {
     return authFetch(path, options).then((res) => res.json());
   };
 
+  const [paletteName, _setPaletteName] = useState("default");
+
+  const setPaletteName = (name) => {
+    _setPaletteName(name);
+    client.invalidateQueries(KEYS.CURRENT_PALETTE);
+  };
+
   const getPalette = (name) => {
     const path =
       name === "default" ? "/default/palette" : `/palettes?name=${name}`;
@@ -48,6 +55,8 @@ export const ColorProvider = (props) => {
         KEYS,
         color,
         setColor,
+        paletteName,
+        setPaletteName,
         getPalette,
       }}
     >

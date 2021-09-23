@@ -10,19 +10,14 @@ export const Profile = ({ isLoading, profile, ...props }) => {
       {profile.name !== "default" && (
         <Card style={{ padding: "1rem" }}>{profile.name}</Card>
       )}
-      {profile.palettes && (
-        <Scroll>
-          {profile.palettes.map((palette) => (
-            <PaletteCard key={palette.name} palette={palette} />
-          ))}
-        </Scroll>
-      )}
+      {profile.palettes &&
+        profile.palettes.map((palette) => (
+          <PaletteCard key={palette.name} palette={palette} />
+        ))}
       {profile.colors && (
-        <Scroll>
-          <Card style={{ padding: "1rem", paddingTop: "0.5rem" }}>
-            <UserColorCard colors={profile.colors} />
-          </Card>
-        </Scroll>
+        <Card style={{ padding: "1rem", paddingTop: "0.5rem" }}>
+          <UserColorCard colors={profile.colors} />
+        </Card>
       )}
     </>
   );
