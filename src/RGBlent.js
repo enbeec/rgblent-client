@@ -9,6 +9,7 @@ import { Detail } from "./components/Detail.js";
 import { AuthForm } from "./components/AuthForm.js";
 import { UserProfile } from "./components/UserProfile.js";
 import { OtherUsers } from "./components/OtherUsers.js";
+import { NameWindow } from "./components/NameWindow.js";
 
 export const RGBlent = (props) => {
   return (
@@ -29,7 +30,10 @@ export const RGBlent = (props) => {
             </LeftColumn>
             <RightColumn>
               <Sidebar>
-                <AuthForm />
+                <FlexRow>
+                  <NameWindow />
+                  <AuthForm />
+                </FlexRow>
                 <Hr />
                 <UserProfile />
                 <Hr />
@@ -42,6 +46,12 @@ export const RGBlent = (props) => {
     </AuthProvider>
   );
 };
+
+const FlexRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
 
 const RightColumn = styled.div`
   display: flex;

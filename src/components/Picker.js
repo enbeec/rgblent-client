@@ -6,7 +6,7 @@ import { HexColorPicker } from "react-colorful";
 import { ColorContext } from "./ColorProvider.js";
 
 export const Picker = (props) => {
-  const { setColor } = useContext(ColorContext);
+  const { setColor, startNewFavorite } = useContext(ColorContext);
   const [pickerColor, setPickerColor] = useState("#80ff80");
   useContext(ColorContext);
 
@@ -23,7 +23,9 @@ export const Picker = (props) => {
         <H4> {pickerColor}</H4>
         <Row style={{ marginTop: "10%" }}>
           <Button onClick={() => setColor(pickerColor)}>Load This Color</Button>
-          <Button onClick={() => {}}>Favorite this Color</Button>
+          <Button onClick={() => startNewFavorite(pickerColor)}>
+            Favorite this Color
+          </Button>
         </Row>
       </Col>
     </>
