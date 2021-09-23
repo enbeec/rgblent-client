@@ -78,10 +78,8 @@ export const AuthProvider = (props) => {
       .then((data) => {
         if (data.success) {
           localStorage.setItem(tokenKey, data.token);
+          setProfileOrDefaults("profile");
         }
-      })
-      .then(() => {
-        setProfileOrDefaults("profile");
       });
   };
 
