@@ -6,7 +6,7 @@ import {
   H4,
   Col,
   Row,
-  Button as BUTTON,
+  Button,
   Card as CARD,
   CardHeader,
   CardFooter,
@@ -16,8 +16,11 @@ import { ColorContext } from "./ColorProvider.js";
 import { DEFAULT_PALETTE_MINIMAL } from "../utils/color.js";
 import { isNobody } from "../utils/auth.js";
 import { CopyButton } from "./reusable/CopyButton.js";
+import { AuthContext } from "./AuthProvider.js";
 
 export const Palette = ({ ...props }) => {
+  // importing this forces the Palette to update based on login state
+  const { profile } = useContext(AuthContext); // eslint-disable-line
   const { color, setColor, getPalette, KEYS } = useContext(ColorContext);
   const [name, setName] = useState("default");
   // if negative, all clean
@@ -116,7 +119,7 @@ export const Palette = ({ ...props }) => {
                     {displayedColor}
                   </CopyButton>
                 ) : (
-                  <Button>Save</Button>
+                  <Button style={{ width: "5rem" }}>Save</Button>
                 )}
               </FlexRow>
             </CardFooter>
@@ -151,10 +154,6 @@ export const Palette = ({ ...props }) => {
     </>
   );
 };
-
-const Button = styled(BUTTON)`
-  scale: 0.9;
-`;
 
 const Card = styled(CARD)`
   margin-bottom: 4%;
