@@ -19,7 +19,7 @@ export const AuthProvider = (props) => {
         }));
     } else {
       return fetch(apiURL + "/profile", {
-        headers: { Authentication: "Token " + authToken() },
+        headers: { Authorization: "Token " + authToken() },
       }).then(resToJSON);
     }
   };

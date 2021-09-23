@@ -10,14 +10,14 @@ export const PaletteCard = ({ palette, ...props }) => {
       <CardText style={{ textAlign: "center", marginBottom: 0 }}>
         {palette.name}
       </CardText>
-      <Row style={{ padding: "1rem" }}>
+      <Row style={{ padding: "1.2em" }}>
         {palette.colors.map((color) => (
           <Col>
             <Swatch
-              style={{ margin: "0.5em" }}
+              style={{ margin: "0.6em" }}
               noHover
               color={color.color.rgb_hex}
-              size={2}
+              size={3}
               onDoubleClick={() => setColor(color.color.rgb_hex)}
             />
             <CardText style={{ textAlign: "center", fontSize: 11 }}>

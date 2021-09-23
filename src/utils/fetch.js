@@ -8,7 +8,7 @@ export const authFetch = (path, options) => {
   options = options || { headers: {} };
 
   if (!isNobody() && !options?.noAuth) {
-    options.headers.Authentication = "Token " + authToken();
+    options.headers.Authorization = "Token " + authToken();
   }
 
   if (!options?.noJSON) {

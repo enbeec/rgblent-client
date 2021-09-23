@@ -29,7 +29,9 @@ export const RGBlent = (props) => {
             <RightColumn>
               <Sidebar>
                 <AuthForm />
+                <Hr />
                 <Profile />
+                <Hr />
               </Sidebar>
             </RightColumn>
           </Row>
@@ -59,7 +61,7 @@ const Sidebar = styled.div`
   margin-top: auto;
   margin-bottom: auto;
   padding: 1rem;
-  width: 24rem;
+  width: 30rem;
   height: 98%;
   border-radius: 8px;
   background-color: darkgrey;
