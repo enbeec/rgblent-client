@@ -1,7 +1,9 @@
 import React, { useContext } from "react";
+import { Card, CardText } from "@bootstrap-styled/v4";
 import { AuthContext } from "./AuthProvider.js";
+import { ColorContext } from "./ColorProvider.js";
 import { Swatch } from "./reusable/Swatch.js";
-import { Row, Col, Card, CardText } from "@bootstrap-styled/v4";
+import { PaletteCard } from "./reusable/PaletteCard.js";
 
 export const Profile = (props) => {
   const { profile, isLoading } = useContext(AuthContext);
@@ -11,18 +13,7 @@ export const Profile = (props) => {
       <Card>{profile.name}</Card>
       <Card>
         {profile.palettes &&
-          profile.palettes.map((palette) => (
-            <Card>
-              <CardText>{palette.name}</CardText>
-              <Row>
-                {palette.colors.map((color) => (
-                  <Col>
-                    <Swatch noHover color={color.color.rgb_hex} size={2} />
-                  </Col>
-                ))}
-              </Row>
-            </Card>
-          ))}
+          profile.palettes.map((palette) => <PaletteCard palette={palette} />)}
       </Card>
     </>
   );

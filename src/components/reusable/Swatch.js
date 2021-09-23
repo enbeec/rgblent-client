@@ -15,22 +15,24 @@ export const Swatch = (props) => {
   return (
     <div ref={hoverRef}>
       <SWATCH {...props}>
-        <ButtonDropdown
-          isOpen={dropState}
-          toggle={() => setDropState(!dropState)}
-          className={"w-30 mx-auto my-auto"}
-          hidden={!swatchHover}
-        >
-          <DropdownToggle style={{ fontSize: "1.2em" }}>☰</DropdownToggle>
-          <DropdownMenu>
-            {props?.dropdownExtras &&
-              props.dropdownExtras.map((itemProps, index) => (
-                <DropdownItem {...itemProps} key={index} />
-              ))}
-            <DropdownItem>Blend</DropdownItem>
-            <DropdownItem>Favorite</DropdownItem>
-          </DropdownMenu>
-        </ButtonDropdown>
+        {props.noHover || (
+          <ButtonDropdown
+            isOpen={dropState}
+            toggle={() => setDropState(!dropState)}
+            className={"w-30 mx-auto my-auto"}
+            hidden={!swatchHover}
+          >
+            <DropdownToggle style={{ fontSize: "1.2em" }}>☰</DropdownToggle>
+            <DropdownMenu>
+              {props?.dropdownExtras &&
+                props.dropdownExtras.map((itemProps, index) => (
+                  <DropdownItem {...itemProps} key={index} />
+                ))}
+              <DropdownItem>Blend</DropdownItem>
+              <DropdownItem>Favorite</DropdownItem>
+            </DropdownMenu>
+          </ButtonDropdown>
+        )}
       </SWATCH>
     </div>
   );
