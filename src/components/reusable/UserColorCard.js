@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import styled from "styled-components";
 import { Card, CardText, Button } from "@bootstrap-styled/v4";
 import { PaletteCard } from "./PaletteCard.js";
 import { ColorContext } from "../ColorProvider.js";
@@ -13,7 +14,7 @@ export const UserColorCard = ({ colors, ...props }) => {
         color && (
           <CardText
             children={
-              <>
+              <FlexRow>
                 {color.label ? color.label : color.color.rgb_hex}
                 <Button
                   onClick={() => setColor(color.color.rgb_hex)}
@@ -23,7 +24,7 @@ export const UserColorCard = ({ colors, ...props }) => {
                     marginLeft: "20%",
                   }}
                 />
-              </>
+              </FlexRow>
             }
             key={color?.label || color.color.rgb_hex}
             style={{
@@ -35,3 +36,9 @@ export const UserColorCard = ({ colors, ...props }) => {
     )
   );
 };
+
+const FlexRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;

@@ -71,7 +71,9 @@ export const Palette = ({ ...props }) => {
       const copy = { ...newPalette };
       copy.colors[index] = color;
       setNewPalette(copy);
-      setColors(newPalette.colors);
+      setColors(
+        newPalette.colors.map((color, index) => (color ? color : colors[index]))
+      );
     } else if (dirtyColor === index) {
       setDirtyColor(-1);
       setColors(
