@@ -47,16 +47,6 @@ export const ColorProvider = (props) => {
     return authFetch(path).then((res) => res.json());
   };
 
-  const [newFavorite, setNewFavorite] = useState(null);
-  const startNewFavorite = (rgb_hex) => {
-    setNewFavorite({ rgb_hex: rgb_hex, name: "" });
-  };
-  const cancelNewFavorite = () => setNewFavorite(null);
-  const finishNewFavorite = () => {
-    // POST
-    // .then setNewFavorite(null)
-  };
-
   return (
     <ColorContext.Provider
       value={{
@@ -68,11 +58,6 @@ export const ColorProvider = (props) => {
         paletteName,
         setPaletteName,
         getPalette,
-        newFavorite,
-        setNewFavorite,
-        startNewFavorite,
-        finishNewFavorite,
-        cancelNewFavorite,
       }}
     >
       {props.children}

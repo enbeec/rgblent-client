@@ -1,0 +1,2018 @@
+[
+  {
+    "id": 1,
+    "name": "Joe Shepherd",
+    "username": "joe",
+    "email": "joe@joeshepherd.com",
+    "colors": [],
+    "palettes": []
+  },
+  {
+    "id": 2,
+    "name": "Jisie David",
+    "username": "jisie",
+    "email": "jisie@jisiedavid.com",
+    "colors": [],
+    "palettes": []
+  },
+  {
+    "id": 3,
+    "name": "Val Currie",
+    "username": "valcuri",
+    "email": "val@currie.com",
+    "colors": [
+      {
+        "label": "yellow-orange",
+        "color": {
+          "id": 1,
+          "rgb_hex": "#FFDF80",
+          "red": 255,
+          "green": 223,
+          "blue": 128,
+          "builtin": false,
+          "is_default": true
+        }
+      },
+      {
+        "label": "yellow-green",
+        "color": {
+          "id": 2,
+          "rgb_hex": "#BFFF80",
+          "red": 191,
+          "green": 255,
+          "blue": 128,
+          "builtin": false,
+          "is_default": true
+        }
+      },
+      {
+        "label": "green",
+        "color": {
+          "id": 3,
+          "rgb_hex": "#80FF9F",
+          "red": 128,
+          "green": 255,
+          "blue": 159,
+          "builtin": false,
+          "is_default": true
+        }
+      },
+      {
+        "label": "cyan",
+        "color": {
+          "id": 4,
+          "rgb_hex": "#80FFFF",
+          "red": 128,
+          "green": 255,
+          "blue": 255,
+          "builtin": false,
+          "is_default": true
+        }
+      },
+      {
+        "label": "blue",
+        "color": {
+          "id": 5,
+          "rgb_hex": "#809FFF",
+          "red": 128,
+          "green": 159,
+          "blue": 255,
+          "builtin": false,
+          "is_default": true
+        }
+      },
+      {
+        "label": "purple",
+        "color": {
+          "id": 6,
+          "rgb_hex": "#BF80FF",
+          "red": 191,
+          "green": 128,
+          "blue": 255,
+          "builtin": false,
+          "is_default": true
+        }
+      },
+      {
+        "label": "pink",
+        "color": {
+          "id": 7,
+          "rgb_hex": "#FF80DF",
+          "red": 255,
+          "green": 128,
+          "blue": 223,
+          "builtin": false,
+          "is_default": true
+        }
+      },
+      {
+        "label": "red",
+        "color": {
+          "id": 8,
+          "rgb_hex": "#FF8080",
+          "red": 255,
+          "green": 128,
+          "blue": 128,
+          "builtin": false,
+          "is_default": true
+        }
+      }
+    ],
+    "palettes": [
+      {
+        "name": "Val's First Palette",
+        "colors": [
+          {
+            "builtin": true,
+            "label": "yellow-orange",
+            "color": {
+              "id": 1,
+              "rgb_hex": "#FFDF80",
+              "red": 255,
+              "green": 223,
+              "blue": 128,
+              "builtin": false,
+              "is_default": true
+            }
+          },
+          {
+            "builtin": true,
+            "label": "yellow-green",
+            "color": {
+              "id": 2,
+              "rgb_hex": "#BFFF80",
+              "red": 191,
+              "green": 255,
+              "blue": 128,
+              "builtin": false,
+              "is_default": true
+            }
+          },
+          {
+            "builtin": true,
+            "label": "green",
+            "color": {
+              "id": 3,
+              "rgb_hex": "#80FF9F",
+              "red": 128,
+              "green": 255,
+              "blue": 159,
+              "builtin": false,
+              "is_default": true
+            }
+          },
+          {
+            "builtin": true,
+            "label": "cyan",
+            "color": {
+              "id": 4,
+              "rgb_hex": "#80FFFF",
+              "red": 128,
+              "green": 255,
+              "blue": 255,
+              "builtin": false,
+              "is_default": true
+            }
+          },
+          {
+            "builtin": true,
+            "label": "blue",
+            "color": {
+              "id": 5,
+              "rgb_hex": "#809FFF",
+              "red": 128,
+              "green": 159,
+              "blue": 255,
+              "builtin": false,
+              "is_default": true
+            }
+          },
+          {
+            "builtin": true,
+            "label": "purple",
+            "color": {
+              "id": 6,
+              "rgb_hex": "#BF80FF",
+              "red": 191,
+              "green": 128,
+              "blue": 255,
+              "builtin": false,
+              "is_default": true
+            }
+          },
+          {
+            "builtin": true,
+            "label": "pink",
+            "color": {
+              "id": 7,
+              "rgb_hex": "#FF80DF",
+              "red": 255,
+              "green": 128,
+              "blue": 223,
+              "builtin": false,
+              "is_default": true
+            }
+          },
+          {
+            "builtin": true,
+            "label": "red",
+            "color": {
+              "id": 8,
+              "rgb_hex": "#FF8080",
+              "red": 255,
+              "green": 128,
+              "blue": 128,
+              "builtin": false,
+              "is_default": true
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "CSS Carl",
+    "username": "carl",
+    "email": "carl@csscarl.com",
+    "colors": [
+      {
+        "label": "LightSkyBlue",
+        "color": {
+          "id": 9,
+          "rgb_hex": "#87CEFA",
+          "red": 135,
+          "green": 206,
+          "blue": 250,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "DarkGray",
+        "color": {
+          "id": 10,
+          "rgb_hex": "#A9A9A9",
+          "red": 169,
+          "green": 169,
+          "blue": 169,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "FireBrick",
+        "color": {
+          "id": 11,
+          "rgb_hex": "#B22222",
+          "red": 178,
+          "green": 34,
+          "blue": 34,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Chocolate",
+        "color": {
+          "id": 12,
+          "rgb_hex": "#D2691E",
+          "red": 210,
+          "green": 105,
+          "blue": 30,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "BlueViolet",
+        "color": {
+          "id": 13,
+          "rgb_hex": "#8A2BE2",
+          "red": 138,
+          "green": 43,
+          "blue": 226,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Grey",
+        "color": {
+          "id": 14,
+          "rgb_hex": "#808080",
+          "red": 128,
+          "green": 128,
+          "blue": 128,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "LawnGreen",
+        "color": {
+          "id": 15,
+          "rgb_hex": "#7CFC00",
+          "red": 124,
+          "green": 252,
+          "blue": 0,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "MediumOrchid",
+        "color": {
+          "id": 16,
+          "rgb_hex": "#BA55D3",
+          "red": 186,
+          "green": 85,
+          "blue": 211,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Orchid",
+        "color": {
+          "id": 17,
+          "rgb_hex": "#DA70D6",
+          "red": 218,
+          "green": 112,
+          "blue": 214,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Chartreuse",
+        "color": {
+          "id": 18,
+          "rgb_hex": "#7FFF00",
+          "red": 127,
+          "green": 255,
+          "blue": 0,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "MediumSpringGreen",
+        "color": {
+          "id": 19,
+          "rgb_hex": "#00FA9A",
+          "red": 0,
+          "green": 250,
+          "blue": 154,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Turquoise",
+        "color": {
+          "id": 20,
+          "rgb_hex": "#40E0D0",
+          "red": 64,
+          "green": 224,
+          "blue": 208,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "LightCoral",
+        "color": {
+          "id": 21,
+          "rgb_hex": "#F08080",
+          "red": 240,
+          "green": 128,
+          "blue": 128,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Sienna",
+        "color": {
+          "id": 22,
+          "rgb_hex": "#A0522D",
+          "red": 160,
+          "green": 82,
+          "blue": 45,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "SeaGreen",
+        "color": {
+          "id": 23,
+          "rgb_hex": "#2E8B57",
+          "red": 46,
+          "green": 139,
+          "blue": 87,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Black",
+        "color": {
+          "id": 24,
+          "rgb_hex": "#000000",
+          "red": 0,
+          "green": 0,
+          "blue": 0,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "LimeGreen",
+        "color": {
+          "id": 25,
+          "rgb_hex": "#32CD32",
+          "red": 50,
+          "green": 205,
+          "blue": 50,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "SaddleBrown",
+        "color": {
+          "id": 26,
+          "rgb_hex": "#8B4513",
+          "red": 139,
+          "green": 69,
+          "blue": 19,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "OldLace",
+        "color": {
+          "id": 27,
+          "rgb_hex": "#FDF5E6",
+          "red": 253,
+          "green": 245,
+          "blue": 230,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "LightSeaGreen",
+        "color": {
+          "id": 28,
+          "rgb_hex": "#20B2AA",
+          "red": 32,
+          "green": 178,
+          "blue": 170,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "DarkOrange",
+        "color": {
+          "id": 29,
+          "rgb_hex": "#FF8C00",
+          "red": 255,
+          "green": 140,
+          "blue": 0,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "DarkSlateGray",
+        "color": {
+          "id": 30,
+          "rgb_hex": "#2F4F4F",
+          "red": 47,
+          "green": 79,
+          "blue": 79,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "HoneyDew",
+        "color": {
+          "id": 31,
+          "rgb_hex": "#F0FFF0",
+          "red": 240,
+          "green": 255,
+          "blue": 240,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "WhiteSmoke",
+        "color": {
+          "id": 32,
+          "rgb_hex": "#F5F5F5",
+          "red": 245,
+          "green": 245,
+          "blue": 245,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "LightGreen",
+        "color": {
+          "id": 33,
+          "rgb_hex": "#90EE90",
+          "red": 144,
+          "green": 238,
+          "blue": 144,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "PaleTurquoise",
+        "color": {
+          "id": 34,
+          "rgb_hex": "#AFEEEE",
+          "red": 175,
+          "green": 238,
+          "blue": 238,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Thistle",
+        "color": {
+          "id": 35,
+          "rgb_hex": "#D8BFD8",
+          "red": 216,
+          "green": 191,
+          "blue": 216,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "SkyBlue",
+        "color": {
+          "id": 36,
+          "rgb_hex": "#87CEEB",
+          "red": 135,
+          "green": 206,
+          "blue": 235,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Snow",
+        "color": {
+          "id": 37,
+          "rgb_hex": "#FFFAFA",
+          "red": 255,
+          "green": 250,
+          "blue": 250,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "GreenYellow",
+        "color": {
+          "id": 38,
+          "rgb_hex": "#ADFF2F",
+          "red": 173,
+          "green": 255,
+          "blue": 47,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "BurlyWood",
+        "color": {
+          "id": 39,
+          "rgb_hex": "#DEB887",
+          "red": 222,
+          "green": 184,
+          "blue": 135,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "MediumVioletRed",
+        "color": {
+          "id": 40,
+          "rgb_hex": "#C71585",
+          "red": 199,
+          "green": 21,
+          "blue": 133,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "LavenderBlush",
+        "color": {
+          "id": 41,
+          "rgb_hex": "#FFF0F5",
+          "red": 255,
+          "green": 240,
+          "blue": 245,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "DarkSeaGreen",
+        "color": {
+          "id": 42,
+          "rgb_hex": "#8FBC8F",
+          "red": 143,
+          "green": 188,
+          "blue": 143,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Bisque",
+        "color": {
+          "id": 43,
+          "rgb_hex": "#FFE4C4",
+          "red": 255,
+          "green": 228,
+          "blue": 196,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Tan",
+        "color": {
+          "id": 44,
+          "rgb_hex": "#D2B48C",
+          "red": 210,
+          "green": 180,
+          "blue": 140,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "PowderBlue",
+        "color": {
+          "id": 45,
+          "rgb_hex": "#B0E0E6",
+          "red": 176,
+          "green": 224,
+          "blue": 230,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "GoldenRod",
+        "color": {
+          "id": 46,
+          "rgb_hex": "#DAA520",
+          "red": 218,
+          "green": 165,
+          "blue": 32,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Brown",
+        "color": {
+          "id": 47,
+          "rgb_hex": "#A52A2A",
+          "red": 165,
+          "green": 42,
+          "blue": 42,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "MistyRose",
+        "color": {
+          "id": 48,
+          "rgb_hex": "#FFE4E1",
+          "red": 255,
+          "green": 228,
+          "blue": 225,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "PaleVioletRed",
+        "color": {
+          "id": 49,
+          "rgb_hex": "#DB7093",
+          "red": 219,
+          "green": 112,
+          "blue": 147,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Linen",
+        "color": {
+          "id": 50,
+          "rgb_hex": "#FAF0E6",
+          "red": 250,
+          "green": 240,
+          "blue": 230,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "DodgerBlue",
+        "color": {
+          "id": 51,
+          "rgb_hex": "#1E90FF",
+          "red": 30,
+          "green": 144,
+          "blue": 255,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "SpringGreen",
+        "color": {
+          "id": 52,
+          "rgb_hex": "#00FF7F",
+          "red": 0,
+          "green": 255,
+          "blue": 127,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Peru",
+        "color": {
+          "id": 53,
+          "rgb_hex": "#CD853F",
+          "red": 205,
+          "green": 133,
+          "blue": 63,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Aquamarine",
+        "color": {
+          "id": 54,
+          "rgb_hex": "#7FFFD4",
+          "red": 127,
+          "green": 255,
+          "blue": 212,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Green",
+        "color": {
+          "id": 55,
+          "rgb_hex": "#008000",
+          "red": 0,
+          "green": 128,
+          "blue": 0,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "YellowGreen",
+        "color": {
+          "id": 56,
+          "rgb_hex": "#9ACD32",
+          "red": 154,
+          "green": 205,
+          "blue": 50,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "SlateGray",
+        "color": {
+          "id": 57,
+          "rgb_hex": "#708090",
+          "red": 112,
+          "green": 128,
+          "blue": 144,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Gray",
+        "color": {
+          "id": 58,
+          "rgb_hex": "#808080",
+          "red": 128,
+          "green": 128,
+          "blue": 128,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "DarkSlateBlue",
+        "color": {
+          "id": 59,
+          "rgb_hex": "#483D8B",
+          "red": 72,
+          "green": 61,
+          "blue": 139,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "LemonChiffon",
+        "color": {
+          "id": 60,
+          "rgb_hex": "#FFFACD",
+          "red": 255,
+          "green": 250,
+          "blue": 205,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "DarkSalmon",
+        "color": {
+          "id": 61,
+          "rgb_hex": "#E9967A",
+          "red": 233,
+          "green": 150,
+          "blue": 122,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "PeachPuff",
+        "color": {
+          "id": 62,
+          "rgb_hex": "#FFDAB9",
+          "red": 255,
+          "green": 218,
+          "blue": 185,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Coral",
+        "color": {
+          "id": 63,
+          "rgb_hex": "#FF7F50",
+          "red": 255,
+          "green": 127,
+          "blue": 80,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "MediumPurple",
+        "color": {
+          "id": 64,
+          "rgb_hex": "#9370DB",
+          "red": 147,
+          "green": 112,
+          "blue": 219,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "DarkSlateGrey",
+        "color": {
+          "id": 65,
+          "rgb_hex": "#2F4F4F",
+          "red": 47,
+          "green": 79,
+          "blue": 79,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Moccasin",
+        "color": {
+          "id": 66,
+          "rgb_hex": "#FFE4B5",
+          "red": 255,
+          "green": 228,
+          "blue": 181,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Cyan",
+        "color": {
+          "id": 67,
+          "rgb_hex": "#00FFFF",
+          "red": 0,
+          "green": 255,
+          "blue": 255,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "RoyalBlue",
+        "color": {
+          "id": 68,
+          "rgb_hex": "#4169E1",
+          "red": 65,
+          "green": 105,
+          "blue": 225,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Lavender",
+        "color": {
+          "id": 69,
+          "rgb_hex": "#E6E6FA",
+          "red": 230,
+          "green": 230,
+          "blue": 250,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "PaleGoldenRod",
+        "color": {
+          "id": 70,
+          "rgb_hex": "#EEE8AA",
+          "red": 238,
+          "green": 232,
+          "blue": 170,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "DarkRed",
+        "color": {
+          "id": 71,
+          "rgb_hex": "#8B0000",
+          "red": 139,
+          "green": 0,
+          "blue": 0,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "AntiqueWhite",
+        "color": {
+          "id": 72,
+          "rgb_hex": "#FAEBD7",
+          "red": 250,
+          "green": 235,
+          "blue": 215,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Orange",
+        "color": {
+          "id": 73,
+          "rgb_hex": "#FFA500",
+          "red": 255,
+          "green": 165,
+          "blue": 0,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "ForestGreen",
+        "color": {
+          "id": 74,
+          "rgb_hex": "#228B22",
+          "red": 34,
+          "green": 139,
+          "blue": 34,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Red",
+        "color": {
+          "id": 75,
+          "rgb_hex": "#FF0000",
+          "red": 255,
+          "green": 0,
+          "blue": 0,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Salmon",
+        "color": {
+          "id": 76,
+          "rgb_hex": "#FA8072",
+          "red": 250,
+          "green": 128,
+          "blue": 114,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Violet",
+        "color": {
+          "id": 77,
+          "rgb_hex": "#EE82EE",
+          "red": 238,
+          "green": 130,
+          "blue": 238,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "IndianRed",
+        "color": {
+          "id": 78,
+          "rgb_hex": "#CD5C5C",
+          "red": 205,
+          "green": 92,
+          "blue": 92,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "White",
+        "color": {
+          "id": 79,
+          "rgb_hex": "#FFFFFF",
+          "red": 255,
+          "green": 255,
+          "blue": 255,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "LightPink",
+        "color": {
+          "id": 80,
+          "rgb_hex": "#FFB6C1",
+          "red": 255,
+          "green": 182,
+          "blue": 193,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "MediumSeaGreen",
+        "color": {
+          "id": 81,
+          "rgb_hex": "#3CB371",
+          "red": 60,
+          "green": 179,
+          "blue": 113,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "DarkBlue",
+        "color": {
+          "id": 82,
+          "rgb_hex": "#00008B",
+          "red": 0,
+          "green": 0,
+          "blue": 139,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "LightGrey",
+        "color": {
+          "id": 83,
+          "rgb_hex": "#D3D3D3",
+          "red": 211,
+          "green": 211,
+          "blue": 211,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "RosyBrown",
+        "color": {
+          "id": 84,
+          "rgb_hex": "#BC8F8F",
+          "red": 188,
+          "green": 143,
+          "blue": 143,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "OrangeRed",
+        "color": {
+          "id": 85,
+          "rgb_hex": "#FF4500",
+          "red": 255,
+          "green": 69,
+          "blue": 0,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "BlanchedAlmond",
+        "color": {
+          "id": 86,
+          "rgb_hex": "#FFEBCD",
+          "red": 255,
+          "green": 235,
+          "blue": 205,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "HotPink",
+        "color": {
+          "id": 87,
+          "rgb_hex": "#FF69B4",
+          "red": 255,
+          "green": 105,
+          "blue": 180,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "CadetBlue",
+        "color": {
+          "id": 88,
+          "rgb_hex": "#5F9EA0",
+          "red": 95,
+          "green": 158,
+          "blue": 160,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "SteelBlue",
+        "color": {
+          "id": 89,
+          "rgb_hex": "#4682B4",
+          "red": 70,
+          "green": 130,
+          "blue": 180,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Magenta",
+        "color": {
+          "id": 90,
+          "rgb_hex": "#FF00FF",
+          "red": 255,
+          "green": 0,
+          "blue": 255,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "DimGrey",
+        "color": {
+          "id": 91,
+          "rgb_hex": "#696969",
+          "red": 105,
+          "green": 105,
+          "blue": 105,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "PapayaWhip",
+        "color": {
+          "id": 92,
+          "rgb_hex": "#FFEFD5",
+          "red": 255,
+          "green": 239,
+          "blue": 213,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "DarkOrchid",
+        "color": {
+          "id": 93,
+          "rgb_hex": "#9932CC",
+          "red": 153,
+          "green": 50,
+          "blue": 204,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "DeepSkyBlue",
+        "color": {
+          "id": 94,
+          "rgb_hex": "#00BFFF",
+          "red": 0,
+          "green": 191,
+          "blue": 255,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Ivory",
+        "color": {
+          "id": 95,
+          "rgb_hex": "#FFFFF0",
+          "red": 255,
+          "green": 255,
+          "blue": 240,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Navy",
+        "color": {
+          "id": 96,
+          "rgb_hex": "#000080",
+          "red": 0,
+          "green": 0,
+          "blue": 128,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Khaki",
+        "color": {
+          "id": 97,
+          "rgb_hex": "#F0E68C",
+          "red": 240,
+          "green": 230,
+          "blue": 140,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Plum",
+        "color": {
+          "id": 98,
+          "rgb_hex": "#DDA0DD",
+          "red": 221,
+          "green": 160,
+          "blue": 221,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "LightSteelBlue",
+        "color": {
+          "id": 99,
+          "rgb_hex": "#B0C4DE",
+          "red": 176,
+          "green": 196,
+          "blue": 222,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "MediumBlue",
+        "color": {
+          "id": 100,
+          "rgb_hex": "#0000CD",
+          "red": 0,
+          "green": 0,
+          "blue": 205,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "DarkViolet",
+        "color": {
+          "id": 101,
+          "rgb_hex": "#9400D3",
+          "red": 148,
+          "green": 0,
+          "blue": 211,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "MediumSlateBlue",
+        "color": {
+          "id": 102,
+          "rgb_hex": "#7B68EE",
+          "red": 123,
+          "green": 104,
+          "blue": 238,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Aqua",
+        "color": {
+          "id": 103,
+          "rgb_hex": "#00FFFF",
+          "red": 0,
+          "green": 255,
+          "blue": 255,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "CornflowerBlue",
+        "color": {
+          "id": 104,
+          "rgb_hex": "#6495ED",
+          "red": 100,
+          "green": 149,
+          "blue": 237,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "LightYellow",
+        "color": {
+          "id": 105,
+          "rgb_hex": "#FFFFE0",
+          "red": 255,
+          "green": 255,
+          "blue": 224,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Gold",
+        "color": {
+          "id": 106,
+          "rgb_hex": "#FFD700",
+          "red": 255,
+          "green": 215,
+          "blue": 0,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Lime",
+        "color": {
+          "id": 107,
+          "rgb_hex": "#00FF00",
+          "red": 0,
+          "green": 255,
+          "blue": 0,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "DarkGrey",
+        "color": {
+          "id": 108,
+          "rgb_hex": "#A9A9A9",
+          "red": 169,
+          "green": 169,
+          "blue": 169,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Beige",
+        "color": {
+          "id": 109,
+          "rgb_hex": "#F5F5DC",
+          "red": 245,
+          "green": 245,
+          "blue": 220,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "DarkGoldenRod",
+        "color": {
+          "id": 110,
+          "rgb_hex": "#B8860B",
+          "red": 184,
+          "green": 134,
+          "blue": 11,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "RebeccaPurple",
+        "color": {
+          "id": 111,
+          "rgb_hex": "#663399",
+          "red": 102,
+          "green": 51,
+          "blue": 153,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "DarkGreen",
+        "color": {
+          "id": 112,
+          "rgb_hex": "#006400",
+          "red": 0,
+          "green": 100,
+          "blue": 0,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "NavajoWhite",
+        "color": {
+          "id": 113,
+          "rgb_hex": "#FFDEAD",
+          "red": 255,
+          "green": 222,
+          "blue": 173,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "DeepPink",
+        "color": {
+          "id": 114,
+          "rgb_hex": "#FF1493",
+          "red": 255,
+          "green": 20,
+          "blue": 147,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Pink",
+        "color": {
+          "id": 115,
+          "rgb_hex": "#FFC0CB",
+          "red": 255,
+          "green": 192,
+          "blue": 203,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Fuchsia",
+        "color": {
+          "id": 116,
+          "rgb_hex": "#FF00FF",
+          "red": 255,
+          "green": 0,
+          "blue": 255,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "MintCream",
+        "color": {
+          "id": 117,
+          "rgb_hex": "#F5FFFA",
+          "red": 245,
+          "green": 255,
+          "blue": 250,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "LightSalmon",
+        "color": {
+          "id": 118,
+          "rgb_hex": "#FFA07A",
+          "red": 255,
+          "green": 160,
+          "blue": 122,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "DimGray",
+        "color": {
+          "id": 119,
+          "rgb_hex": "#696969",
+          "red": 105,
+          "green": 105,
+          "blue": 105,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "PaleGreen",
+        "color": {
+          "id": 120,
+          "rgb_hex": "#98FB98",
+          "red": 152,
+          "green": 251,
+          "blue": 152,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "LightGray",
+        "color": {
+          "id": 121,
+          "rgb_hex": "#D3D3D3",
+          "red": 211,
+          "green": 211,
+          "blue": 211,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "MediumTurquoise",
+        "color": {
+          "id": 122,
+          "rgb_hex": "#48D1CC",
+          "red": 72,
+          "green": 209,
+          "blue": 204,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "LightSlateGrey",
+        "color": {
+          "id": 123,
+          "rgb_hex": "#778899",
+          "red": 119,
+          "green": 136,
+          "blue": 153,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "DarkMagenta",
+        "color": {
+          "id": 124,
+          "rgb_hex": "#8B008B",
+          "red": 139,
+          "green": 0,
+          "blue": 139,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Azure",
+        "color": {
+          "id": 125,
+          "rgb_hex": "#F0FFFF",
+          "red": 240,
+          "green": 255,
+          "blue": 255,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "SeaShell",
+        "color": {
+          "id": 126,
+          "rgb_hex": "#FFF5EE",
+          "red": 255,
+          "green": 245,
+          "blue": 238,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Blue",
+        "color": {
+          "id": 127,
+          "rgb_hex": "#0000FF",
+          "red": 0,
+          "green": 0,
+          "blue": 255,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "GhostWhite",
+        "color": {
+          "id": 128,
+          "rgb_hex": "#F8F8FF",
+          "red": 248,
+          "green": 248,
+          "blue": 255,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "SandyBrown",
+        "color": {
+          "id": 129,
+          "rgb_hex": "#F4A460",
+          "red": 244,
+          "green": 164,
+          "blue": 96,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Olive",
+        "color": {
+          "id": 130,
+          "rgb_hex": "#808000",
+          "red": 128,
+          "green": 128,
+          "blue": 0,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "DarkTurquoise",
+        "color": {
+          "id": 131,
+          "rgb_hex": "#00CED1",
+          "red": 0,
+          "green": 206,
+          "blue": 209,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "LightBlue",
+        "color": {
+          "id": 132,
+          "rgb_hex": "#ADD8E6",
+          "red": 173,
+          "green": 216,
+          "blue": 230,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Teal",
+        "color": {
+          "id": 133,
+          "rgb_hex": "#008080",
+          "red": 0,
+          "green": 128,
+          "blue": 128,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Tomato",
+        "color": {
+          "id": 134,
+          "rgb_hex": "#FF6347",
+          "red": 255,
+          "green": 99,
+          "blue": 71,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "OliveDrab",
+        "color": {
+          "id": 135,
+          "rgb_hex": "#6B8E23",
+          "red": 107,
+          "green": 142,
+          "blue": 35,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Wheat",
+        "color": {
+          "id": 136,
+          "rgb_hex": "#F5DEB3",
+          "red": 245,
+          "green": 222,
+          "blue": 179,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "LightCyan",
+        "color": {
+          "id": 137,
+          "rgb_hex": "#E0FFFF",
+          "red": 224,
+          "green": 255,
+          "blue": 255,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Maroon",
+        "color": {
+          "id": 138,
+          "rgb_hex": "#800000",
+          "red": 128,
+          "green": 0,
+          "blue": 0,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "DarkCyan",
+        "color": {
+          "id": 139,
+          "rgb_hex": "#008B8B",
+          "red": 0,
+          "green": 139,
+          "blue": 139,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Silver",
+        "color": {
+          "id": 140,
+          "rgb_hex": "#C0C0C0",
+          "red": 192,
+          "green": 192,
+          "blue": 192,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "DarkKhaki",
+        "color": {
+          "id": 141,
+          "rgb_hex": "#BDB76B",
+          "red": 189,
+          "green": 183,
+          "blue": 107,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Yellow",
+        "color": {
+          "id": 142,
+          "rgb_hex": "#FFFF00",
+          "red": 255,
+          "green": 255,
+          "blue": 0,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "LightSlateGray",
+        "color": {
+          "id": 143,
+          "rgb_hex": "#778899",
+          "red": 119,
+          "green": 136,
+          "blue": 153,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Crimson",
+        "color": {
+          "id": 144,
+          "rgb_hex": "#DC143C",
+          "red": 220,
+          "green": 20,
+          "blue": 60,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Purple",
+        "color": {
+          "id": 145,
+          "rgb_hex": "#800080",
+          "red": 128,
+          "green": 0,
+          "blue": 128,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Indigo",
+        "color": {
+          "id": 146,
+          "rgb_hex": "#4B0082",
+          "red": 75,
+          "green": 0,
+          "blue": 130,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "SlateGrey",
+        "color": {
+          "id": 147,
+          "rgb_hex": "#708090",
+          "red": 112,
+          "green": 128,
+          "blue": 144,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "MidnightBlue",
+        "color": {
+          "id": 148,
+          "rgb_hex": "#191970",
+          "red": 25,
+          "green": 25,
+          "blue": 112,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Cornsilk",
+        "color": {
+          "id": 149,
+          "rgb_hex": "#FFF8DC",
+          "red": 255,
+          "green": 248,
+          "blue": 220,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "SlateBlue",
+        "color": {
+          "id": 150,
+          "rgb_hex": "#6A5ACD",
+          "red": 106,
+          "green": 90,
+          "blue": 205,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "AliceBlue",
+        "color": {
+          "id": 151,
+          "rgb_hex": "#F0F8FF",
+          "red": 240,
+          "green": 248,
+          "blue": 255,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "MediumAquaMarine",
+        "color": {
+          "id": 152,
+          "rgb_hex": "#66CDAA",
+          "red": 102,
+          "green": 205,
+          "blue": 170,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "LightGoldenRodYellow",
+        "color": {
+          "id": 153,
+          "rgb_hex": "#FAFAD2",
+          "red": 250,
+          "green": 250,
+          "blue": 210,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "Gainsboro",
+        "color": {
+          "id": 154,
+          "rgb_hex": "#DCDCDC",
+          "red": 220,
+          "green": 220,
+          "blue": 220,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "DarkOliveGreen",
+        "color": {
+          "id": 155,
+          "rgb_hex": "#556B2F",
+          "red": 85,
+          "green": 107,
+          "blue": 47,
+          "builtin": true,
+          "is_default": false
+        }
+      },
+      {
+        "label": "FloralWhite",
+        "color": {
+          "id": 156,
+          "rgb_hex": "#FFFAF0",
+          "red": 255,
+          "green": 250,
+          "blue": 240,
+          "builtin": true,
+          "is_default": false
+        }
+      }
+    ],
+    "palettes": []
+  }
+]

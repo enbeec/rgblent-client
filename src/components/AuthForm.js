@@ -13,7 +13,7 @@ import { AuthContext } from "./AuthProvider.js";
 import { isNobody } from "../utils/auth.js";
 
 export const AuthForm = (props) => {
-  const { doLogin, doLogout, doRegister } = useContext(AuthContext);
+  const { doLogin, doRegister } = useContext(AuthContext);
   const [isLogin, setIsLogin] = useState(true);
   const toggleLogin = () => setIsLogin(!isLogin);
   const [loginState, setLoginState] = useState({
@@ -75,7 +75,7 @@ export const AuthForm = (props) => {
 
   return (
     <>
-      {isNobody() ? (
+      {isNobody() && (
         <AccordionGroup activeAccordionName={isLogin ? "login" : "register"}>
           <Accordion
             heading={<div onClick={toggleLogin}>Login</div>}
@@ -196,8 +196,6 @@ export const AuthForm = (props) => {
             </Card>
           </Accordion>
         </AccordionGroup>
-      ) : (
-        <Button onClick={doLogout}>Logout</Button>
       )}
     </>
   );

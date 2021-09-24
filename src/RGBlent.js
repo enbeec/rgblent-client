@@ -30,10 +30,8 @@ export const RGBlent = (props) => {
             </LeftColumn>
             <RightColumn>
               <Sidebar>
-                <FlexRow>
-                  <NameWindow />
-                  <AuthForm />
-                </FlexRow>
+                <NameWindow />
+                <AuthForm />
                 <Hr />
                 <UserProfile />
                 <Hr />
@@ -46,12 +44,6 @@ export const RGBlent = (props) => {
     </AuthProvider>
   );
 };
-
-const FlexRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
 
 const RightColumn = styled.div`
   display: flex;

@@ -1,6 +1,7 @@
 import React, { useState, createContext, useEffect } from "react";
 import { resToJSON } from "../utils/fetch.js";
 import { tokenKey, isNobody, authToken } from "../utils/auth.js";
+import { authFetch } from "../utils/fetch.js";
 
 export const AuthContext = createContext();
 
@@ -93,9 +94,50 @@ export const AuthProvider = (props) => {
     setProfileOrDefaults("defaults");
   };
 
+  const refreshProfile = () => {
+    setProfileOrDefaults("defaults");
+    setProfileOrDefaults("profile");
+  };
+
+  const [newFavorite, setNewFavorite] = useState(null);
+  const startNewFavorite = (rgb_hex) => {
+    setNewFavorite({ rgb_hex: rgb_hex, name: "" });
+  };
+  const cancelNewFavorite = () => setNewFavorite(null);
+  const finishNewFavorite = () => {
+    if (!newFavorite.name) {
+      return false;
+    }
+    // TODO: address this elsewhere
+    const properlyNamedFavorite = {};
+    properlyNamedFavorite.label = newFavorite.name;
+    properlyNamedFavorite.rgb_hex = newFavorite.rgb_hex;
+    // TODO: link up to helpers
+    return authFetch("/profile/favorite", {
+      headers: { "Content-Type": "application/json" },
+      method: "POST",
+      body: JSON.stringify(properlyNamedFavorite),
+    }).then(() => {
+      setNewFavorite(null);
+      refreshProfile();
+      return true;
+    });
+  };
+
   return (
     <AuthContext.Provider
-      value={{ doLogin, doLogout, doRegister, profile, isLoading }}
+      value={{
+        newFavorite,
+        setNewFavorite,
+        startNewFavorite,
+        finishNewFavorite,
+        cancelNewFavorite,
+        doLogin,
+        doLogout,
+        doRegister,
+        profile,
+        isLoading,
+      }}
     >
       {props.children}
     </AuthContext.Provider>
