@@ -43,8 +43,28 @@ export const ColorProvider = (props) => {
 
   const getPalette = (name) => {
     const path =
-      name === "default" ? "/default/palette" : `/palettes?name=${name}`;
+      name === "default" ? "/default/palette" : `/palette?name=${name}`;
     return authFetch(path).then((res) => res.json());
+  };
+
+  const updatePalette = (paletteData, index, label, rgb_hex) => {};
+
+  const createPalette = (paletteFormState) => {
+    const newPalette = { name: paletteFormState.name };
+    newPalette.colors = paletteFormState.labels.map((label, index) => ({
+      rgb_hex: paletteFormState.colors[index],
+      label: label,
+    }));
+    return authFetch("/palette", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newPalette),
+    })
+      .then((res) => res.status === 200 && res.json())
+      .then((data) => {
+        if (data) setPaletteName(data.name);
+      })
+      .then(() => client.refetchQueries(KEYS.CURRENT_PALETTE));
   };
 
   return (
@@ -55,6 +75,8 @@ export const ColorProvider = (props) => {
         KEYS,
         color,
         setColor,
+        createPalette,
+        updatePalette,
         paletteName,
         setPaletteName,
         getPalette,

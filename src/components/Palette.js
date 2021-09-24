@@ -21,31 +21,24 @@ import { AuthContext } from "./AuthProvider.js";
 
 export const Palette = ({ ...props }) => {
   // importing this forces the Palette to update based on login state
-  const { profile } = useContext(AuthContext); // eslint-disable-line
-  const { paletteName, setPaletteName, color, setColor, getPalette, KEYS } =
-    useContext(ColorContext);
+  const { profile, refreshProfile } = useContext(AuthContext); // eslint-disable-line
+  const {
+    createPalette,
+    paletteName,
+    setPaletteName,
+    color,
+    setColor,
+    getPalette,
+    KEYS,
+  } = useContext(ColorContext);
   // if negative, all clean
   const [dirtyColor, setDirtyColor] = useState(-1);
+  const [dirtyColorLabel, setDirtyColorLabel] = useState(null);
   const [allDirty, setAllDirty] = useState(false);
   const [newPalette, setNewPalette] = useState(null);
   const [colors, setColors] = useState(
     DEFAULT_PALETTE_MINIMAL.colors.map((c) => c.color.rgb_hex)
   );
-
-  const handleSavePalette = () => {
-    const allColorsValid = newPalette.colors.reduce((valid, color) => {
-      if (color.length !== 7) {
-        return false;
-      }
-      return true;
-    }, true);
-
-    if (allColorsValid) {
-      window.alert("Validation Passed");
-    } else {
-      window.alert("Validation Failed");
-    }
-  };
 
   const palette = useQuery(
     [KEYS.CURRENT_PALETTE, paletteName],
@@ -119,7 +112,14 @@ export const Palette = ({ ...props }) => {
           >
             <CardHeader>
               {allDirty ? (
-                <Input placeholder={displayedColor} />
+                <Input
+                  onChange={(e) => {
+                    const copy = { ...newPalette };
+                    newPalette.labels[props.index] = e.target.value;
+                    setNewPalette(copy);
+                  }}
+                  placeholder={displayedColor}
+                />
               ) : paletteColor.color.rgb_hex === displayedColor ? (
                 paletteColor.label
               ) : (
@@ -140,7 +140,7 @@ export const Palette = ({ ...props }) => {
               <FlexRow>
                 <Button
                   id={id}
-                  disabled={isNobody()}
+                  disabled={isNobody() && !allDirty}
                   onClick={editFunc(props.index)}
                 >
                   {colorIsDirty ? "Restore" : "Replace"}
@@ -156,7 +156,7 @@ export const Palette = ({ ...props }) => {
             </CardFooter>
           </Card>
         </Col>
-        {isNobody() && (
+        {isNobody() && !allDirty && (
           <Tooltip
             isOpen={openTooltip === props.index}
             toggle={toggleTooltipFunc(props.index)}
@@ -185,6 +185,30 @@ export const Palette = ({ ...props }) => {
         placeholder="new palette name"
       />
     );
+  };
+
+  const handleSavePalette = () => {
+    const allColorsValid = newPalette.colors.reduce((valid, color) => {
+      if (color.length !== 7) return false;
+      if (color.charAt(0) !== "#") return false;
+      return true && valid;
+    }, true);
+
+    const allLabelsValid = newPalette.labels.reduce((valid, label) => {
+      if (label.length <= 0) return false;
+      return true && valid;
+    }, true);
+
+    const isName = !!newPalette.name;
+
+    if (allColorsValid && allLabelsValid && isName) {
+      //createPalette will do some further transformations
+      createPalette(newPalette).then(() => {
+        setAllDirty(false);
+        setNewPalette(null);
+        refreshProfile();
+      });
+    }
   };
 
   return (
@@ -243,9 +267,7 @@ export const Palette = ({ ...props }) => {
         </FlexRow>
       </FlexRow>
       <Row className="palette__row">
-        {colors.map((color, index) => (
-          <Color key={index} index={index} />
-        ))}
+        {colors.map((color, index) => Color({ key: index, index: index }))}
       </Row>
     </>
   );

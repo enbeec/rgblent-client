@@ -30,6 +30,7 @@ export const NameWindow = (props) => {
           }}
         />
         <Swatch
+          noHover
           style={{ margin: "0.5rem" }}
           size={1}
           color={newFavorite.rgb_hex}

@@ -137,6 +137,7 @@ export const AuthProvider = (props) => {
         doRegister,
         profile,
         isLoading,
+        refreshProfile,
       }}
     >
       {props.children}
