@@ -67,6 +67,19 @@ export const ColorProvider = (props) => {
       .then(() => client.refetchQueries(KEYS.CURRENT_PALETTE));
   };
 
+	const blend = (otherColor) => {
+		return fetch("http://localhost:8000/colorblend", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				color_a: color,
+				color_b: otherColor
+			})
+		}).then((res) => res.json()).then((res) => setColor(res.rgb_hex))
+	}
+
   return (
     <ColorContext.Provider
       value={{
@@ -80,6 +93,7 @@ export const ColorProvider = (props) => {
         paletteName,
         setPaletteName,
         getPalette,
+		blend
       }}
     >
       {props.children}

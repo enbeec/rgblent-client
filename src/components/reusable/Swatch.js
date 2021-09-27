@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled, { css } from "styled-components";
 import { useHover } from "../../hooks/useHover";
+import { AuthContext } from "../AuthProvider.js"
+import { ColorContext } from "../ColorProvider.js"
 import {
   ButtonDropdown,
   DropdownToggle,
@@ -9,6 +11,8 @@ import {
 } from "@bootstrap-styled/v4";
 
 export const Swatch = (props) => {
+  const {startNewFavorite} = useContext(AuthContext);
+  const {blend} = useContext(ColorContext);
   const [dropState, setDropState] = useState(false);
   const [hoverRef, swatchHover] = useHover();
 
@@ -28,8 +32,8 @@ export const Swatch = (props) => {
                 props.dropdownExtras.map((itemProps, index) => (
                   <DropdownItem {...itemProps} key={index} />
                 ))}
-              <DropdownItem>Blend</DropdownItem>
-              <DropdownItem>Favorite</DropdownItem>
+              <DropdownItem onClick={() => blend(props.color)}>Blend</DropdownItem>
+              <DropdownItem onClick={() => startNewFavorite(props.color)}>Favorite</DropdownItem>
             </DropdownMenu>
           </ButtonDropdown>
         )}

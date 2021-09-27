@@ -15,6 +15,7 @@ export const NameWindow = (props) => {
     profile,
     doLogout,
   } = useContext(AuthContext);
+	const { setPaletteName } = useContext(ColorContext);
   return (
     isNobody() ||
     (!!newFavorite ? (
@@ -47,7 +48,10 @@ export const NameWindow = (props) => {
         >
           {profile?.name && profile.name}
         </Card>
-        <Button onClick={doLogout}>Logout</Button>
+        <Button onClick={() => {
+			setPaletteName("default");
+			doLogout();
+		}}>Logout</Button>
       </FlexRow>
     ))
   );
