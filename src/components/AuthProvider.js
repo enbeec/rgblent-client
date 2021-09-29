@@ -30,7 +30,6 @@ export const AuthProvider = (props) => {
   };
 
   const doRegister = (username, password, email, firstName, lastName) => {
-    console.log(password);
     return noAuthFetch("/register", {
       method: "POST",
       headers: {
