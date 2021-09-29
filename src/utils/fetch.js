@@ -16,3 +16,8 @@ export const authFetch = (path, options) => {
 
   return fetch(url, { ...options });
 };
+
+export const STATUS = {
+  // status code 409 literally means "CONFLICT" but in my API it means...
+  ALREADY_EXISTS: 409,
+};

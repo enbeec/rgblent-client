@@ -1,6 +1,6 @@
 import React, { createContext, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "react-query";
-import { authFetch } from "../../utils/fetch.js";
+import { authFetch, STATUS } from "../../utils/fetch.js";
 import { register, logout, login, authToken } from "../../utils/auth.js";
 
 export const AuthContext = createContext();
@@ -71,18 +71,21 @@ export const AuthProvider = (props) => {
       label: event.target.value,
     });
 
-  const STATUS_CONFLICT = 409; //TODO get this into utils
   const endFavorite = () => {
     if (!newFavorite.label) return Promise.reject(new Error("missing name")); // down, Zalgo!
 
     return createFavorite.mutateAsync(newFavorite).then((res) => {
       debugger;
-      if (res.status === STATUS_CONFLICT) {
-        return res.json().then((data) => {
-          throw new Error(
-            `favorite already exists: ${data.label} (${data.color.rgb_hex})`
+      if (res.status === STATUS.ALREADY_EXISTS) {
+        return res
+          .json()
+          .then((data) =>
+            Promise.reject(
+              new Error(
+                `favorite already exists: ${data.label} (${data.color.rgb_hex})`
+              )
+            )
           );
-        });
       } else {
         return res.json().then(() => setNewFavorite(null));
       }

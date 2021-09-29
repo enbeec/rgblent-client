@@ -17,8 +17,6 @@ export const NameWindow = (props) => {
     favoriteIsSubmitting,
   } = useContext(AuthContext);
 
-  const clearFavoriteState = cancelFavorite; // they're the same thing
-
   const [errorMessage, _setErrorMessage] = useState(null);
   const [, , resetErrorTimeout] = useTimeoutFn(() => {
     _setErrorMessage(null);
@@ -33,43 +31,40 @@ export const NameWindow = (props) => {
     isNobody() || (
       <FlexRow>
         {newFavorite ? (
-          favoriteIsSubmitting() ? (
-            <>...submitting...</>
-          ) : (
-            <>
-              <Swatch
-                noHover={true}
-                color={newFavorite.rgb_hex}
-                size={1.7}
-                style={{
-                  marginRight: "0.2rem",
-                  marginTop: "0.5rem",
-                  marginBottom: "0.3rem",
-                }}
-              />
-              <Input
-                placeholder="name this color"
-                id="favorite__input"
-                onChange={updateFavoriteLabel}
-                style={{ marginRight: "0.2rem" }}
-              />
-              <Tooltip target="favorite__input" isOpen={!!errorMessage}>
-                {errorMessage}
-              </Tooltip>
-              <Button
-                size="sm"
-                children="Submit"
-                onClick={() => endFavorite().catch(setErrorMessage)}
-                style={{ marginRight: "0.2rem" }}
-              />
-              <Button
-                size="sm"
-                children="Cancel"
-                onClick={cancelFavorite}
-                style={{ marginRight: "0.2rem" }}
-              />
-            </>
-          )
+          <>
+            <Swatch
+              noHover={true}
+              color={newFavorite.rgb_hex}
+              size={1.7}
+              style={{
+                marginRight: "0.2rem",
+                marginTop: "0.5rem",
+                marginBottom: "0.3rem",
+              }}
+            />
+            <Input
+              placeholder="name this color"
+              id="favorite__input"
+              onChange={updateFavoriteLabel}
+              style={{ marginRight: "0.2rem" }}
+            />
+            <Tooltip target="favorite__input" isOpen={!!errorMessage}>
+              {errorMessage}
+            </Tooltip>
+            <Button
+              size="sm"
+              children="Submit"
+              disabled={favoriteIsSubmitting()}
+              onClick={() => endFavorite().catch(setErrorMessage)}
+              style={{ marginRight: "0.2rem" }}
+            />
+            <Button
+              size="sm"
+              children="Cancel"
+              onClick={cancelFavorite}
+              style={{ marginRight: "0.2rem" }}
+            />
+          </>
         ) : (
           <>
             <Card>
