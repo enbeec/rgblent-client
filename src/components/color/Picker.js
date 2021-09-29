@@ -4,9 +4,12 @@ import "./Picker.css";
 import { H4, Col, Row, Button as BUTTON } from "@bootstrap-styled/v4";
 import { HexColorPicker } from "react-colorful";
 import { ColorContext } from "./ColorProvider.js";
+import { AuthContext } from "../auth/AuthProvider.js";
+import { isNobody } from "../../utils/auth.js";
 
 export const Picker = (props) => {
   const { setColor } = useContext(ColorContext);
+  const { startFavorite } = useContext(AuthContext);
   const [pickerColor, setPickerColor] = useState("#80ff80");
   useContext(ColorContext);
 
@@ -23,7 +26,14 @@ export const Picker = (props) => {
         <H4> {pickerColor}</H4>
         <Row style={{ marginTop: "10%" }}>
           <Button onClick={() => setColor(pickerColor)}>Load This Color</Button>
-          <Button onClick={() => {}}>Favorite this Color</Button>
+          <Button
+            onClick={() => {
+              startFavorite(pickerColor);
+            }}
+            disabled={isNobody()}
+          >
+            Favorite this Color
+          </Button>
         </Row>
       </Col>
     </>

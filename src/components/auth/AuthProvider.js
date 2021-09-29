@@ -8,15 +8,28 @@ export const AuthContext = createContext();
 export const AuthProvider = (props) => {
   const client = useQueryClient();
 
-  const profile = useQuery(["profile", authToken()], () =>
-    authFetch("/profile").then((res) => res.json())
+  const profile = useQuery(
+    ["profile", authToken()],
+    () => {
+      if (!authToken()) return Promise.resolve(null);
+      return authFetch("/profile").then((res) => res.json());
+    },
+    {
+      // profiles are only stale if you mutate them yourself
+      staleTime: Infinity,
+    }
   );
 
-  const defaults = useQuery("defaults", () =>
-    Promise.all([
-      authFetch("/default/colors", { noAuth: true }),
-      authFetch("/default/palette", { noAuth: true }),
-    ]).then((ress) => Promise.all(ress.map((res) => res.json())))
+  const defaults = useQuery(
+    "defaults",
+    () =>
+      Promise.all([
+        authFetch("/default/colors", { noAuth: true }),
+        authFetch("/default/palette", { noAuth: true }),
+      ]).then((ress) => Promise.all(ress.map((res) => res.json()))),
+    {
+      staleTime: Infinity,
+    }
   );
 
   const doRegister = (username, password, email, firstName, lastName) =>
@@ -64,7 +77,18 @@ export const AuthProvider = (props) => {
 
   return (
     <AuthContext.Provider
-      value={{ doLogin, doLogout, doRegister, profile, defaults }}
+      value={{
+        doLogin,
+        doLogout,
+        doRegister,
+        profile,
+        defaults,
+        startFavorite,
+        updateFavoriteLabel,
+        endFavorite,
+        cancelFavorite,
+        newFavorite,
+      }}
     >
       {props.children}
     </AuthContext.Provider>

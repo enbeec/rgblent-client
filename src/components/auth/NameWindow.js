@@ -22,23 +22,25 @@ export const NameWindow = (props) => {
           <>
             <Swatch
               noHover={true}
-              color={newFavorite?.color}
+              color={newFavorite.rgb_hex}
               size={1.5}
               style={{ marginRight: "0.2rem", marginTop: "0.5rem" }}
             />
             <Input
-              placeholder="favorite label"
+              placeholder="name this color"
               onChange={updateFavoriteLabel}
               style={{ marginRight: "0.2rem" }}
             />
             <Button
               size="sm"
               children="Submit"
+              onClick={() => endFavorite()}
               style={{ marginRight: "0.2rem" }}
             />
             <Button
               size="sm"
               children="Cancel"
+              onClick={cancelFavorite}
               style={{ marginRight: "0.2rem" }}
             />
           </>
