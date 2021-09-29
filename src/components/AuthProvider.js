@@ -41,6 +41,7 @@ export const AuthProvider = (props) => {
       .then((data) => {
         if (data.success) {
           localStorage.setItem(tokenKey, data.token);
+          client.refetchQueries("profile");
         }
       });
   };
@@ -59,10 +60,14 @@ export const AuthProvider = (props) => {
         if (data.success) {
           localStorage.setItem(tokenKey, data.token);
         }
-      });
+      })
+      .then(() => client.refetchQueries("profile"));
   };
 
-  const doLogout = () => localStorage.removeItem(tokenKey);
+  const doLogout = () => {
+    localStorage.removeItem(tokenKey);
+    client.refetchQueries("profile");
+  };
 
   return (
     <AuthContext.Provider

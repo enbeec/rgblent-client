@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { Card as CARD, Input, Button } from "@bootstrap-styled/v4";
 import { Swatch } from "./reusable/Swatch.js";
 import { isNobody } from "../utils/auth.js";
+import { AuthContext } from "./AuthProvider.js";
 
 export const NameWindow = (props) => {
+  const { profile, doLogout } = useContext(AuthContext);
   return (
     isNobody() || (
       <FlexRow>
@@ -13,7 +15,7 @@ export const NameWindow = (props) => {
           children="Logout"
           onClick={() => {
             // setPaletteName("default");
-            // doLogout();
+            doLogout();
           }}
         />
       </FlexRow>
