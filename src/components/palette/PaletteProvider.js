@@ -1,7 +1,7 @@
 import React, { createContext, useState } from "react";
 import { useQuery, useQueryClient } from "react-query";
-import { authFetch } from "../utils/fetch.js";
-import { KEYS } from "../utils/query.js";
+import { authFetch } from "../../utils/fetch.js";
+import { KEYS } from "../../utils/query.js";
 
 export const PaletteContext = createContext();
 

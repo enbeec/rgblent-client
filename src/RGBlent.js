@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { Container, Col, Row, Hr } from "@bootstrap-styled/v4";
-import { ColorProvider } from "./components/ColorProvider.js";
-import { PaletteProvider } from "./components/PaletteProvider.js";
 import { AuthProvider } from "./components/AuthProvider.js";
-import { Palette } from "./components/Palette.js";
+import { ColorProvider } from "./components/ColorProvider.js";
+import { PaletteProvider } from "./components/palette/PaletteProvider.js";
+import { Palette } from "./components/palette/Palette.js";
 import { Picker } from "./components/Picker.js";
 import { Detail } from "./components/Detail.js";
 import { AuthForm } from "./components/AuthForm.js";

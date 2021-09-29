@@ -32,12 +32,6 @@ export const ColorProvider = (props) => {
     return authFetch(path, options).then((res) => res.json());
   };
 
-  const getPalette = (name) => {
-    const path =
-      name === "default" ? "/default/palette" : `/palettes?name=${name}`;
-    return authFetch(path, { noAuth: true }).then((res) => res.json());
-  };
-
   return (
     <ColorContext.Provider
       value={{
@@ -46,7 +40,6 @@ export const ColorProvider = (props) => {
         KEYS,
         color,
         setColor,
-        getPalette,
       }}
     >
       {props.children}
