@@ -7,12 +7,13 @@ import {
   Accordion,
   H4,
 } from "@bootstrap-styled/v4";
-import { Swatch } from "./reusable/Swatch.js";
+import { Swatch } from "./Swatch.js";
 import { useQuery } from "react-query";
 import { ColorContext } from "./ColorProvider.js";
+import { KEYS } from "../../utils/query.js";
 
 export const Detail = ({ ...props }) => {
-  const { color, getColorInfo, KEYS } = useContext(ColorContext);
+  const { color, getColorInfo } = useContext(ColorContext);
   const [activeAccordion, setActiveAccordion] = useState("RGB");
   const colorInfo = useQuery(
     [KEYS.CURRENT_COLOR_INFO, color],

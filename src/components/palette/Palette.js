@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useQuery } from "react-query";
 import styled from "styled-components";
-import { Swatch } from "./reusable/Swatch.js";
 import {
   H4,
   Col,
@@ -12,13 +11,17 @@ import {
   CardFooter,
   Tooltip,
 } from "@bootstrap-styled/v4";
-import { ColorContext } from "./ColorProvider.js";
-import { DEFAULT_PALETTE_MINIMAL } from "../utils/color.js";
-import { isNobody } from "../utils/auth.js";
-import { CopyButton } from "./reusable/CopyButton.js";
+import { CopyButton } from "../reusable/CopyButton.js";
+import { Swatch } from "../color/Swatch.js";
+import { ColorContext } from "../color/ColorProvider.js";
+import { PaletteContext } from "./PaletteProvider.js";
+import { isNobody } from "../../utils/auth.js";
+import { DEFAULT_PALETTE_MINIMAL } from "../../utils/color.js";
+import { KEYS } from "../../utils/query.js";
 
 export const Palette = ({ ...props }) => {
-  const { color, setColor, getPalette, KEYS } = useContext(ColorContext);
+  const { color, setColor } = useContext(ColorContext);
+  const { getPalette } = useContext(PaletteContext);
   const [name, setName] = useState("default");
   // if negative, all clean
   const [dirtyColor, setDirtyColor] = useState(-1);
@@ -30,11 +33,9 @@ export const Palette = ({ ...props }) => {
     [KEYS.CURRENT_PALETTE, name],
     () => getPalette(name),
     {
-      onSuccess: () => {
+      onSuccess: (data) => {
         setDirtyColor(-1);
-        setColors(
-          palette.data.colors.map((colorObj) => colorObj.color.rgb_hex)
-        );
+        setColors(data.colors.map((colorObj) => colorObj.color.rgb_hex));
       },
       initialData: DEFAULT_PALETTE_MINIMAL,
       keepPreviousData: true,

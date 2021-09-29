@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { Card as CARD, Input, Button } from "@bootstrap-styled/v4";
-import { Swatch } from "./reusable/Swatch.js";
+import { Swatch } from "./color/Swatch.js";
 import { isNobody } from "../utils/auth.js";
 import { AuthContext } from "./AuthProvider.js";
 
