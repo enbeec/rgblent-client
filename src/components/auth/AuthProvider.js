@@ -71,12 +71,22 @@ export const AuthProvider = (props) => {
       label: event.target.value,
     });
 
+  const STATUS_CONFLICT = 409; //TODO get this into utils
   const endFavorite = () => {
     if (!newFavorite.label) return Promise.reject(new Error("missing name")); // down, Zalgo!
 
-    return createFavorite
-      .mutateAsync(newFavorite)
-      .then(() => setNewFavorite(null));
+    return createFavorite.mutateAsync(newFavorite).then((res) => {
+      debugger;
+      if (res.status === STATUS_CONFLICT) {
+        return res.json().then((data) => {
+          throw new Error(
+            `favorite already exists: ${data.label} (${data.color.rgb_hex})`
+          );
+        });
+      } else {
+        return res.json().then(() => setNewFavorite(null));
+      }
+    });
   };
 
   const favoriteIsSubmitting = () => createFavorite.isLoading;

@@ -17,6 +17,8 @@ export const NameWindow = (props) => {
     favoriteIsSubmitting,
   } = useContext(AuthContext);
 
+  const clearFavoriteState = cancelFavorite; // they're the same thing
+
   const [errorMessage, _setErrorMessage] = useState(null);
   const [, , resetErrorTimeout] = useTimeoutFn(() => {
     _setErrorMessage(null);
