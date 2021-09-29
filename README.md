@@ -16,7 +16,7 @@ There is a demo version of this app available on the branch `vc_demoday` (same s
 - [x] `src/components/AuthForm.js`
   - [x] disappears when logged in
   - [x] no more logout button
-- [x] `src/components/NameWindow.js`
+- [ ] `src/components/NameWindow.js`
   - [x] only displays when logged in
   - [x] contains logout button 
   - [ ] contains user name
