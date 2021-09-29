@@ -6,16 +6,18 @@ import { isNobody } from "../utils/auth.js";
 
 export const NameWindow = (props) => {
   return (
-    <FlexRow>
-      <Card>profile name</Card>
-      <Button
-        children="Logout"
-        onClick={() => {
-          // setPaletteName("default");
-          // doLogout();
-        }}
-      />
-    </FlexRow>
+    isNobody() || (
+      <FlexRow>
+        <Card>profile name</Card>
+        <Button
+          children="Logout"
+          onClick={() => {
+            // setPaletteName("default");
+            // doLogout();
+          }}
+        />
+      </FlexRow>
+    )
   );
 };
 
