@@ -34,7 +34,7 @@ export const NameWindow = (props) => {
             <Button
               size="sm"
               children="Submit"
-              onClick={() => endFavorite()}
+              onClick={endFavorite}
               style={{ marginRight: "0.2rem" }}
             />
             <Button

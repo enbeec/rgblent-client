@@ -53,7 +53,7 @@ export const AuthProvider = (props) => {
         body: JSON.stringify(favoriteObj),
       }),
     {
-      mutationKey: "favorite-create",
+      // mutationKey: "favorite-create",
       onSuccess: () => client.refetchQueries("profile"),
     }
   );
@@ -71,8 +71,10 @@ export const AuthProvider = (props) => {
       label: event.target.value,
     });
   const endFavorite = () => {
-    if (!newFavorite?.name) return false;
-    return createFavorite.mutate(newFavorite).then(() => setNewFavorite(null));
+    if (!newFavorite?.label) return Promise.reject("missing name"); // down, Zalgo!
+    return createFavorite
+      .mutateAsync(newFavorite)
+      .then(() => setNewFavorite(null));
   };
 
   return (
