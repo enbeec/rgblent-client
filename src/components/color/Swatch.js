@@ -13,9 +13,9 @@ export const Swatch = (props) => {
   const [hoverRef, swatchHover] = useHover();
 
   return (
-    props.noHover || (
-      <div ref={hoverRef}>
-        <SWATCH {...props}>
+    <div ref={hoverRef}>
+      <SWATCH {...props}>
+        {props.noHover || (
           <ButtonDropdown
             isOpen={dropState}
             toggle={() => setDropState(!dropState)}
@@ -32,9 +32,9 @@ export const Swatch = (props) => {
               <DropdownItem>Favorite</DropdownItem>
             </DropdownMenu>
           </ButtonDropdown>
-        </SWATCH>
-      </div>
-    )
+        )}
+      </SWATCH>
+    </div>
   );
 };
 

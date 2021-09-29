@@ -16,12 +16,7 @@ export const AuthProvider = (props) => {
     Promise.all([
       authFetch("/default/colors", { noAuth: true }),
       authFetch("/default/palette", { noAuth: true }),
-    ])
-      .then((res) => Promise.all(res))
-      .then((res) => ({
-        colors: res[0],
-        palettes: [res[1]],
-      }))
+    ]).then((ress) => Promise.all(ress.map((res) => res.json())))
   );
 
   const doRegister = (username, password, email, firstName, lastName) =>
@@ -37,6 +32,22 @@ export const AuthProvider = (props) => {
     client.refetchQueries("profile");
   };
 
+  const createFavorite = useMutation(
+    (favoriteObj) =>
+      authFetch("/profile/favorite", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(favoriteObj),
+      }),
+    {
+      mutationKey: "favorite-create",
+      onSuccess: () => client.refetchQueries("profile"),
+    }
+  );
+
+  // while a favorite can be "started" from the Picker or any Swatch,
+  // 	it can only be "finished" in the NameWindow by naming and submitting it
+  // 	hence the "lifecycle" living in the provider
   const [newFavorite, setNewFavorite] = useState(null);
   const cancelFavorite = () => setNewFavorite(null);
   const startFavorite = (color) =>
@@ -46,21 +57,9 @@ export const AuthProvider = (props) => {
       rgb_hex: newFavorite?.rgb_hex,
       label: event.target.value,
     });
-
-  // TODO: useMutation
-
   const endFavorite = () => {
-    // TODO: return a rejected promise and handle failure with split callbacks
-    if (!newFavorite?.label) {
-      return false;
-    }
-
-    const options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newFavorite),
-    };
-    return authFetch("/profile/favorite", options);
+    if (!newFavorite?.name) return false;
+    return createFavorite.mutate(newFavorite).then(() => setNewFavorite(null));
   };
 
   return (

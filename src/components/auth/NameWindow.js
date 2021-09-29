@@ -6,18 +6,56 @@ import { isNobody } from "../../utils/auth.js";
 import { AuthContext } from "./AuthProvider.js";
 
 export const NameWindow = (props) => {
-  const { profile, doLogout } = useContext(AuthContext);
+  const {
+    profile,
+    doLogout,
+    updateFavoriteLabel,
+    newFavorite,
+    endFavorite,
+    cancelFavorite,
+  } = useContext(AuthContext);
+
   return (
     isNobody() || (
       <FlexRow>
-        <Card>profile name</Card>
-        <Button
-          children="Logout"
-          onClick={() => {
-            // setPaletteName("default");
-            doLogout();
-          }}
-        />
+        {newFavorite ? (
+          <>
+            <Swatch
+              noHover={true}
+              color={newFavorite?.color}
+              size={1.5}
+              style={{ marginRight: "0.2rem", marginTop: "0.5rem" }}
+            />
+            <Input
+              placeholder="favorite label"
+              onChange={updateFavoriteLabel}
+              style={{ marginRight: "0.2rem" }}
+            />
+            <Button
+              size="sm"
+              children="Submit"
+              style={{ marginRight: "0.2rem" }}
+            />
+            <Button
+              size="sm"
+              children="Cancel"
+              style={{ marginRight: "0.2rem" }}
+            />
+          </>
+        ) : (
+          <>
+            <Card>
+              {profile.isLoading ? "...loading..." : profile.data?.name}
+            </Card>
+            <Button
+              children="Logout"
+              onClick={() => {
+                // setPaletteName("default");
+                doLogout();
+              }}
+            />
+          </>
+        )}
       </FlexRow>
     )
   );
