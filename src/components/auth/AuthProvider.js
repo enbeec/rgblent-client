@@ -8,10 +8,18 @@ export const AuthContext = createContext();
 export const AuthProvider = (props) => {
   const client = useQueryClient();
 
-  const profile = useQuery(["profile", authToken()], () => {
-    if (!authToken()) return Promise.resolve(null);
-    return authFetch("/profile").then((res) => res.json());
-  });
+  const profile = useQuery(
+    ["profile", authToken()],
+    () => {
+      if (!authToken()) return Promise.resolve(null);
+      return authFetch("/profile").then((res) => res.json());
+    },
+    {
+      // as soon as a user's profile is unloaded, it is released for Garbage Collection
+      // TODO determine if this is "good enough" compared to how other web apps cache user info
+      cacheTime: 0,
+    }
+  );
 
   const defaults = useQuery(
     "defaults",
