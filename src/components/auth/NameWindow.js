@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import { Card as CARD, Input, Button } from "@bootstrap-styled/v4";
+import { Card as CARD, Input, Button, Tooltip } from "@bootstrap-styled/v4";
 import { Swatch } from "../color/Swatch.js";
 import { isNobody } from "../../utils/auth.js";
 import { AuthContext } from "./AuthProvider.js";
+import { useTimeoutFn } from "react-use";
 
 export const NameWindow = (props) => {
   const {
@@ -15,6 +16,16 @@ export const NameWindow = (props) => {
     cancelFavorite,
     favoriteIsSubmitting,
   } = useContext(AuthContext);
+
+  const [errorMessage, _setErrorMessage] = useState(null);
+  const [, , resetErrorTimeout] = useTimeoutFn(() => {
+    _setErrorMessage(null);
+  }, 1200);
+
+  const setErrorMessage = (error) => {
+    _setErrorMessage(error.message);
+    resetErrorTimeout();
+  };
 
   return (
     isNobody() || (
@@ -36,13 +47,17 @@ export const NameWindow = (props) => {
               />
               <Input
                 placeholder="name this color"
+                id="favorite__input"
                 onChange={updateFavoriteLabel}
                 style={{ marginRight: "0.2rem" }}
               />
+              <Tooltip target="favorite__input" isOpen={!!errorMessage}>
+                {errorMessage}
+              </Tooltip>
               <Button
                 size="sm"
                 children="Submit"
-                onClick={() => endFavorite()}
+                onClick={() => endFavorite().catch(setErrorMessage)}
                 style={{ marginRight: "0.2rem" }}
               />
               <Button
