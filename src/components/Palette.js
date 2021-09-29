@@ -13,12 +13,14 @@ import {
   Tooltip,
 } from "@bootstrap-styled/v4";
 import { ColorContext } from "./ColorProvider.js";
+import { PaletteContext } from "./PaletteProvider.js";
 import { DEFAULT_PALETTE_MINIMAL } from "../utils/color.js";
 import { isNobody } from "../utils/auth.js";
 import { CopyButton } from "./reusable/CopyButton.js";
 
 export const Palette = ({ ...props }) => {
-  const { color, setColor, getPalette, KEYS } = useContext(ColorContext);
+  const { color, setColor, KEYS } = useContext(ColorContext);
+  const { getPalette } = useContext(PaletteContext);
   const [name, setName] = useState("default");
   // if negative, all clean
   const [dirtyColor, setDirtyColor] = useState(-1);
