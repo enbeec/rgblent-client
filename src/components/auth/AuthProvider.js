@@ -58,24 +58,42 @@ export const AuthProvider = (props) => {
     }
   );
 
+  // a helper for catching duplicate colors
+  // 	this "works" because react-query helps me keep the cached profile as fresh as possible
+  // 	but may need to be disabled while I write proper error handling between server/client
+
   // while a favorite can be "started" from the Picker or any Swatch,
   // 	it can only be "finished" in the NameWindow by naming and submitting it
   // 	hence the "lifecycle" living in the provider
   const [newFavorite, setNewFavorite] = useState(null);
   const cancelFavorite = () => setNewFavorite(null);
+
   const startFavorite = (color) =>
     setNewFavorite({ rgb_hex: color, label: "" });
+
   const updateFavoriteLabel = (event) =>
     setNewFavorite({
       rgb_hex: newFavorite?.rgb_hex,
       label: event.target.value,
     });
+
   const endFavorite = () => {
-    if (!newFavorite?.label) return Promise.reject("missing name"); // down, Zalgo!
+    if (!newFavorite.label) return Promise.reject("missing name"); // down, Zalgo!
+    const existingFavorite = profile.data.colors.find(
+      (c) =>
+        c.label === newFavorite.label || c.color.rgb_hex === newFavorite.rgb_hex
+    );
+    if (existingFavorite)
+      return Promise.reject(
+        `color exists: ${existingFavorite.label} (${existingFavorite.color.rgb_hex})`
+      );
+
     return createFavorite
       .mutateAsync(newFavorite)
       .then(() => setNewFavorite(null));
   };
+
+  const favoriteIsSubmitting = () => createFavorite.isLoading;
 
   return (
     <AuthContext.Provider
@@ -90,6 +108,7 @@ export const AuthProvider = (props) => {
         endFavorite,
         cancelFavorite,
         newFavorite,
+        favoriteIsSubmitting,
       }}
     >
       {props.children}
