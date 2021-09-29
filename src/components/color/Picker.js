@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
-import "../css/HexColorPicker.css";
+import "./Picker.css";
 import { H4, Col, Row, Button as BUTTON } from "@bootstrap-styled/v4";
 import { HexColorPicker } from "react-colorful";
 import { ColorContext } from "./ColorProvider.js";

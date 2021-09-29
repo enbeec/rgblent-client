@@ -1,8 +1,8 @@
 import React, { createContext, useState } from "react";
 import { useQuery, useQueryClient } from "react-query";
-import { authFetch, noAuthFetch } from "../utils/fetch.js";
-import { isNobody, authToken } from "../utils/auth.js";
-import { KEYS } from "../utils/query.js";
+import { authFetch, noAuthFetch } from "../../utils/fetch.js";
+import { isNobody, authToken } from "../../utils/auth.js";
+import { KEYS } from "../../utils/query.js";
 
 export const ColorContext = createContext();
 
@@ -37,7 +37,6 @@ export const ColorProvider = (props) => {
       value={{
         getColorInfo,
         getDefaultColors,
-        KEYS,
         color,
         setColor,
       }}

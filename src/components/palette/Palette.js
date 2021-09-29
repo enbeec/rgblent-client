@@ -11,12 +11,12 @@ import {
   CardFooter,
   Tooltip,
 } from "@bootstrap-styled/v4";
-import { Swatch } from "../reusable/Swatch.js";
 import { CopyButton } from "../reusable/CopyButton.js";
-import { ColorContext } from "../ColorProvider.js";
+import { Swatch } from "../color/Swatch.js";
+import { ColorContext } from "../color/ColorProvider.js";
 import { PaletteContext } from "./PaletteProvider.js";
-import { DEFAULT_PALETTE_MINIMAL } from "../../utils/color.js";
 import { isNobody } from "../../utils/auth.js";
+import { DEFAULT_PALETTE_MINIMAL } from "../../utils/color.js";
 import { KEYS } from "../../utils/query.js";
 
 export const Palette = ({ ...props }) => {
