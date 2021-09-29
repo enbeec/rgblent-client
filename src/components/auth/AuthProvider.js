@@ -1,7 +1,7 @@
 import React, { createContext } from "react";
 import { useQuery, useQueryClient } from "react-query";
-import { authFetch } from "../utils/fetch.js";
-import { register, logout, login, authToken } from "../utils/auth.js";
+import { authFetch } from "../../utils/fetch.js";
+import { register, logout, login, authToken } from "../../utils/auth.js";
 
 export const AuthContext = createContext();
 
