@@ -1,5 +1,5 @@
-import React, { createContext } from "react";
-import { useQuery, useQueryClient } from "react-query";
+import React, { createContext, useState } from "react";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import { authFetch } from "../../utils/fetch.js";
 import { register, logout, login, authToken } from "../../utils/auth.js";
 
@@ -13,7 +13,10 @@ export const AuthProvider = (props) => {
   );
 
   const defaults = useQuery("defaults", () =>
-    Promise.all([authFetch("/default/colors"), authFetch("/default/palette")])
+    Promise.all([
+      authFetch("/default/colors", { noAuth: true }),
+      authFetch("/default/palette", { noAuth: true }),
+    ])
       .then((res) => Promise.all(res))
       .then((res) => ({
         colors: res[0],
@@ -32,6 +35,32 @@ export const AuthProvider = (props) => {
   const doLogout = () => {
     logout();
     client.refetchQueries("profile");
+  };
+
+  const [newFavorite, setNewFavorite] = useState(null);
+  const cancelFavorite = () => setNewFavorite(null);
+  const startFavorite = (color) =>
+    setNewFavorite({ rgb_hex: color, label: "" });
+  const updateFavoriteLabel = (event) =>
+    setNewFavorite({
+      rgb_hex: newFavorite?.rgb_hex,
+      label: event.target.value,
+    });
+
+  // TODO: useMutation
+
+  const endFavorite = () => {
+    // TODO: return a rejected promise and handle failure with split callbacks
+    if (!newFavorite?.label) {
+      return false;
+    }
+
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newFavorite),
+    };
+    return authFetch("/profile/favorite", options);
   };
 
   return (
