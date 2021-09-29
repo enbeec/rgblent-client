@@ -1,71 +1,36 @@
 import React, { useState, createContext } from "react";
 import { useQuery, useQueryClient } from "react-query";
-import { authFetch, noAuthFetch } from "../utils/fetch.js";
-import { tokenKey, authToken } from "../utils/auth.js";
+import { authFetch } from "../utils/fetch.js";
+import { register, logout, login, authToken } from "../utils/auth.js";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = (props) => {
-  const getProfile = () => authFetch("/profile").then((res) => res.json());
-
   const client = useQueryClient();
 
-  const profile = useQuery(["profile", authToken()], getProfile);
+  const profile = useQuery(["profile", authToken()], () =>
+    authFetch("/profile").then((res) => res.json())
+  );
 
-  const getDefaults = () =>
+  const defaults = useQuery("defaults", () =>
     Promise.all([authFetch("/default/colors"), authFetch("/default/palette")])
       .then((res) => Promise.all(res))
       .then((res) => ({
         colors: res[0],
         palettes: [res[1]],
-      }));
+      }))
+  );
 
-  const defaults = useQuery("defaults", getDefaults);
+  const doRegister = (username, password, email, firstName, lastName) =>
+    register(username, password, email, firstName, lastName).then(() =>
+      client.refetchQueries("profile")
+    );
 
-  const doRegister = (username, password, email, firstName, lastName) => {
-    return noAuthFetch("/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        username: username,
-        password: password,
-        email: email,
-        first_name: firstName,
-        last_name: lastName,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          localStorage.setItem(tokenKey, data.token);
-          client.refetchQueries("profile");
-        }
-      });
-  };
-
-  const doLogin = (username, password) => {
-    return noAuthFetch("/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({ username: username, password: password }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          localStorage.setItem(tokenKey, data.token);
-        }
-      })
-      .then(() => client.refetchQueries("profile"));
-  };
+  const doLogin = (username, password) =>
+    login(username, password).then(() => client.refetchQueries("profile"));
 
   const doLogout = () => {
-    localStorage.removeItem(tokenKey);
+    logout();
     client.refetchQueries("profile");
   };
 
