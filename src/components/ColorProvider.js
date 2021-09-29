@@ -1,7 +1,7 @@
 import React, { createContext, useState } from "react";
 import { useQueryClient } from "react-query";
 import { authFetch, noAuthFetch } from "../utils/fetch.js";
-import { authToken } from "../utils/auth.js";
+import { isNobody, authToken } from "../utils/auth.js";
 
 export const ColorContext = createContext();
 
@@ -22,8 +22,7 @@ export const ColorProvider = (props) => {
 
   const getDefaultColors = () => {
     const path = "/default/colors";
-    if (authToken()) return authFetch(path).then((res) => res.json());
-    return noAuthFetch(path).then((res) => res.json());
+    return authFetch(path, { noAuth: true }).then((res) => res.json());
   };
 
   const getColorInfo = (colorString) => {
@@ -32,16 +31,15 @@ export const ColorProvider = (props) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ rgb_hex: colorString }),
+      noAuth: true,
     };
-    if (authToken()) return authFetch(path, options).then((res) => res.json());
-    return noAuthFetch(path, options).then((res) => res.json());
+    return authFetch(path, options).then((res) => res.json());
   };
 
   const getPalette = (name) => {
     const path =
       name === "default" ? "/default/palette" : `/palettes?name=${name}`;
-    if (authToken()) return authFetch(path).then((res) => res.json());
-    return noAuthFetch(path).then((res) => res.json());
+    return authFetch(path, { noAuth: true }).then((res) => res.json());
   };
 
   return (

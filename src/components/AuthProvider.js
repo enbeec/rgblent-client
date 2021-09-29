@@ -1,92 +1,42 @@
 import React, { useState, createContext } from "react";
 import { useQuery, useQueryClient } from "react-query";
-import { authFetch, noAuthFetch } from "../utils/fetch.js";
-import { tokenKey } from "../utils/auth.js";
+import { authFetch } from "../utils/fetch.js";
+import { register, logout, login, authToken } from "../utils/auth.js";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = (props) => {
-  const [profileOrDefaults, setProfileOrDefaults] = useState("defaults");
-  const getProfileOrDefaults = () => {
-    if (profileOrDefaults === "defaults") {
-      return noAuthFetch("/default/palette").then((res) => ({
-        // this mimics how you would get a palette from a profile
-        palettes: [res],
-      }));
-    } else {
-      return authFetch("/profile").then((res) => res.json());
-    }
-  };
-  const profile = useQuery(
-    ["profileOrDefaults", profileOrDefaults],
-    getProfileOrDefaults,
-    {
-      staleTime: Infinity,
-    }
-  );
   const client = useQueryClient();
-  const profileStale = () => {
-    client.invalidateQueries("getProfileOrDefaults");
-  };
 
-  const doRegister = (username, password, email, firstName, lastName) => {
-    console.log(password);
-    return noAuthFetch("/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        username: username,
-        password: password,
-        email: email,
-        first_name: firstName,
-        last_name: lastName,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          localStorage.setItem(tokenKey, data.token);
-        }
-      })
-      .then(() => {
-        setProfileOrDefaults("profile");
-        profileStale();
-      });
-  };
+  const profile = useQuery(["profile", authToken()], () =>
+    authFetch("/profile").then((res) => res.json())
+  );
 
-  const doLogin = (username, password) => {
-    return noAuthFetch("/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({ username: username, password: password }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          localStorage.setItem(tokenKey, data.token);
-        }
-      })
-      .then(() => {
-        setProfileOrDefaults("profile");
-        profileStale();
-      });
-  };
+  const defaults = useQuery("defaults", () =>
+    Promise.all([authFetch("/default/colors"), authFetch("/default/palette")])
+      .then((res) => Promise.all(res))
+      .then((res) => ({
+        colors: res[0],
+        palettes: [res[1]],
+      }))
+  );
+
+  const doRegister = (username, password, email, firstName, lastName) =>
+    register(username, password, email, firstName, lastName).then(() =>
+      client.refetchQueries("profile")
+    );
+
+  const doLogin = (username, password) =>
+    login(username, password).then(() => client.refetchQueries("profile"));
 
   const doLogout = () => {
-    localStorage.removeItem(tokenKey);
-    setProfileOrDefaults("defaults");
-    profileStale();
+    logout();
+    client.refetchQueries("profile");
   };
 
   return (
     <AuthContext.Provider
-      value={{ doLogin, doLogout, doRegister, profile, profileStale }}
+      value={{ doLogin, doLogout, doRegister, profile, defaults }}
     >
       {props.children}
     </AuthContext.Provider>
