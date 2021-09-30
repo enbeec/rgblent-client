@@ -14,16 +14,14 @@ import {
 import { CopyButton } from "../reusable/CopyButton.js";
 import { Swatch } from "../color/Swatch.js";
 import { ColorContext } from "../color/ColorProvider.js";
-import { PaletteContext } from "./PaletteProvider.js";
 import { isNobody } from "../../utils/auth.js";
 import { DEFAULT_PALETTE_MINIMAL } from "../../utils/color.js";
 import { KEYS } from "../../utils/query.js";
 import { AuthContext } from "../auth/AuthProvider.js";
 
 export const Palette = ({ ...props }) => {
-  useContext(AuthContext); // just here to trigger a re-render on logout
-  const { color, setColor } = useContext(ColorContext);
-  const { getPalette } = useContext(PaletteContext);
+  useContext(AuthContext);
+  const { getPalette, color, setColor } = useContext(ColorContext);
   const [name, setName] = useState("default");
   // if negative, all clean
   const [dirtyColor, setDirtyColor] = useState(-1);

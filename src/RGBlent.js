@@ -4,8 +4,7 @@ import { Container, Col, Row, Hr } from "@bootstrap-styled/v4";
 import { AuthProvider } from "./components/auth/AuthProvider.js";
 import { AuthForm } from "./components/auth/AuthForm.js";
 import { NameWindow } from "./components/auth/NameWindow.js";
-import { PaletteProvider } from "./components/palette/PaletteProvider.js";
-import { Palette } from "./components/palette/Palette.js";
+import { Palette } from "./components/color/Palette.js";
 import { ColorProvider } from "./components/color/ColorProvider.js";
 import { Picker } from "./components/color/Picker.js";
 import { Detail } from "./components/color/Detail.js";
@@ -14,29 +13,27 @@ export const RGBlent = (props) => {
   return (
     <AuthProvider>
       <ColorProvider>
-        <PaletteProvider>
-          <Container>
-            <Row>
-              <LeftColumn>
-                <LeftColumnRow className="picker__row">
-                  <Picker style={{ marginTop: "10%", marginBottom: "0%" }} />
-                </LeftColumnRow>
-                <LeftColumnRow className="detail__row">
-                  <Detail />
-                </LeftColumnRow>
-                {/* Palette renders it's own row */}
-                <Hr />
-                <Palette />
-              </LeftColumn>
-              <RightColumn>
-                <Sidebar>
-                  <AuthForm />
-                  <NameWindow />
-                </Sidebar>
-              </RightColumn>
-            </Row>
-          </Container>
-        </PaletteProvider>
+        <Container>
+          <Row>
+            <LeftColumn>
+              <LeftColumnRow className="picker__row">
+                <Picker style={{ marginTop: "10%", marginBottom: "0%" }} />
+              </LeftColumnRow>
+              <LeftColumnRow className="detail__row">
+                <Detail />
+              </LeftColumnRow>
+              {/* Palette renders it's own row */}
+              <Hr />
+              <Palette />
+            </LeftColumn>
+            <RightColumn>
+              <Sidebar>
+                <AuthForm />
+                <NameWindow />
+              </Sidebar>
+            </RightColumn>
+          </Row>
+        </Container>
       </ColorProvider>
     </AuthProvider>
   );
