@@ -16,24 +16,36 @@ import { Swatch } from "../color/Swatch.js";
 import { isNobody } from "../../utils/auth.js";
 
 export const PaletteCard = ({
+  color,
   label,
   labelIsDirtyFunc,
   colorIsDirtyFunc,
   saveLabelFunc,
   saveColorFunc,
+  getDetailColorFunc, // TODO
+  setDetailColorFunc, // TODO
   ...props
 }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [newColor, setNewColor] = useState(null);
   const [openTooltip, setOpenTooltip] = useState(false);
   const editButtonId = "palette-color__editbutton-" + props.index;
   const labelRef = useRef(null);
 
   const startEditing = () => {
+    setNewColor(null); // just in case something weird happens
     setIsEditing(true);
   };
 
   const finishEditing = () => {
     saveLabelFunc(labelRef.current.value);
+    if (newColor) saveColorFunc(newColor);
+    setNewColor(null);
+    setIsEditing(false);
+  };
+
+  const cancelEditing = () => {
+    setNewColor(null);
     setIsEditing(false);
   };
 
@@ -54,14 +66,13 @@ export const PaletteCard = ({
           </FlexRow>
         </CardHeader>
         <Swatch
-          {...props}
           size={12}
           style={{
             margin: "auto",
             marginTop: "0.5rem",
-            marginBottom: "0.5rem",
+            marginBottom: "0.8rem",
           }}
-          //color={displayedColor}
+          color={!!newColor && isEditing ? newColor : color}
           dropdownExtras={
             [
               //   { children: "View Details", onClick: setDetailColor },
@@ -71,7 +82,7 @@ export const PaletteCard = ({
         />
         <CardFooter>
           <FlexRow>
-            {colorIsDirtyFunc() || labelIsDirtyFunc() ? (
+            {isEditing ? (
               <>
                 <Button>Replace</Button>
                 <Button>Save</Button>
