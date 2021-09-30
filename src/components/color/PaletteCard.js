@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import {
   H4,
@@ -15,15 +15,41 @@ import { CopyButton } from "../reusable/CopyButton.js";
 import { Swatch } from "../color/Swatch.js";
 import { isNobody } from "../../utils/auth.js";
 
-export const PaletteCard = ({ ...props }) => {
+export const PaletteCard = ({
+  label,
+  labelIsDirtyFunc,
+  colorIsDirtyFunc,
+  saveLabelFunc,
+  saveColorFunc,
+  ...props
+}) => {
+  const [isEditing, setIsEditing] = useState(false);
   const [openTooltip, setOpenTooltip] = useState(false);
-  const id = "palette-color-" + props.index;
+  const editButtonId = "palette-color__editbutton-" + props.index;
+  const labelRef = useRef(null);
+
+  const startEditing = () => {
+    setIsEditing(true);
+  };
+
+  const finishEditing = () => {
+    saveLabelFunc(labelRef.current.value);
+    setIsEditing(false);
+  };
+
   return (
     <>
       <Card>
         <CardHeader>
           <FlexRow>
-            <div>%Label%</div>
+            {isEditing ? (
+              <Input defaultValue={label} ref={labelRef} />
+            ) : (
+              <div>
+                {label}
+                {labelIsDirtyFunc() && "*"}
+              </div>
+            )}
             <Badge className="user-select-none" children={"✖"} color="danger" />
           </FlexRow>
         </CardHeader>
@@ -45,28 +71,37 @@ export const PaletteCard = ({ ...props }) => {
         />
         <CardFooter>
           <FlexRow>
-            <Button id={id} disabled={isNobody()}>
-              Edit
-            </Button>
-            <CopyButton
-              id={`palette-color__copy-button-${props.index}`}
-              ButtonComponent={Button}
-            >
-              #hexhex
-            </CopyButton>
+            {colorIsDirtyFunc() || labelIsDirtyFunc() ? (
+              <>
+                <Button>Replace</Button>
+                <Button>Save</Button>
+              </>
+            ) : (
+              <>
+                <Button id={editButtonId} disabled={isNobody()}>
+                  Edit
+                </Button>
+                {isNobody() && (
+                  <Tooltip
+                    isOpen={openTooltip}
+                    toggle={() => setOpenTooltip(!openTooltip)}
+                    target={editButtonId}
+                    placement="top"
+                  >
+                    Login/Register to edit palettes
+                  </Tooltip>
+                )}
+                <CopyButton
+                  id={`palette-color__copy-button-${props.index}`}
+                  ButtonComponent={Button}
+                >
+                  #hexhex
+                </CopyButton>
+              </>
+            )}
           </FlexRow>
         </CardFooter>
       </Card>
-      {isNobody() && (
-        <Tooltip
-          isOpen={openTooltip}
-          toggle={() => setOpenTooltip(!openTooltip)}
-          target={id}
-          placement="top"
-        >
-          Login/Register to edit palettes
-        </Tooltip>
-      )}
     </>
   );
 };

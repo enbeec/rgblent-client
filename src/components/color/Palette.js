@@ -5,7 +5,7 @@ import {
   H4,
   Col,
   Row,
-  Button as BUTTON,
+  Button,
   CardHeader,
   CardFooter,
   Tooltip,
@@ -24,6 +24,7 @@ export const Palette = ({ ...props }) => {
   const { getPalette, color, setColor } = useContext(ColorContext);
   const [name, setName] = useState("default");
 
+  // initial state will be overridden by the query
   const [paletteState, setPaletteState] = useState(DEFAULT_PALETTE);
 
   const paletteQuery = useQuery(
@@ -34,9 +35,11 @@ export const Palette = ({ ...props }) => {
       // 	the name
       // 	the color labels
       // 	the color hex values
+      // 	if we own the palette
       onSuccess: (data) => {
         setPaletteState({
           name: data.name,
+          isMine: data.isMine,
           colors: data.colors.map((c) => ({
             label: c.label,
             color: {
@@ -45,7 +48,6 @@ export const Palette = ({ ...props }) => {
           })),
         });
       },
-      initialData: DEFAULT_PALETTE,
       keepPreviousData: true,
       staleTime: Infinity,
     }
@@ -64,7 +66,7 @@ export const Palette = ({ ...props }) => {
       .filter(Boolean);
 
   const colorsDirty = () => !!dirtyColorIndexes.length;
-  const nameDirty = () => paletteState.name === paletteQuery.data.name;
+  const nameDirty = () => paletteState.name !== paletteQuery.data.name;
 
   // this function returns a callback that I can pass to each PaletteCard
   // 	in this case, it sets the ColorContext state color from the PaletteCard
@@ -75,11 +77,20 @@ export const Palette = ({ ...props }) => {
     setColor(paletteState.colors[index].color.rgb_hex);
 
   // this is the same pattern but the returned callback takes an argument
-  const setSelfCallback = (index) => (rgb_hex) => {
+  const saveColorCallback = (index) => (rgb_hex) => {
     const copy = { ...paletteState };
     copy.colors[index].color.rgb_hex = rgb_hex;
     setPaletteState(copy);
   };
+
+  const saveLabelCallback = (index) => (label) => {
+    const copy = { ...paletteState };
+    copy.colors[index].label = label;
+    setPaletteState(copy);
+  };
+
+  // I usually inline this kind of predicate callback but since PaletteCard takes
+  // 	a lot of props I'll keep defining higher order functions like this
 
   const colorIsDirtyCallback = (index) => () =>
     paletteState.colors[index].label !== paletteQuery.data.colors[index].label;
@@ -89,26 +100,34 @@ export const Palette = ({ ...props }) => {
     paletteQuery.data.colors[index].color.rgb_hex;
 
   return (
-    <>
-      <FlexRow>
-        <H4>
-          {paletteState.name}
+    paletteQuery.isLoading || (
+      <>
+        <FlexRow>
+          <H4>
+            {paletteState.name}
 
-          {false && "test if palette is dirty" && "*"}
-        </H4>
-      </FlexRow>
-      <Row className="palette__row">
-        {paletteState.colors.map((color, index) => (
-          <PaletteCard key={index} index={index} />
-        ))}
-      </Row>
-    </>
+            {(nameDirty() || colorsDirty()) && "*"}
+          </H4>
+          {(nameDirty() || colorsDirty()) && <Button>Save Changes</Button>}
+        </FlexRow>
+        <Row className="palette__row">
+          {paletteState.colors.map((color, index) => (
+            <PaletteCard
+              key={index}
+              index={index}
+              color={color.color.rgb_hex}
+              label={color.label}
+              labelIsDirtyFunc={labelIsDirtyCallback(index)}
+              colorIsDirtyFunc={colorIsDirtyCallback(index)}
+              saveLabelFunc={saveLabelCallback(index)}
+              saveColorFunc={saveColorCallback(index)}
+            />
+          ))}
+        </Row>
+      </>
+    )
   );
 };
-
-const Button = styled(BUTTON)`
-  scale: 0.9;
-`;
 
 const FlexRow = styled.div`
   display: flex;
