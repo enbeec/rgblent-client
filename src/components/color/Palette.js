@@ -40,15 +40,6 @@ export const Palette = ({ ...props }) => {
     }
   );
 
-  const [openTooltip, setOpenTooltip] = useState(-1);
-  const toggleTooltipFunc = (index) => () => {
-    if (openTooltip === index) {
-      setOpenTooltip(-1);
-    } else {
-      setOpenTooltip(index);
-    }
-  };
-
   return (
     <>
       <FlexRow>

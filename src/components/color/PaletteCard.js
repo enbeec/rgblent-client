@@ -55,7 +55,10 @@ export const PaletteCard = ({ setColor, colorArray, palette, ...props }) => {
               <Button id={id} disabled={isNobody()}>
                 Edit
               </Button>
-              <CopyButton id={`palette-color__copy-button-${props.index}`}>
+              <CopyButton
+                id={`palette-color__copy-button-${props.index}`}
+                ButtonComponent={Button}
+              >
                 {displayedColor}
               </CopyButton>
             </FlexRow>
@@ -82,7 +85,9 @@ const Card = styled(CARD)`
 `;
 
 const Button = styled(BUTTON)`
-  scale: 0.9;
+  width: 6rem;
+  margin-right: 0.2rem;
+  margin-left: 0.2rem;
 `;
 
 const FlexRow = styled.div`
