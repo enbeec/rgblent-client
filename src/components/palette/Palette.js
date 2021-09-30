@@ -21,7 +21,7 @@ import { KEYS } from "../../utils/query.js";
 import { AuthContext } from "../auth/AuthProvider.js";
 
 export const Palette = ({ ...props }) => {
-  const {} = useContext(AuthContext); // just here to trigger a re-render on logout
+  useContext(AuthContext); // just here to trigger a re-render on logout
   const { color, setColor } = useContext(ColorContext);
   const { getPalette } = useContext(PaletteContext);
   const [name, setName] = useState("default");
