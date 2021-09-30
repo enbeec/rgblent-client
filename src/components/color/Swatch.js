@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled, { css } from "styled-components";
-import { useHover } from "../../hooks/useHover";
 import {
   ButtonDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
 } from "@bootstrap-styled/v4";
+import { AuthContext } from "../auth/AuthProvider.js";
+import { isNobody } from "../../utils/auth.js";
+import { useHover } from "../../hooks/useHover";
 
 export const Swatch = (props) => {
   const [dropState, setDropState] = useState(false);
   const [hoverRef, swatchHover] = useHover();
+  const { startFavorite } = useContext(AuthContext);
 
   return (
     <div ref={hoverRef}>
@@ -29,7 +32,12 @@ export const Swatch = (props) => {
                   <DropdownItem {...itemProps} key={index} />
                 ))}
               <DropdownItem>Blend</DropdownItem>
-              <DropdownItem>Favorite</DropdownItem>
+              <DropdownItem
+                disabled={isNobody()}
+                onClick={() => startFavorite(props.color)}
+              >
+                Favorite
+              </DropdownItem>
             </DropdownMenu>
           </ButtonDropdown>
         )}
