@@ -53,6 +53,7 @@ const SWATCH = styled.div`
   `}
   margin: auto;
   background-color: ${({ color }) => color};
-  border: 2px inset darkgrey;
   border-radius: 100%;
+  border: 1px solid darkgrey;
+  box-shadow: 0px 2px 2px darkgrey;
 `;
