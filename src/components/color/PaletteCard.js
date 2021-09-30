@@ -29,13 +29,13 @@ export const PaletteCard = ({ ...props }) => {
         </CardHeader>
         <Swatch
           {...props}
-          //color={displayedColor}
           size={12}
           style={{
             margin: "auto",
             marginTop: "0.5rem",
             marginBottom: "0.5rem",
           }}
+          //color={displayedColor}
           dropdownExtras={
             [
               //   { children: "View Details", onClick: setDetailColor },
