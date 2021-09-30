@@ -15,34 +15,33 @@ import { CopyButton } from "../reusable/CopyButton.js";
 import { Swatch } from "../color/Swatch.js";
 import { isNobody } from "../../utils/auth.js";
 
-export const PaletteCard = ({ setColor, colorArray, palette, ...props }) => {
+export const PaletteCard = ({ ...props }) => {
   const [openTooltip, setOpenTooltip] = useState(false);
-  const setDetailColor = () => setColor(colorArray[props.index]);
-  const paletteColor = palette.data?.colors[props.index];
-  const displayedColor = colorArray[props.index];
   const id = "palette-color-" + props.index;
   return (
     <>
       <Card>
         <CardHeader>
           <FlexRow>
-            <div>{paletteColor.label}</div>
+            <div>%Label%</div>
             <Badge className="user-select-none" children={"✖"} color="danger" />
           </FlexRow>
         </CardHeader>
         <Swatch
           {...props}
-          color={displayedColor}
+          //color={displayedColor}
           size={12}
           style={{
             margin: "auto",
             marginTop: "0.5rem",
             marginBottom: "0.5rem",
           }}
-          dropdownExtras={[
-            { children: "View Details", onClick: setDetailColor },
-          ]}
-          onDoubleClick={setDetailColor}
+          dropdownExtras={
+            [
+              //   { children: "View Details", onClick: setDetailColor },
+            ]
+          }
+          //onDoubleClick={setDetailColor}
         />
         <CardFooter>
           <FlexRow>
@@ -53,7 +52,7 @@ export const PaletteCard = ({ setColor, colorArray, palette, ...props }) => {
               id={`palette-color__copy-button-${props.index}`}
               ButtonComponent={Button}
             >
-              {displayedColor}
+              #hexhex
             </CopyButton>
           </FlexRow>
         </CardFooter>
@@ -89,16 +88,16 @@ const Badge = styled(BADGE)`
   font-size: 1rem;
   width: 1.6rem;
   height: 1.6rem;
-  border: 2px solid black;
+  border: 2px solid darkgrey;
   user-select: none;
 
   :hover {
-    box-shadow: -2px 2px 1px darkgrey;
+    box-shadow: -2px 2px 1px lightgrey;
   }
 
   :active {
-    box-shadow: -1px 1px 1px darkgrey;
-    border: 3px solid black;
+    box-shadow: -1px 1px 1px lightgrey;
+    border: 3px solid darkgrey;
   }
 `;
 
