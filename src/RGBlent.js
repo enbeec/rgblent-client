@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import { Container, Col, Row, Hr } from "@bootstrap-styled/v4";
-import { AuthProvider } from "./components/AuthProvider.js";
-import { ColorProvider } from "./components/color/ColorProvider.js";
+import { AuthProvider } from "./components/auth/AuthProvider.js";
+import { AuthForm } from "./components/auth/AuthForm.js";
+import { NameWindow } from "./components/auth/NameWindow.js";
 import { PaletteProvider } from "./components/palette/PaletteProvider.js";
 import { Palette } from "./components/palette/Palette.js";
+import { ColorProvider } from "./components/color/ColorProvider.js";
 import { Picker } from "./components/color/Picker.js";
 import { Detail } from "./components/color/Detail.js";
-import { AuthForm } from "./components/AuthForm.js";
-import { NameWindow } from "./components/NameWindow.js";
 
 export const RGBlent = (props) => {
   return (

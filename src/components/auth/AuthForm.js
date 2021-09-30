@@ -10,7 +10,7 @@ import {
   Card as CARD,
 } from "@bootstrap-styled/v4";
 import { AuthContext } from "./AuthProvider.js";
-import { isNobody } from "../utils/auth.js";
+import { isNobody } from "../../utils/auth.js";
 
 export const AuthForm = (props) => {
   const { doLogin, doLogout, doRegister } = useContext(AuthContext);
