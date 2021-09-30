@@ -6,25 +6,23 @@ import {
   Col,
   Row,
   Button as BUTTON,
-  Card as CARD,
   CardHeader,
   CardFooter,
   Tooltip,
+  Input,
+  Badge,
 } from "@bootstrap-styled/v4";
-import { CopyButton } from "../reusable/CopyButton.js";
-import { Swatch } from "../color/Swatch.js";
 import { ColorContext } from "../color/ColorProvider.js";
 import { isNobody } from "../../utils/auth.js";
 import { DEFAULT_PALETTE_MINIMAL } from "../../utils/color.js";
 import { KEYS } from "../../utils/query.js";
 import { AuthContext } from "../auth/AuthProvider.js";
+import { PaletteCard } from "./PaletteCard.js";
 
 export const Palette = ({ ...props }) => {
   useContext(AuthContext);
   const { getPalette, color, setColor } = useContext(ColorContext);
   const [name, setName] = useState("default");
-  // if negative, all clean
-  const [dirtyColor, setDirtyColor] = useState(-1);
   const [colors, setColors] = useState(
     DEFAULT_PALETTE_MINIMAL.colors.map((c) => c.color.rgb_hex)
   );
@@ -34,7 +32,6 @@ export const Palette = ({ ...props }) => {
     () => getPalette(name),
     {
       onSuccess: (data) => {
-        setDirtyColor(-1);
         setColors(data.colors.map((colorObj) => colorObj.color.rgb_hex));
       },
       initialData: DEFAULT_PALETTE_MINIMAL,
@@ -42,29 +39,6 @@ export const Palette = ({ ...props }) => {
       staleTime: Infinity,
     }
   );
-
-  // only one palette color can be "dirty" at a time
-  const editFunc = (index) => () => {
-    if (isNobody()) return;
-    if (dirtyColor === index) {
-      setDirtyColor(-1);
-      setColors(
-        colors.map(
-          (this_color, this_index) =>
-            palette.data.colors[this_index].color.rgb_hex
-        )
-      );
-    } else {
-      setDirtyColor(index);
-      setColors(
-        colors.map((this_color, this_index) =>
-          index === this_index
-            ? color
-            : palette.data.colors[this_index].color.rgb_hex
-        )
-      );
-    }
-  };
 
   const [openTooltip, setOpenTooltip] = useState(-1);
   const toggleTooltipFunc = (index) => () => {
@@ -75,79 +49,24 @@ export const Palette = ({ ...props }) => {
     }
   };
 
-  const Color = (props) => {
-    const editColor = () => setColor(colors[props.index]);
-    const paletteColor = palette.data?.colors[props.index];
-    const displayedColor = colors[props.index];
-    const colorIsDirty = dirtyColor === props.index;
-    const id = "palette-color-" + props.index;
-    return (
-      <>
-        <Col style={{ margin: "auto", paddingRight: "4%" }}>
-          <Card
-            style={{
-              border: colorIsDirty ? "2px dotted darkgrey" : "",
-            }}
-          >
-            <CardHeader>
-              {paletteColor.color.rgb_hex === displayedColor
-                ? paletteColor.label
-                : displayedColor}
-            </CardHeader>
-            <Swatch
-              {...props}
-              color={displayedColor}
-              size={8}
-              style={{ margin: "8%", display: "inline-block" }}
-              dropdownExtras={[
-                { children: "View Details", onClick: editColor },
-              ]}
-              onDoubleClick={editColor}
-            />
-            <CardFooter>
-              <FlexRow>
-                <Button
-                  id={id}
-                  disabled={isNobody()}
-                  onClick={editFunc(props.index)}
-                >
-                  {colorIsDirty ? "Restore" : "Replace"}
-                </Button>
-                {paletteColor.color.rgb_hex === displayedColor ? (
-                  <CopyButton id={`palette-color__copy-button-${props.index}`}>
-                    {displayedColor}
-                  </CopyButton>
-                ) : (
-                  <Button>Save</Button>
-                )}
-              </FlexRow>
-            </CardFooter>
-          </Card>
-        </Col>
-        {isNobody() && (
-          <Tooltip
-            isOpen={openTooltip === props.index}
-            toggle={toggleTooltipFunc(props.index)}
-            target={id}
-            placement="top"
-          >
-            Login/Register to edit palettes
-          </Tooltip>
-        )}
-      </>
-    );
-  };
-
   return (
     <>
-      <H4>
-        {name}
+      <FlexRow>
+        <H4>
+          {name}
 
-        {dirtyColor >= 0 && "*"}
-      </H4>
+          {false && "test if palette is dirty" && "*"}
+        </H4>
+      </FlexRow>
       <Row className="palette__row">
         {colors.map((color, index) => (
-          <Color key={index} index={index} />
+          <PaletteCard
+            key={index}
+            index={index}
+            setColor={setColor}
+            colorArray={colors}
+            palette={palette}
+          />
         ))}
       </Row>
     </>
@@ -156,10 +75,6 @@ export const Palette = ({ ...props }) => {
 
 const Button = styled(BUTTON)`
   scale: 0.9;
-`;
-
-const Card = styled(CARD)`
-  margin-bottom: 4%;
 `;
 
 const FlexRow = styled.div`
