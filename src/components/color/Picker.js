@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import "./Picker.css";
-import { H4, Col, Row, Button as BUTTON } from "@bootstrap-styled/v4";
+import { H4, Col, Row, Tooltip, Button as BUTTON } from "@bootstrap-styled/v4";
 import { HexColorPicker } from "react-colorful";
 import { ColorContext } from "./ColorProvider.js";
 import { AuthContext } from "../auth/AuthProvider.js";
@@ -11,7 +11,9 @@ export const Picker = (props) => {
   const { setColor } = useContext(ColorContext);
   const { startFavorite } = useContext(AuthContext);
   const [pickerColor, setPickerColor] = useState("#80ff80");
-  useContext(ColorContext);
+
+  const [tooltipOpen, setToolTipOpen] = useState(false);
+  const toggleTooltipOpen = () => setToolTipOpen(!tooltipOpen);
 
   return (
     <>
@@ -31,11 +33,23 @@ export const Picker = (props) => {
               startFavorite(pickerColor);
             }}
             disabled={isNobody()}
+            id="picker__favorite-button"
           >
             Favorite this Color
           </Button>
         </Row>
       </Col>
+      {isNobody() && (
+        <>
+          <Tooltip
+            isOpen={tooltipOpen}
+            toggle={toggleTooltipOpen}
+            target="picker__favorite-button"
+          >
+            Login/Register to favorite colors
+          </Tooltip>
+        </>
+      )}
     </>
   );
 };

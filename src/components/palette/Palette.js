@@ -18,8 +18,10 @@ import { PaletteContext } from "./PaletteProvider.js";
 import { isNobody } from "../../utils/auth.js";
 import { DEFAULT_PALETTE_MINIMAL } from "../../utils/color.js";
 import { KEYS } from "../../utils/query.js";
+import { AuthContext } from "../auth/AuthProvider.js";
 
 export const Palette = ({ ...props }) => {
+  const {} = useContext(AuthContext); // just here to trigger a re-render on logout
   const { color, setColor } = useContext(ColorContext);
   const { getPalette } = useContext(PaletteContext);
   const [name, setName] = useState("default");
@@ -45,6 +47,7 @@ export const Palette = ({ ...props }) => {
 
   // only one palette color can be "dirty" at a time
   const editFunc = (index) => () => {
+    if (isNobody()) return;
     if (dirtyColor === index) {
       setDirtyColor(-1);
       setColors(
