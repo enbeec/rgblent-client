@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import {
   H4,
@@ -28,18 +28,18 @@ export const PaletteCard = ({
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [newColor, setNewColor] = useState(null);
+  const [newLabel, setNewLabel] = useState(null);
   const [openTooltip, setOpenTooltip] = useState(false);
   const editButtonId = "palette-color__editbutton-" + props.index;
-  const labelRef = useRef(null);
 
   const startEditing = () => {
     setNewColor(null); // just in case something weird happens
+    setNewLabel(label);
     setIsEditing(true);
   };
 
   const endEditing = () => {
-    console.info(labelRef.current.value);
-    saveLabelFunc(labelRef.current.value || label);
+    if (newLabel !== label) saveLabelFunc(newLabel);
     if (newColor) saveColorFunc(newColor);
     setNewColor(null);
     setIsEditing(false);
@@ -57,7 +57,10 @@ export const PaletteCard = ({
           <FlexRow>
             {isEditing ? (
               <>
-                <Input defaultValue={label} ref={labelRef} />
+                <Input
+                  defaultValue={newLabel}
+                  onChange={(e) => setNewLabel(e.target.value)}
+                />
                 <Badge
                   className="user-select-none"
                   children={"✖"}
