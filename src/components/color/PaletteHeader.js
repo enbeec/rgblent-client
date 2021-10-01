@@ -45,34 +45,37 @@ export const PaletteHeader = ({
 
   return (
     <FlexRow>
-      {isEditing ? (
-        <Input
-          style={{
-            margin: "0.7rem",
-            marginRight: 0,
-            fontSize: "1.2rem",
-            width: "22%",
-          }}
-          defaultValue={newName}
-          onChange={(e) => setNewName(e.target.value)}
+      <ButtonRow style={{ marginRight: "0.2rem", marginLeft: "1rem" }}>
+        <Button
+          size="sm"
+          color="info"
+          onClick={isEditing ? endEditing : startEditing}
+          children={isEditing ? "Save Name" : "Edit Name"}
         />
+      </ButtonRow>
+      {isEditing ? (
+        <>
+          <Input
+            style={{
+              margin: "0.7rem",
+              marginRight: 0,
+              fontSize: "1.2rem",
+              width: "22%",
+            }}
+            defaultValue={newName}
+            onChange={(e) => setNewName(e.target.value)}
+          />
+        </>
       ) : (
-        <H4>
-          {paletteState.name}
+        <>
+          <H4>
+            {paletteState.name}
 
-          {(nameDirty() || colorsDirty()) && "*"}
-        </H4>
+            {(nameDirty() || colorsDirty()) && "*"}
+          </H4>
+        </>
       )}
       <ButtonRow>
-        {isEditing ? (
-          <Button size="sm" color="info" onClick={endEditing}>
-            Save Name
-          </Button>
-        ) : (
-          <Button size="sm" color="info" onClick={startEditing}>
-            Edit Name
-          </Button>
-        )}
         {(nameDirty() || colorsDirty()) && (
           <>
             <Button size="sm" color="success">
