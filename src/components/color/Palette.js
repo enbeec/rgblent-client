@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 import {
-  H4 as HEADING_4,
   Col,
   Row,
   Button as BUTTON,
@@ -18,6 +17,7 @@ import { DEFAULT_PALETTE } from "../../utils/color.js";
 import { KEYS } from "../../utils/query.js";
 import { AuthContext } from "../auth/AuthProvider.js";
 import { PaletteCard } from "./PaletteCard.js";
+import { PaletteHeader } from "./PaletteHeader.js";
 
 export const Palette = ({ ...props }) => {
   useContext(AuthContext);
@@ -56,20 +56,6 @@ export const Palette = ({ ...props }) => {
     }
   );
 
-  const compareColors = (colorA, colorB) =>
-    colorA.label === colorB.label &&
-    colorA.color.rgb_hex === colorB.color.rgb_hex;
-
-  const nameDirty = () =>
-    paletteQuery?.data ? paletteState.name !== paletteQuery.data.name : false;
-
-  const colorsDirty = () =>
-    paletteQuery?.data
-      ? !!paletteQuery.data.colors.find(
-          (c, i) => !compareColors(c, paletteState.colors[i])
-        )
-      : false;
-
   // these functions return a function
   // they are higher order functions that consume an argument
   // 	and bind it into the returned callback along with anything else in scope
@@ -104,29 +90,15 @@ export const Palette = ({ ...props }) => {
       : false;
 
   return (
+    // TODO: proper loader
     paletteQuery.isLoading || (
       <>
-        <FlexRow>
-          <H4>
-            {paletteState.name}
-
-            {(nameDirty() || colorsDirty()) && "*"}
-          </H4>
-          {(nameDirty() || colorsDirty()) && (
-            <ButtonRow>
-              <Button size="sm" color="success">
-                Save Changes
-              </Button>
-              <Button
-                size="sm"
-                onClick={() => setPaletteWithQueryData(paletteQuery.data)}
-                color="danger"
-              >
-                Reset
-              </Button>
-            </ButtonRow>
-          )}
-        </FlexRow>
+        <PaletteHeader
+          paletteState={paletteState}
+          setPaletteState={setPaletteState}
+          paletteQuery={paletteQuery}
+          setPaletteWithQueryData={setPaletteWithQueryData}
+        />
         <Row className="palette__row">
           {paletteState.colors.map((c, index) => (
             <PaletteCard
@@ -149,23 +121,11 @@ export const Palette = ({ ...props }) => {
   );
 };
 
-const FlexRow = styled.div`
+export const FlexRow = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin-left: 0%;
   margin-right: 0%;
   padding: 0.5rem;
-`;
-
-const H4 = styled(HEADING_4)`
-  margin: 1rem;
-`;
-
-const ButtonRow = styled.div`
-  margin: auto;
-`;
-
-const Button = styled(BUTTON)`
-  margin-right: 0.2rem;
 `;

@@ -11,6 +11,7 @@ import {
   Input,
   Badge as BADGE,
 } from "@bootstrap-styled/v4";
+import { FlexRow } from "./Palette.js";
 import { CopyButton } from "../reusable/CopyButton.js";
 import { Swatch } from "../color/Swatch.js";
 import { isNobody } from "../../utils/auth.js";
@@ -55,7 +56,7 @@ export const PaletteCard = ({
     <>
       <Card>
         <CardHeader>
-          <FlexRow>
+          <FlexRow style={{ padding: 0 }}>
             {isEditing ? (
               <>
                 <Input
@@ -191,12 +192,4 @@ const Badge = styled(BADGE)`
     box-shadow: -1px 1px 1px lightgrey;
     border: 3px solid darkgrey;
   }
-`;
-
-const FlexRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-left: 0%;
-  margin-right: 0%;
 `;
