@@ -29,9 +29,10 @@ export const Palette = ({ ...props }) => {
 
   // paletteState needs to be more minimal so we strip out everything but:
   // 	the name
-  // 	the color labels
-  // 	the color hex values
   // 	if we own the palette
+  // 	the colors
+  // 		their labels
+  // 		their hex values
   const setPaletteWithQueryData = (data) => {
     setPaletteState({
       name: data.name,
@@ -83,9 +84,6 @@ export const Palette = ({ ...props }) => {
     copy.colors[index].label = label;
     setPaletteState(copy);
   };
-
-  // I usually inline this kind of predicate callback but since PaletteCard takes
-  // 	a lot of props I'll keep defining higher order functions like this
 
   const labelIsDirtyCallback = (index) => () =>
     paletteQuery?.data
