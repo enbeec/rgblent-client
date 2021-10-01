@@ -70,6 +70,12 @@ export const Palette = ({ ...props }) => {
         )
       : false;
 
+  // these functions return a function
+  // they are higher order functions that consume an argument
+  // 	and bind it into the returned callback along with anything else in scope
+  // this one is simple:
+  // 	sets the Detail color with one of the paletteState colors
+  // 	which is determined using the index at definition time (of the callback)
   const setDetailColorCallback = (index) => () =>
     setColor(paletteState.colors[index].color.rgb_hex);
 
@@ -108,10 +114,13 @@ export const Palette = ({ ...props }) => {
           </H4>
           {(nameDirty() || colorsDirty()) && (
             <ButtonRow>
-              <Button size="sm">Save Changes</Button>
+              <Button size="sm" color="success">
+                Save Changes
+              </Button>
               <Button
                 size="sm"
                 onClick={() => setPaletteWithQueryData(paletteQuery.data)}
+                color="danger"
               >
                 Reset
               </Button>
