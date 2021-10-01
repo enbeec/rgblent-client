@@ -27,7 +27,12 @@ export const Palette = ({ ...props }) => {
   // initial state will be overridden by the query
   const [paletteState, setPaletteState] = useState(DEFAULT_PALETTE);
 
-  const setPaletteWithQuery = (data) => {
+  // paletteState needs to be more minimal so we strip out everything but:
+  // 	the name
+  // 	the color labels
+  // 	the color hex values
+  // 	if we own the palette
+  const setPaletteWithQueryData = (data) => {
     setPaletteState({
       name: data.name,
       isMine: data.isMine,
@@ -44,12 +49,7 @@ export const Palette = ({ ...props }) => {
     [KEYS.CURRENT_PALETTE, name],
     () => getPalette(name),
     {
-      // paletteState needs to be more minimal so we strip out everything but:
-      // 	the name
-      // 	the color labels
-      // 	the color hex values
-      // 	if we own the palette
-      onSuccess: setPaletteWithQuery,
+      onSuccess: setPaletteWithQueryData,
       keepPreviousData: true,
       staleTime: Infinity,
     }
@@ -59,28 +59,19 @@ export const Palette = ({ ...props }) => {
     colorA.label === colorB.label &&
     colorA.color.rgb_hex === colorB.color.rgb_hex;
 
-  // returns an array of indexes for local state colors that don't match query state
-  const dirtyColorIndexes = () =>
-    paletteState.colors
-      .map((c, index) =>
-        compareColors(c, paletteQuery.colors[index]) ? null : index
-      )
-      .filter(Boolean);
+  const nameDirty = () =>
+    paletteQuery?.data ? paletteState.name !== paletteQuery.data.name : false;
 
-  const nameDirty = () => paletteState.name !== paletteQuery.data.name;
-  // test for the existance of two same-indexed colors that do not compare
   const colorsDirty = () =>
-    !!paletteQuery.data.colors.find(
-      (c, i) => !compareColors(c, paletteState.colors[i])
-    );
+    paletteQuery?.data
+      ? !!paletteQuery.data.colors.find(
+          (c, i) => !compareColors(c, paletteState.colors[i])
+        )
+      : false;
 
-  // this function returns a callback that I can pass to each PaletteCard // 	in this case, it sets the ColorContext state color from the PaletteCard // 	this works because PaletteCard is always synced with paletteState
-  // 	each created callback has the proper index "hardcoded" in
-  // 	and as arrow functions they have access to the scope they were defined in
   const setDetailColorCallback = (index) => () =>
     setColor(paletteState.colors[index].color.rgb_hex);
 
-  // this is the same pattern but the returned callback takes an argument
   const saveColorCallback = (index) => (rgb_hex) => {
     const copy = { ...paletteState };
     copy.colors[index].color.rgb_hex = rgb_hex;
@@ -97,11 +88,16 @@ export const Palette = ({ ...props }) => {
   // 	a lot of props I'll keep defining higher order functions like this
 
   const labelIsDirtyCallback = (index) => () =>
-    paletteState.colors[index].label !== paletteQuery.data.colors[index].label;
+    paletteQuery?.data
+      ? paletteState.colors[index].label !==
+        paletteQuery.data.colors[index].label
+      : false;
 
   const colorIsDirtyCallback = (index) => () =>
-    paletteState.colors[index].color.rgb_hex !==
-    paletteQuery.data.colors[index].color.rgb_hex;
+    paletteQuery?.data
+      ? paletteState.colors[index].color.rgb_hex !==
+        paletteQuery.data.colors[index].color.rgb_hex
+      : false;
 
   return (
     paletteQuery.isLoading || (
@@ -113,7 +109,15 @@ export const Palette = ({ ...props }) => {
             {(nameDirty() || colorsDirty()) && "*"}
           </H4>
           {(nameDirty() || colorsDirty()) && (
-            <Button size="sm">Save Changes</Button>
+            <ButtonRow>
+              <Button size="sm">Save Changes</Button>
+              <Button
+                size="sm"
+                onClick={() => setPaletteWithQueryData(paletteQuery.data)}
+              >
+                Reset
+              </Button>
+            </ButtonRow>
           )}
         </FlexRow>
         <Row className="palette__row">
@@ -151,6 +155,10 @@ const H4 = styled(HEADING_4)`
   margin: 1rem;
 `;
 
-const Button = styled(BUTTON)`
+const ButtonRow = styled.div`
   margin: auto;
+`;
+
+const Button = styled(BUTTON)`
+  margin-right: 0.2rem;
 `;
