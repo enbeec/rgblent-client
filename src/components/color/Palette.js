@@ -2,10 +2,10 @@ import React, { useState, useContext } from "react";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 import {
-  H4,
+  H4 as HEADING_4,
   Col,
   Row,
-  Button,
+  Button as BUTTON,
   CardHeader,
   CardFooter,
   Tooltip,
@@ -27,6 +27,19 @@ export const Palette = ({ ...props }) => {
   // initial state will be overridden by the query
   const [paletteState, setPaletteState] = useState(DEFAULT_PALETTE);
 
+  const setPaletteWithQuery = (data) => {
+    setPaletteState({
+      name: data.name,
+      isMine: data.isMine,
+      colors: data.colors.map((c) => ({
+        label: c.label,
+        color: {
+          rgb_hex: c.color.rgb_hex,
+        },
+      })),
+    });
+  };
+
   const paletteQuery = useQuery(
     [KEYS.CURRENT_PALETTE, name],
     () => getPalette(name),
@@ -36,18 +49,7 @@ export const Palette = ({ ...props }) => {
       // 	the color labels
       // 	the color hex values
       // 	if we own the palette
-      onSuccess: (data) => {
-        setPaletteState({
-          name: data.name,
-          isMine: data.isMine,
-          colors: data.colors.map((c) => ({
-            label: c.label,
-            color: {
-              rgb_hex: c.color.rgb_hex,
-            },
-          })),
-        });
-      },
+      onSuccess: setPaletteWithQuery,
       keepPreviousData: true,
       staleTime: Infinity,
     }
@@ -65,15 +67,17 @@ export const Palette = ({ ...props }) => {
       )
       .filter(Boolean);
 
-  const colorsDirty = () => !!dirtyColorIndexes.length;
   const nameDirty = () => paletteState.name !== paletteQuery.data.name;
+  // test for the existance of two same-indexed colors that do not compare
+  const colorsDirty = () =>
+    !!paletteQuery.data.colors.find(
+      (c, i) => !compareColors(c, paletteState.colors[i])
+    );
 
-  // this function returns a callback that I can pass to each PaletteCard
-  // 	in this case, it sets the ColorContext state color from the PaletteCard
-  // 	this works because PaletteCard is always synced with paletteState
+  // this function returns a callback that I can pass to each PaletteCard // 	in this case, it sets the ColorContext state color from the PaletteCard // 	this works because PaletteCard is always synced with paletteState
   // 	each created callback has the proper index "hardcoded" in
   // 	and as arrow functions they have access to the scope they were defined in
-  const setDetailCallback = (index) => () =>
+  const setDetailColorCallback = (index) => () =>
     setColor(paletteState.colors[index].color.rgb_hex);
 
   // this is the same pattern but the returned callback takes an argument
@@ -92,10 +96,10 @@ export const Palette = ({ ...props }) => {
   // I usually inline this kind of predicate callback but since PaletteCard takes
   // 	a lot of props I'll keep defining higher order functions like this
 
-  const colorIsDirtyCallback = (index) => () =>
+  const labelIsDirtyCallback = (index) => () =>
     paletteState.colors[index].label !== paletteQuery.data.colors[index].label;
 
-  const labelIsDirtyCallback = (index) => () =>
+  const colorIsDirtyCallback = (index) => () =>
     paletteState.colors[index].color.rgb_hex !==
     paletteQuery.data.colors[index].color.rgb_hex;
 
@@ -108,19 +112,24 @@ export const Palette = ({ ...props }) => {
 
             {(nameDirty() || colorsDirty()) && "*"}
           </H4>
-          {(nameDirty() || colorsDirty()) && <Button>Save Changes</Button>}
+          {(nameDirty() || colorsDirty()) && (
+            <Button size="sm">Save Changes</Button>
+          )}
         </FlexRow>
         <Row className="palette__row">
-          {paletteState.colors.map((color, index) => (
+          {paletteState.colors.map((c, index) => (
             <PaletteCard
               key={index}
               index={index}
-              color={color.color.rgb_hex}
-              label={color.label}
+              // this is the main Detail component color from the ColorProvider
+              detailColor={color}
+              color={c.color.rgb_hex}
+              label={c.label}
               labelIsDirtyFunc={labelIsDirtyCallback(index)}
               colorIsDirtyFunc={colorIsDirtyCallback(index)}
               saveLabelFunc={saveLabelCallback(index)}
               saveColorFunc={saveColorCallback(index)}
+              setDetailColorFunc={setDetailColorCallback(index)}
             />
           ))}
         </Row>
@@ -132,6 +141,16 @@ export const Palette = ({ ...props }) => {
 const FlexRow = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   margin-left: 0%;
   margin-right: 0%;
+  padding: 0.5rem;
+`;
+
+const H4 = styled(HEADING_4)`
+  margin: 1rem;
+`;
+
+const Button = styled(BUTTON)`
+  margin: auto;
 `;

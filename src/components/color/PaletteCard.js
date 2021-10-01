@@ -22,8 +22,8 @@ export const PaletteCard = ({
   colorIsDirtyFunc,
   saveLabelFunc,
   saveColorFunc,
-  getDetailColorFunc, // TODO
-  setDetailColorFunc, // TODO
+  detailColor,
+  setDetailColorFunc,
   ...props
 }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -37,8 +37,9 @@ export const PaletteCard = ({
     setIsEditing(true);
   };
 
-  const finishEditing = () => {
-    saveLabelFunc(labelRef.current.value);
+  const endEditing = () => {
+    console.info(labelRef.current.value);
+    saveLabelFunc(labelRef.current.value || label);
     if (newColor) saveColorFunc(newColor);
     setNewColor(null);
     setIsEditing(false);
@@ -55,14 +56,21 @@ export const PaletteCard = ({
         <CardHeader>
           <FlexRow>
             {isEditing ? (
-              <Input defaultValue={label} ref={labelRef} />
+              <>
+                <Input defaultValue={label} ref={labelRef} />
+                <Badge
+                  className="user-select-none"
+                  children={"✖"}
+                  color="danger"
+                  onClick={cancelEditing}
+                />
+              </>
             ) : (
               <div>
                 {label}
-                {labelIsDirtyFunc() && "*"}
+                {(labelIsDirtyFunc() || colorIsDirtyFunc()) && "*"}
               </div>
             )}
-            <Badge className="user-select-none" children={"✖"} color="danger" />
           </FlexRow>
         </CardHeader>
         <Swatch
@@ -73,23 +81,33 @@ export const PaletteCard = ({
             marginBottom: "0.8rem",
           }}
           color={!!newColor && isEditing ? newColor : color}
-          dropdownExtras={
-            [
-              //   { children: "View Details", onClick: setDetailColor },
-            ]
-          }
-          //onDoubleClick={setDetailColor}
+          dropdownExtras={[
+            // DO NOT let them set the detail while editing
+            {
+              children: "View Details",
+              onClick: setDetailColorFunc,
+              disabled: isEditing,
+            },
+          ]}
+          // DO NOT let them set the detail while editing
+          onDoubleClick={isEditing ? () => {} : setDetailColorFunc}
         />
         <CardFooter>
           <FlexRow>
             {isEditing ? (
               <>
-                <Button>Replace</Button>
-                <Button>Save</Button>
+                <Button onClick={() => setNewColor(detailColor)}>
+                  Replace
+                </Button>
+                <Button onClick={endEditing}>Save</Button>
               </>
             ) : (
               <>
-                <Button id={editButtonId} disabled={isNobody()}>
+                <Button
+                  id={editButtonId}
+                  disabled={isNobody()}
+                  onClick={startEditing}
+                >
                   Edit
                 </Button>
                 {isNobody() && (
@@ -106,7 +124,7 @@ export const PaletteCard = ({
                   id={`palette-color__copy-button-${props.index}`}
                   ButtonComponent={Button}
                 >
-                  #hexhex
+                  {color.toUpperCase()}
                 </CopyButton>
               </>
             )}
@@ -120,7 +138,8 @@ export const PaletteCard = ({
 const Card = styled(CARD)`
   margin-bottom: 4%;
   width: 16rem;
-  margin-right: 1rem;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
 `;
 
 const Button = styled(BUTTON)`
