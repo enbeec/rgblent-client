@@ -1,11 +1,12 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import "./Picker.css";
-import { H4, Col, Row, Tooltip, Button as BUTTON } from "@bootstrap-styled/v4";
+import { Col, Row, Tooltip, Button as BUTTON } from "@bootstrap-styled/v4";
 import { HexColorPicker } from "react-colorful";
 import { ColorContext } from "./ColorProvider.js";
 import { AuthContext } from "../auth/AuthProvider.js";
 import { isNobody } from "../../utils/auth.js";
+import { CopyButton } from "../reusable/CopyButton.js";
 
 export const Picker = (props) => {
   const { setColor } = useContext(ColorContext);
@@ -25,7 +26,14 @@ export const Picker = (props) => {
         />
       </Col>
       <Col>
-        <H4> {pickerColor}</H4>
+        <Row>
+          <CopyButton
+            id="picker-rgh_hex__copybutton"
+            tooltipProps={{ placement: "right" }}
+            buttonProps={{ size: "lg" }}
+            children={pickerColor}
+          />
+        </Row>
         <Row style={{ marginTop: "10%" }}>
           <Button onClick={() => setColor(pickerColor)}>Load This Color</Button>
           <Button
