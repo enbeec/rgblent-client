@@ -45,6 +45,11 @@ export const Picker = (props) => {
     setIsEditing(false);
   };
 
+  const cancelEditing = () => {
+    setIsEditing(false);
+    setNewColor(null);
+  };
+
   return (
     <>
       <Col>
@@ -86,7 +91,11 @@ export const Picker = (props) => {
             />
           )}
           <Button
-            style={{ margin: "auto", marginLeft: "1rem" }}
+            style={{
+              margin: "auto",
+              marginLeft: "1rem",
+              marginRight: 0,
+            }}
             size="sm"
             color="info"
             onClick={isEditing ? endEditing : startEditing}
@@ -97,6 +106,15 @@ export const Picker = (props) => {
             }
             children={isEditing ? "Save" : "Edit"}
           />
+          {isEditing && (
+            <Button
+              style={{ margin: "auto", marginLeft: "0.5rem" }}
+              size="sm"
+              color="danger"
+              onClick={cancelEditing}
+              children="Cancel"
+            />
+          )}
         </Row>
         <Row style={{ marginTop: "10%" }}>
           <Button
