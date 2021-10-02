@@ -2,6 +2,7 @@ import React, { createContext, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { authFetch, STATUS } from "../../utils/fetch.js";
 import { register, logout, login, authToken } from "../../utils/auth.js";
+import { KEYS } from "../../utils/query.js";
 
 export const AuthContext = createContext();
 
@@ -9,7 +10,7 @@ export const AuthProvider = (props) => {
   const client = useQueryClient();
 
   const profile = useQuery(
-    ["profile", authToken()],
+    [KEYS.PROFILE, authToken()],
     () => {
       if (!authToken()) return Promise.resolve(null);
       return authFetch("/profile").then((res) => res.json());
@@ -22,7 +23,7 @@ export const AuthProvider = (props) => {
   );
 
   const defaults = useQuery(
-    "defaults",
+    KEYS.DEFAULTS,
     () =>
       Promise.all([
         authFetch("/default/colors", { noAuth: true }),
@@ -35,15 +36,16 @@ export const AuthProvider = (props) => {
 
   const doRegister = (username, password, email, firstName, lastName) =>
     register(username, password, email, firstName, lastName).then(() =>
-      client.refetchQueries("profile")
+      client.refetchQueries(KEYS.PROFILE)
     );
 
   const doLogin = (username, password) =>
-    login(username, password).then(() => client.refetchQueries("profile"));
+    login(username, password).then(() => client.refetchQueries(KEYS.PROFILE));
 
   const doLogout = () => {
     logout();
-    client.refetchQueries("profile");
+    client.refetchQueries(KEYS.PROFILE);
+    client.refetchQueries(KEYS.CURRENT_PALETTE); // this resets the palette
   };
 
   const createFavorite = useMutation(
@@ -55,7 +57,7 @@ export const AuthProvider = (props) => {
       }),
     {
       // mutationKey: "favorite-create",
-      onSuccess: () => client.refetchQueries("profile"),
+      onSuccess: () => client.refetchQueries(KEYS.PROFILE),
     }
   );
 
