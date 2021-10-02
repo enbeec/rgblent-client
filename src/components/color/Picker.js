@@ -23,7 +23,17 @@ export const Picker = (props) => {
   const toggleTooltipOpen = () => setToolTipOpen(!tooltipOpen);
 
   const [isEditing, setIsEditing] = useState(false);
-  const startEditing = () => setIsEditing;
+  const [newColor, setNewColor] = useState(null);
+  const startEditing = () => {
+    setNewColor(pickerColor);
+    setIsEditing(true);
+  };
+
+  const endEditing = () => {
+    setPickerColor(newColor);
+    setNewColor(null);
+    setIsEditing(false);
+  };
 
   return (
     <>
@@ -41,6 +51,9 @@ export const Picker = (props) => {
               size="lg"
               maxLength={7}
               defaultValue={pickerColor}
+              onChange={(e) => setNewColor(e.target.value)}
+              rainbow={true}
+              overrideBackground={newColor !== pickerColor && newColor}
             />
           ) : (
             <CopyButton
@@ -54,8 +67,13 @@ export const Picker = (props) => {
             style={{ margin: "auto", marginLeft: "1rem" }}
             size="sm"
             color="info"
-            onClick={() => setIsEditing(!isEditing)}
-            children="Edit"
+            onClick={isEditing ? endEditing : startEditing}
+            disabled={
+              isEditing
+                ? !newColor.startsWith("#") || newColor.length !== 7
+                : false
+            }
+            children={isEditing ? "Save" : "Edit"}
           />
         </Row>
         <Row style={{ marginTop: "10%" }}>
@@ -154,6 +172,42 @@ const makeAnimation = ({
   ].join(" ")};
 `;
 
+const RainbowBackground = ({ brightLimit = false, alpha = 1 }) => css`
+  background: linear-gradient(
+    124deg,
+    #ff2400,
+    ${brightLimit ? "" : "#e81d1d, #e8b71d, #e3e81d"},
+    #1de840,
+    #1ddde8,
+    #2b1de8,
+    #dd00f3,
+    #dd00f3
+  );
+  background-size: 1800% 1800%;
+  ${makeFrames(
+    "rainbow",
+    css`
+      0% {
+        background-position: 0% 82%;
+      }
+      50% {
+        background-position: 100% 19%;
+      }
+      100% {
+        background-position: 0% 82%;
+      }
+    `
+  )}
+
+  ${makeAnimation({
+    name: "rainbow",
+    direction: "alternate",
+    duration: "18s",
+    easing: "ease",
+    count: "infinite",
+  })}
+`;
+
 const FakeButtonInput = styled(Input)`
   border: 0px;
   border-radius: 5px;
@@ -167,24 +221,11 @@ const FakeButtonInput = styled(Input)`
   font-size: 1.25rem;
   color: #d8d8d8;
   /* https://codepen.io/nohoid/pen/kIfto */
-  background: linear-gradient(
-    124deg,
-    #ff2400,
-    /*#e81d1d,*/ /*#e8b71d,*/ /*#e3e81d, */ #1de840,
-    #1ddde8,
-    #2b1de8,
-    #dd00f3,
-    #dd00f3
-  );
-  background-size: 1800% 1800%;
-  ${makeFrames(
-    "rainbow",
-    `
-	0%{background-position:0% 82%}
-    50%{background-position:100% 19%}
-    100%{background-position:0% 82%}
-  `
-  )}
-
-  ${makeAnimation({ name: "rainbow", duration: "18s", easing: "ease" })}
+  ${RainbowBackground}
+  transition: background-color 0.5s ease;
+  ${(props) =>
+    props.overrideBackground &&
+    css`
+      background: ${props.overrideBackground};
+    `}
 `;
