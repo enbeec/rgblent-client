@@ -3,7 +3,14 @@ import { Button, Tooltip } from "@bootstrap-styled/v4";
 import { useTimeoutFn } from "react-use";
 import { useHover } from "../../hooks/useHover.js";
 
-export const CopyButton = ({ ButtonComponent, id, timeout, ...props }) => {
+export const CopyButton = ({
+  id,
+  timeout,
+  tooltipProps,
+  buttonProps,
+  ButtonComponent,
+  ...props
+}) => {
   const [hoverRef, hoverState] = useHover();
   const [copySuccess, setCopySuccess] = useState(null);
   const [, , tooltipReset] = useTimeoutFn(() => {
@@ -27,6 +34,7 @@ export const CopyButton = ({ ButtonComponent, id, timeout, ...props }) => {
     <>
       <div ref={hoverRef}>
         <ButtonComponent
+          {...buttonProps}
           id={id}
           color="secondary"
           onClick={() => copyToClipboard(props.children)}
@@ -34,10 +42,14 @@ export const CopyButton = ({ ButtonComponent, id, timeout, ...props }) => {
           {props.children}
         </ButtonComponent>
       </div>
-      <Tooltip target={id} isOpen={!!copySuccess}>
+      <Tooltip {...tooltipProps} target={id} isOpen={!!copySuccess}>
         {copySuccess}
       </Tooltip>
-      <Tooltip target={id} isOpen={!copySuccess && hoverState}>
+      <Tooltip
+        {...tooltipProps}
+        target={id}
+        isOpen={!copySuccess && hoverState}
+      >
         Click to copy!
       </Tooltip>
     </>
