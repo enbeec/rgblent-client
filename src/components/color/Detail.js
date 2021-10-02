@@ -11,6 +11,7 @@ import { Swatch } from "./Swatch.js";
 import { useQuery } from "react-query";
 import { ColorContext } from "./ColorProvider.js";
 import { KEYS } from "../../utils/query.js";
+import { CopyButton } from "../reusable/CopyButton.js";
 
 export const Detail = ({ ...props }) => {
   const { color, getColorInfo } = useContext(ColorContext);
