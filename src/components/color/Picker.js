@@ -12,6 +12,15 @@ import { HexColorPicker } from "react-colorful";
 import { ColorContext } from "./ColorProvider.js";
 import { AuthContext } from "../auth/AuthProvider.js";
 import { isNobody } from "../../utils/auth.js";
+import {
+  rgbInts,
+  findL,
+  findRatio,
+  darkText,
+  darkL,
+  lightText,
+  lightL,
+} from "../../utils/color.js";
 import { CopyButton } from "../reusable/CopyButton.js";
 
 export const Picker = (props) => {
@@ -63,6 +72,7 @@ export const Picker = (props) => {
               size="lg"
               maxLength={7}
               defaultValue={pickerColor}
+              // TODO: proper validation
               onChange={(e) => setNewColor(e.target.value)}
               rainbow={true}
               overrideBackground={newColor !== pickerColor && newColor}
@@ -260,29 +270,3 @@ const FakeButtonInput = styled(Input)`
       }};
     `}
 `;
-
-const rgbInts = (rgb_hex) => ({
-  r: parseInt(rgb_hex.slice(1, 3), 16),
-  g: parseInt(rgb_hex.slice(3, 5), 16),
-  b: parseInt(rgb_hex.slice(5, 7), 16),
-});
-
-// https://dev.to/alvaromontoro/building-your-own-color-contrast-checker-4j7o
-const findL = (rgb_hex) => {
-  const { r, g, b } = rgbInts(rgb_hex);
-  var a = [r, g, b].map(function (v) {
-    v /= 255;
-    return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
-  });
-  return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
-};
-
-const findRatio = (L1, L2) => {
-  const [small, big] = [L1, L2].sort((a, b) => a - b);
-  return small + 0.5 / big + 0.5;
-};
-
-const darkText = "#010101";
-const darkL = findL(darkText);
-const lightText = "#fefefe";
-const lightL = findL(lightText);
