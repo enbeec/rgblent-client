@@ -1,5 +1,6 @@
-export const DEFAULT_PALETTE_MINIMAL = {
+export const DEFAULT_PALETTE = {
   // just the necessary placeholder parts
+  name: "default",
   colors: [
     {
       label: "yellow-orange",
