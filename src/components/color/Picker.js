@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import "./Picker.css";
 import {
   Input,
@@ -37,22 +37,9 @@ export const Picker = (props) => {
       <Col>
         <Row>
           {isEditing ? (
-            <Input
+            <FakeButtonInput
               size="lg"
               maxLength={7}
-              style={{
-                borderRadius: "4px",
-                marginLeft: 0,
-                marginRight: 0,
-                //marginTop: "0.8rem",
-                //marginBottom: "0.8rem",
-                width: "7.5rem",
-                paddingRight: "1.2rem",
-                paddingLeft: "1.5rem",
-                paddingTop: "0.6rem",
-                paddingBottom: "0.6rem",
-                fontSize: "1.25rem",
-              }}
               defaultValue={pickerColor}
             />
           ) : (
@@ -102,4 +89,102 @@ export const Picker = (props) => {
 const Button = styled(BUTTON)`
   margin-right: 2%;
   margin-bottom: 2%;
+`;
+
+// TODO look into styled-components keyframes partials
+const makeFrames = (name, keyframesString) => css`
+  @-webkit-keyframes ${name} {
+    ${keyframesString}
+  }
+
+  @-moz-keyframes ${name} {
+    ${keyframesString}
+  }
+
+  @-o-keyframes ${name} {
+    ${keyframesString}
+  }
+
+  @keyframes ${name} {
+    ${keyframesString}
+  }
+`;
+
+const makeAnimation = ({
+  duration = null,
+  easing = null,
+  delay = null,
+  count = null,
+  direction = null,
+  fillMode = null,
+  name = null,
+}) => css`
+	-webkit-animation: ${[duration, easing, delay, count, direction, fillMode, name]
+    .filter(Boolean)
+    .join(" ")};,
+
+	-z-animation: ${[
+    duration,
+    easing,
+    delay,
+    count,
+    direction,
+    fillMode,
+    name,
+  ].join(" ")};
+
+	-o-animation: ${[
+    duration,
+    easing,
+    delay,
+    count,
+    direction,
+    fillMode,
+    name,
+  ].join(" ")};
+
+	animation:        ${[
+    duration,
+    easing,
+    delay,
+    count,
+    direction,
+    fillMode,
+    name,
+  ].join(" ")};
+`;
+
+const FakeButtonInput = styled(Input)`
+  border: 0px;
+  border-radius: 5px;
+  margin-left: 0;
+  margin-right: 0;
+  width: 7.4rem;
+  padding-right: 1.2rem;
+  padding-left: 1.5rem;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+  font-size: 1.25rem;
+  color: #d8d8d8;
+  /* https://codepen.io/nohoid/pen/kIfto */
+  background: linear-gradient(
+    124deg,
+    #ff2400,
+    /*#e81d1d,*/ /*#e8b71d,*/ /*#e3e81d, */ #1de840,
+    #1ddde8,
+    #2b1de8,
+    #dd00f3,
+    #dd00f3
+  );
+  background-size: 1800% 1800%;
+  ${makeFrames(
+    "rainbow",
+    `
+	0%{background-position:0% 82%}
+    50%{background-position:100% 19%}
+    100%{background-position:0% 82%}
+  `
+  )}
+
+  ${makeAnimation({ name: "rainbow", duration: "18s", easing: "ease" })}
 `;
