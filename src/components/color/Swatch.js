@@ -10,7 +10,7 @@ import { AuthContext } from "../auth/AuthProvider.js";
 import { isNobody } from "../../utils/auth.js";
 import { useHover } from "../../hooks/useHover";
 
-export const Swatch = (props) => {
+export const Swatch = ({ sibling, ...props }) => {
   const [dropState, setDropState] = useState(false);
   const [hoverRef, swatchHover] = useHover();
   const { startFavorite } = useContext(AuthContext);
@@ -42,6 +42,7 @@ export const Swatch = (props) => {
           </ButtonDropdown>
         )}
       </SWATCH>
+      {sibling}
     </div>
   );
 };

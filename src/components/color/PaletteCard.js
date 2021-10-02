@@ -11,6 +11,7 @@ import {
   Input,
   Badge as BADGE,
 } from "@bootstrap-styled/v4";
+import { FlexRow } from "./Palette.js";
 import { CopyButton } from "../reusable/CopyButton.js";
 import { Swatch } from "../color/Swatch.js";
 import { isNobody } from "../../utils/auth.js";
@@ -29,8 +30,9 @@ export const PaletteCard = ({
   const [isEditing, setIsEditing] = useState(false);
   const [newColor, setNewColor] = useState(null);
   const [newLabel, setNewLabel] = useState(null);
-  const [openTooltip, setOpenTooltip] = useState(false);
+  const [openTooltip, setOpenTooltip] = useState(null);
   const editButtonId = "palette-color__editbutton-" + props.index;
+  const detailDropdownItemId = "palette-color__detailitem-" + props.index;
 
   const startEditing = () => {
     setNewColor(null); // just in case something weird happens
@@ -54,7 +56,7 @@ export const PaletteCard = ({
     <>
       <Card>
         <CardHeader>
-          <FlexRow>
+          <FlexRow style={{ padding: 0 }}>
             {isEditing ? (
               <>
                 <Input
@@ -90,19 +92,39 @@ export const PaletteCard = ({
               children: "View Details",
               onClick: setDetailColorFunc,
               disabled: isEditing,
+              id: detailDropdownItemId,
             },
           ]}
           // DO NOT let them set the detail while editing
           onDoubleClick={isEditing ? () => {} : setDetailColorFunc}
+          // passing through a Tooltip with my custom DropdownItem
+          sibling={
+            isEditing && (
+              <Tooltip
+                isOpen={openTooltip === detailDropdownItemId}
+                toggle={() =>
+                  setOpenTooltip(
+                    openTooltip === null ? detailDropdownItemId : null
+                  )
+                }
+                target={detailDropdownItemId}
+                placement="right"
+              >
+                Not available while editing.
+              </Tooltip>
+            )
+          }
         />
         <CardFooter>
           <FlexRow>
             {isEditing ? (
               <>
-                <Button onClick={() => setNewColor(detailColor)}>
+                <Button onClick={() => setNewColor(detailColor)} color="info">
                   Replace
                 </Button>
-                <Button onClick={endEditing}>Save</Button>
+                <Button onClick={endEditing} color="success">
+                  Save
+                </Button>
               </>
             ) : (
               <>
@@ -110,13 +132,16 @@ export const PaletteCard = ({
                   id={editButtonId}
                   disabled={isNobody()}
                   onClick={startEditing}
+                  color="info"
                 >
                   Edit
                 </Button>
                 {isNobody() && (
                   <Tooltip
                     isOpen={openTooltip}
-                    toggle={() => setOpenTooltip(!openTooltip)}
+                    toggle={() =>
+                      setOpenTooltip(openTooltip === null ? editButtonId : null)
+                    }
                     target={editButtonId}
                     placement="top"
                   >
@@ -167,12 +192,4 @@ const Badge = styled(BADGE)`
     box-shadow: -1px 1px 1px lightgrey;
     border: 3px solid darkgrey;
   }
-`;
-
-const FlexRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-left: 0%;
-  margin-right: 0%;
 `;
