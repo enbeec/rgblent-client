@@ -40,7 +40,7 @@ export const Picker = (props) => {
       <Col>
         <HexColorPicker
           color={pickerColor}
-          onChange={setPickerColor}
+          onChange={isEditing ? () => {} : setPickerColor}
           {...props}
         />
       </Col>
@@ -176,14 +176,15 @@ const RainbowBackground = ({ brightLimit = false, alpha = 1 }) => css`
   background: linear-gradient(
     124deg,
     #ff2400,
-    ${brightLimit ? "" : "#e81d1d, #e8b71d, #e3e81d"},
-    #1de840,
+    ${brightLimit ? "" : "#e81d1d, #e8b71d, #e3e81d,"} #1de840,
     #1ddde8,
     #2b1de8,
     #dd00f3,
     #dd00f3
   );
+
   background-size: 1800% 1800%;
+
   ${makeFrames(
     "rainbow",
     css`
@@ -219,13 +220,42 @@ const FakeButtonInput = styled(Input)`
   padding-top: 0.6rem;
   padding-bottom: 0.6rem;
   font-size: 1.25rem;
-  color: #d8d8d8;
+  color: #909090;
   /* https://codepen.io/nohoid/pen/kIfto */
-  ${RainbowBackground}
+  ${RainbowBackground({ brightLimit: true })}
   transition: background-color 0.5s ease;
   ${(props) =>
     props.overrideBackground &&
     css`
       background: ${props.overrideBackground};
+      color: ${(props) => {
+        if (props.overrideBackground === "#000000") return lightText;
+        const bgL = findL(props.overrideBackground);
+        const minimumRatio = props.contrastRatio || 7;
+        return findRatio(bgL, findL(darkText)) > minimumRatio
+          ? darkText
+          : lightText;
+      }};
     `}
 `;
+
+const rgbInts = (rgb_hex) => ({
+  r: parseInt(rgb_hex.slice(1, 3), 16),
+  g: parseInt(rgb_hex.slice(3, 5), 16),
+  b: parseInt(rgb_hex.slice(5, 7), 16),
+});
+
+// https://dev.to/alvaromontoro/building-your-own-color-contrast-checker-4j7o
+const findL = (rgb_hex) => {
+  const { r, g, b } = rgbInts(rgb_hex);
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+};
+const findRatio = (L1, L2) => {
+  const [small, big] = [L1, L2].sort((a, b) => a - b);
+  return big + 0.5 / small + 0.5;
+};
+
+const darkText = "#010101";
+const darkL = findL(darkText);
+const lightText = "#fefefe";
+const lightL = findL(lightText);
