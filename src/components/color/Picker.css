@@ -1,5 +1,6 @@
 .react-colorful {
   margin: auto;
   width: auto;
-  /*scale: 1.5;*/
+  border-radius: 8px;
+  box-shadow: 0px 3px 3px darkgrey;
 }
