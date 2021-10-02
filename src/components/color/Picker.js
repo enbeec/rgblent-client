@@ -18,6 +18,7 @@ export const Picker = (props) => {
   const { setColor } = useContext(ColorContext);
   const { startFavorite } = useContext(AuthContext);
   const [pickerColor, setPickerColor] = useState("#80ff80");
+  const [contrastColor, setContrastColor] = useState(darkText);
 
   const [tooltipOpen, setToolTipOpen] = useState(false);
   const toggleTooltipOpen = () => setToolTipOpen(!tooltipOpen);
@@ -40,7 +41,18 @@ export const Picker = (props) => {
       <Col>
         <HexColorPicker
           color={pickerColor}
-          onChange={isEditing ? () => {} : setPickerColor}
+          onChange={
+            isEditing
+              ? () => {}
+              : (color) => {
+                  setPickerColor(color);
+                  setContrastColor(
+                    findRatio(findL(pickerColor), darkL) > 10
+                      ? lightText
+                      : darkText
+                  );
+                }
+          }
           {...props}
         />
       </Col>
@@ -77,13 +89,25 @@ export const Picker = (props) => {
           />
         </Row>
         <Row style={{ marginTop: "10%" }}>
-          <Button onClick={() => setColor(pickerColor)}>Load This Color</Button>
+          <Button
+            onClick={() => setColor(pickerColor)}
+            style={{
+              backgroundColor: pickerColor,
+              color: contrastColor,
+            }}
+          >
+            Load This Color
+          </Button>
           <Button
             onClick={() => {
               startFavorite(pickerColor);
             }}
             disabled={isNobody()}
             id="picker__favorite-button"
+            style={{
+              backgroundColor: pickerColor,
+              color: contrastColor,
+            }}
           >
             Favorite this Color
           </Button>
@@ -232,9 +256,7 @@ const FakeButtonInput = styled(Input)`
         if (props.overrideBackground === "#000000") return lightText;
         const bgL = findL(props.overrideBackground);
         const minimumRatio = props.contrastRatio || 7;
-        return findRatio(bgL, findL(darkText)) > minimumRatio
-          ? darkText
-          : lightText;
+        return findRatio(bgL, darkL) > minimumRatio ? lightText : darkText;
       }};
     `}
 `;
@@ -248,11 +270,16 @@ const rgbInts = (rgb_hex) => ({
 // https://dev.to/alvaromontoro/building-your-own-color-contrast-checker-4j7o
 const findL = (rgb_hex) => {
   const { r, g, b } = rgbInts(rgb_hex);
-  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  var a = [r, g, b].map(function (v) {
+    v /= 255;
+    return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+  });
+  return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
 };
+
 const findRatio = (L1, L2) => {
   const [small, big] = [L1, L2].sort((a, b) => a - b);
-  return big + 0.5 / small + 0.5;
+  return small + 0.5 / big + 0.5;
 };
 
 const darkText = "#010101";
