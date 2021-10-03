@@ -99,3 +99,44 @@ export const RainbowBackground = ({ brightLimit = false, alpha = 1 }) => css`
     count: "infinite",
   })}
 `;
+
+export const RippleBackground = () => css`
+  background: linear-gradient(
+    62deg,
+    #ff2400,
+    /* TODO factor this out as the "ripple color" */ #efefef,
+    #1de840,
+    /* TODO factor this out as the "ripple color" */ #efefef,
+    #1ddde8,
+    /* TODO factor this out as the "ripple color" */ #efefef,
+    #2b1de8,
+    /* TODO factor this out as the "ripple color" */ #efefef,
+    #dd00f3,
+    /* TODO factor this out as the "ripple color" */ #efefef,
+    #dd00f3
+  );
+
+  background-size: 1800% 1800%;
+
+  ${makeFrames(
+    "ripple",
+    css`
+      0% {
+        background-position: 0% 82%;
+      }
+      50% {
+        background-position: 100% 19%;
+      }
+      100% {
+        background-position: 0% 82%;
+      }
+    `
+  )}
+  ${makeAnimation({
+    name: "ripple",
+    direction: "alternate",
+    duration: "18s",
+    easing: "ease",
+    count: "infinite",
+  })}
+`;
