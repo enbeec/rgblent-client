@@ -22,17 +22,18 @@ export const Detail = ({ ...props }) => {
     {
       // since a color's info will never change (even though the queried color will change)
       staleTime: Infinity,
-      keepPreviousData: true,
     }
   );
 
-  const LabelledItem = ({ label, data, separator }) => {
+  const LabelledItem = ({ isFetching, label, data, separator }) => {
     separator = separator || ":";
-    if (!colorInfo.data) {
-      return `...loading ${label}...`;
-    } else {
-      return <ListGroupItem>{`${label}${separator} ${data}`}</ListGroupItem>;
-    }
+    return (
+      <ListGroupItem>
+        {isFetching
+          ? `${label}${separator} ...loading...`
+          : `${label}${separator} ${data}`}
+      </ListGroupItem>
+    );
   };
 
   return (
@@ -72,14 +73,17 @@ export const Detail = ({ ...props }) => {
             <ListGroup>
               <LabelledItem
                 label="Red"
+                isFetching={colorInfo.isFetching}
                 data={colorInfo?.data && colorInfo.data.rgb.rgb_r}
               />
               <LabelledItem
                 label="Green"
+                isFetching={colorInfo.isFetching}
                 data={colorInfo?.data && colorInfo.data.rgb.rgb_g}
               />
               <LabelledItem
                 label="Blue"
+                isFetching={colorInfo.isFetching}
                 data={colorInfo?.data && colorInfo.data.rgb.rgb_b}
               />
             </ListGroup>
@@ -88,6 +92,7 @@ export const Detail = ({ ...props }) => {
             <ListGroup>
               <LabelledItem
                 label="Hue"
+                isFetching={colorInfo.isFetching}
                 data={
                   colorInfo?.data &&
                   parseFloat(colorInfo.data.hsv.hsv_h.toFixed(2))
@@ -95,6 +100,7 @@ export const Detail = ({ ...props }) => {
               />
               <LabelledItem
                 label="Saturation"
+                isFetching={colorInfo.isFetching}
                 data={
                   colorInfo?.data &&
                   parseFloat(colorInfo.data.hsv.hsv_s.toFixed(2))
@@ -102,6 +108,7 @@ export const Detail = ({ ...props }) => {
               />
               <LabelledItem
                 label="Value"
+                isFetching={colorInfo.isFetching}
                 data={
                   colorInfo?.data &&
                   parseFloat(colorInfo.data.hsv.hsv_v.toFixed(2))
@@ -113,6 +120,7 @@ export const Detail = ({ ...props }) => {
             <ListGroup>
               <LabelledItem
                 label="Hue"
+                isFetching={colorInfo.isFetching}
                 data={
                   colorInfo?.data &&
                   parseFloat(colorInfo.data.hsl.hsl_h.toFixed(2))
@@ -120,6 +128,7 @@ export const Detail = ({ ...props }) => {
               />
               <LabelledItem
                 label="Saturation"
+                isFetching={colorInfo.isFetching}
                 data={
                   colorInfo?.data &&
                   parseFloat(colorInfo.data.hsl.hsl_s.toFixed(2))
@@ -127,6 +136,7 @@ export const Detail = ({ ...props }) => {
               />
               <LabelledItem
                 label="Lightness"
+                isFetching={colorInfo.isFetching}
                 data={
                   colorInfo?.data &&
                   parseFloat(colorInfo.data.hsl.hsl_l.toFixed(2))
@@ -138,6 +148,7 @@ export const Detail = ({ ...props }) => {
             <ListGroup>
               <LabelledItem
                 label="L*"
+                isFetching={colorInfo.isFetching}
                 separator=" =>"
                 data={
                   colorInfo?.data &&
@@ -146,6 +157,7 @@ export const Detail = ({ ...props }) => {
               />
               <LabelledItem
                 label="a*"
+                isFetching={colorInfo.isFetching}
                 separator=" =>"
                 data={
                   colorInfo?.data &&
@@ -154,6 +166,7 @@ export const Detail = ({ ...props }) => {
               />
               <LabelledItem
                 label="b*"
+                isFetching={colorInfo.isFetching}
                 separator=" =>"
                 data={
                   colorInfo?.data &&
@@ -166,6 +179,7 @@ export const Detail = ({ ...props }) => {
             <ListGroup>
               <LabelledItem
                 label="X"
+                isFetching={colorInfo.isFetching}
                 separator=" =>"
                 data={
                   colorInfo?.data &&
@@ -174,6 +188,7 @@ export const Detail = ({ ...props }) => {
               />
               <LabelledItem
                 label="Y"
+                isFetching={colorInfo.isFetching}
                 separator=" =>"
                 data={
                   colorInfo?.data &&
@@ -182,6 +197,7 @@ export const Detail = ({ ...props }) => {
               />
               <LabelledItem
                 label="Z"
+                isFetching={colorInfo.isFetching}
                 separator=" =>"
                 data={
                   colorInfo?.data &&
