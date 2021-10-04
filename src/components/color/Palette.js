@@ -92,7 +92,7 @@ export const Palette = ({ ...props }) => {
   return (
     // TODO: proper loader
     paletteQuery.isLoading || (
-      <>
+      <Col md={{ offset: 1 }}>
         <PaletteHeader
           paletteState={paletteState}
           setPaletteState={setPaletteState}
@@ -116,7 +116,7 @@ export const Palette = ({ ...props }) => {
             />
           ))}
         </Row>
-      </>
+      </Col>
     )
   );
 };

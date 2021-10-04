@@ -1,5 +1,6 @@
 import React, { createContext, useState } from "react";
 import { useQuery, useQueryClient } from "react-query";
+import { useStateWithHistory } from "react-use";
 import { authFetch, noAuthFetch } from "../../utils/fetch.js";
 import { isNobody, authToken } from "../../utils/auth.js";
 import { KEYS } from "../../utils/query.js";
@@ -9,7 +10,16 @@ export const ColorContext = createContext();
 export const ColorProvider = (props) => {
   const client = useQueryClient();
 
-  const [color, _setColor] = useState("#80ff80");
+  const [color, _setColor, colorHistory] = useStateWithHistory("#80ff80", 8, [
+    "#80ff80",
+    "#000000",
+    "#ffffff",
+    "#000000",
+    "#ffffff",
+    "#000000",
+    "#ffffff",
+    "#000000",
+  ]);
 
   const setColor = (newState) => {
     _setColor(newState);
@@ -45,6 +55,7 @@ export const ColorProvider = (props) => {
         getDefaultColors,
         color,
         setColor,
+        colorHistory,
         getPalette,
       }}
     >

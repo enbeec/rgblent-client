@@ -10,6 +10,7 @@ import {
 } from "@bootstrap-styled/v4";
 import { HexColorPicker } from "react-colorful";
 import { ColorContext } from "./ColorProvider.js";
+import { ColorHistory } from "./ColorHistory.js";
 import { AuthContext } from "../auth/AuthProvider.js";
 import { isNobody } from "../../utils/auth.js";
 import {
@@ -22,6 +23,7 @@ import {
   lightL,
 } from "../../utils/color.js";
 import { CopyButton } from "../reusable/CopyButton.js";
+import { RainbowBackground } from "../../utils/animation.js";
 
 export const Picker = (props) => {
   const { setColor } = useContext(ColorContext);
@@ -140,6 +142,7 @@ export const Picker = (props) => {
             Favorite this Color
           </Button>
         </Row>
+        <ColorHistory />
       </Col>
       {isNobody() && (
         <>
@@ -159,106 +162,6 @@ export const Picker = (props) => {
 const Button = styled(BUTTON)`
   margin-right: 2%;
   margin-bottom: 2%;
-`;
-
-// TODO look into styled-components keyframes partials
-const makeFrames = (name, keyframesString) => css`
-  @-webkit-keyframes ${name} {
-    ${keyframesString}
-  }
-
-  @-moz-keyframes ${name} {
-    ${keyframesString}
-  }
-
-  @-o-keyframes ${name} {
-    ${keyframesString}
-  }
-
-  @keyframes ${name} {
-    ${keyframesString}
-  }
-`;
-
-const makeAnimation = ({
-  duration = null,
-  easing = null,
-  delay = null,
-  count = null,
-  direction = null,
-  fillMode = null,
-  name = null,
-}) => css`
-	-webkit-animation: ${[duration, easing, delay, count, direction, fillMode, name]
-    .filter(Boolean)
-    .join(" ")};,
-
-	-z-animation: ${[
-    duration,
-    easing,
-    delay,
-    count,
-    direction,
-    fillMode,
-    name,
-  ].join(" ")};
-
-	-o-animation: ${[
-    duration,
-    easing,
-    delay,
-    count,
-    direction,
-    fillMode,
-    name,
-  ].join(" ")};
-
-	animation:        ${[
-    duration,
-    easing,
-    delay,
-    count,
-    direction,
-    fillMode,
-    name,
-  ].join(" ")};
-`;
-
-const RainbowBackground = ({ brightLimit = false, alpha = 1 }) => css`
-  background: linear-gradient(
-    124deg,
-    #ff2400,
-    ${brightLimit ? "" : "#e81d1d, #e8b71d, #e3e81d,"} #1de840,
-    #1ddde8,
-    #2b1de8,
-    #dd00f3,
-    #dd00f3
-  );
-
-  background-size: 1800% 1800%;
-
-  ${makeFrames(
-    "rainbow",
-    css`
-      0% {
-        background-position: 0% 82%;
-      }
-      50% {
-        background-position: 100% 19%;
-      }
-      100% {
-        background-position: 0% 82%;
-      }
-    `
-  )}
-
-  ${makeAnimation({
-    name: "rainbow",
-    direction: "alternate",
-    duration: "18s",
-    easing: "ease",
-    count: "infinite",
-  })}
 `;
 
 const FakeButtonInput = styled(Input)`

@@ -1,10 +1,11 @@
 import React, { useState, useContext } from "react";
+import styled from "styled-components";
 import {
   Col,
   ListGroup,
   ListGroupItem,
   AccordionGroup,
-  Accordion,
+  Accordion as ACCORDION,
   H4,
 } from "@bootstrap-styled/v4";
 import { Swatch } from "./Swatch.js";
@@ -12,6 +13,7 @@ import { useQuery } from "react-query";
 import { ColorContext } from "./ColorProvider.js";
 import { KEYS } from "../../utils/query.js";
 import { CopyButton } from "../reusable/CopyButton.js";
+import { RippleBackground, RainbowBackground } from "../../utils/animation.js";
 
 export const Detail = ({ ...props }) => {
   const { color, getColorInfo } = useContext(ColorContext);
@@ -22,17 +24,18 @@ export const Detail = ({ ...props }) => {
     {
       // since a color's info will never change (even though the queried color will change)
       staleTime: Infinity,
-      keepPreviousData: true,
     }
   );
 
-  const LabelledItem = ({ label, data, separator }) => {
+  const LabelledItem = ({ isFetching, label, data, separator }) => {
     separator = separator || ":";
-    if (!colorInfo.data) {
-      return `...loading ${label}...`;
-    } else {
-      return <ListGroupItem>{`${label}${separator} ${data}`}</ListGroupItem>;
-    }
+    return (
+      <RainbowItem showRainbow={isFetching} whiteText={isFetching}>
+        {isFetching
+          ? `${label}${separator} ...loading...`
+          : `${label}${separator} ${data}`}
+      </RainbowItem>
+    );
   };
 
   return (
@@ -52,8 +55,12 @@ export const Detail = ({ ...props }) => {
           style={{ paddingRight: "8%" }}
         >
           <Accordion
+            showRipple={colorInfo.isFetching}
             heading={
-              <div style={{ display: "flex", flexDirection: "row" }}>
+              <RippleHeader
+                style={{ display: "flex", flexDirection: "row" }}
+                showRipple={colorInfo.isFetching}
+              >
                 <div>RGB</div>
                 {activeAccordion === "RGB" && (
                   <div
@@ -65,29 +72,39 @@ export const Detail = ({ ...props }) => {
                     children={color}
                   />
                 )}
-              </div>
+              </RippleHeader>
             }
             name="RGB"
           >
             <ListGroup>
               <LabelledItem
                 label="Red"
+                isFetching={colorInfo.isFetching}
                 data={colorInfo?.data && colorInfo.data.rgb.rgb_r}
               />
               <LabelledItem
                 label="Green"
+                isFetching={colorInfo.isFetching}
                 data={colorInfo?.data && colorInfo.data.rgb.rgb_g}
               />
               <LabelledItem
                 label="Blue"
+                isFetching={colorInfo.isFetching}
                 data={colorInfo?.data && colorInfo.data.rgb.rgb_b}
               />
             </ListGroup>
           </Accordion>
-          <Accordion heading="HSV" name="HSV">
+          <Accordion
+            showRipple={colorInfo.isFetching}
+            heading={
+              <RippleHeader showRipple={colorInfo.isFetching} children="HSV" />
+            }
+            name="HSV"
+          >
             <ListGroup>
               <LabelledItem
                 label="Hue"
+                isFetching={colorInfo.isFetching}
                 data={
                   colorInfo?.data &&
                   parseFloat(colorInfo.data.hsv.hsv_h.toFixed(2))
@@ -95,6 +112,7 @@ export const Detail = ({ ...props }) => {
               />
               <LabelledItem
                 label="Saturation"
+                isFetching={colorInfo.isFetching}
                 data={
                   colorInfo?.data &&
                   parseFloat(colorInfo.data.hsv.hsv_s.toFixed(2))
@@ -102,6 +120,7 @@ export const Detail = ({ ...props }) => {
               />
               <LabelledItem
                 label="Value"
+                isFetching={colorInfo.isFetching}
                 data={
                   colorInfo?.data &&
                   parseFloat(colorInfo.data.hsv.hsv_v.toFixed(2))
@@ -109,10 +128,17 @@ export const Detail = ({ ...props }) => {
               />
             </ListGroup>
           </Accordion>
-          <Accordion heading="HSL" name="HSL">
+          <Accordion
+            showRipple={colorInfo.isFetching}
+            heading={
+              <RippleHeader showRipple={colorInfo.isFetching} children="HSL" />
+            }
+            name="HSL"
+          >
             <ListGroup>
               <LabelledItem
                 label="Hue"
+                isFetching={colorInfo.isFetching}
                 data={
                   colorInfo?.data &&
                   parseFloat(colorInfo.data.hsl.hsl_h.toFixed(2))
@@ -120,6 +146,7 @@ export const Detail = ({ ...props }) => {
               />
               <LabelledItem
                 label="Saturation"
+                isFetching={colorInfo.isFetching}
                 data={
                   colorInfo?.data &&
                   parseFloat(colorInfo.data.hsl.hsl_s.toFixed(2))
@@ -127,6 +154,7 @@ export const Detail = ({ ...props }) => {
               />
               <LabelledItem
                 label="Lightness"
+                isFetching={colorInfo.isFetching}
                 data={
                   colorInfo?.data &&
                   parseFloat(colorInfo.data.hsl.hsl_l.toFixed(2))
@@ -134,10 +162,20 @@ export const Detail = ({ ...props }) => {
               />
             </ListGroup>
           </Accordion>
-          <Accordion heading="CIELAB" name="LAB">
+          <Accordion
+            showRipple={colorInfo.isFetching}
+            heading={
+              <RippleHeader
+                showRipple={colorInfo.isFetching}
+                children="CIELAB"
+              />
+            }
+            name="LAB"
+          >
             <ListGroup>
               <LabelledItem
                 label="L*"
+                isFetching={colorInfo.isFetching}
                 separator=" =>"
                 data={
                   colorInfo?.data &&
@@ -146,6 +184,7 @@ export const Detail = ({ ...props }) => {
               />
               <LabelledItem
                 label="a*"
+                isFetching={colorInfo.isFetching}
                 separator=" =>"
                 data={
                   colorInfo?.data &&
@@ -154,6 +193,7 @@ export const Detail = ({ ...props }) => {
               />
               <LabelledItem
                 label="b*"
+                isFetching={colorInfo.isFetching}
                 separator=" =>"
                 data={
                   colorInfo?.data &&
@@ -162,10 +202,20 @@ export const Detail = ({ ...props }) => {
               />
             </ListGroup>
           </Accordion>
-          <Accordion heading="CIEXYZ" name="XYZ">
+          <Accordion
+            showRipple={colorInfo.isFetching}
+            heading={
+              <RippleHeader
+                showRipple={colorInfo.isFetching}
+                children="CIEXYZ"
+              />
+            }
+            name="XYZ"
+          >
             <ListGroup>
               <LabelledItem
                 label="X"
+                isFetching={colorInfo.isFetching}
                 separator=" =>"
                 data={
                   colorInfo?.data &&
@@ -174,6 +224,7 @@ export const Detail = ({ ...props }) => {
               />
               <LabelledItem
                 label="Y"
+                isFetching={colorInfo.isFetching}
                 separator=" =>"
                 data={
                   colorInfo?.data &&
@@ -182,6 +233,7 @@ export const Detail = ({ ...props }) => {
               />
               <LabelledItem
                 label="Z"
+                isFetching={colorInfo.isFetching}
                 separator=" =>"
                 data={
                   colorInfo?.data &&
@@ -195,3 +247,19 @@ export const Detail = ({ ...props }) => {
     </>
   );
 };
+
+const RainbowItem = styled(ListGroupItem)`
+  ${({ showRainbow }) =>
+    showRainbow && RainbowBackground({ brightLimit: true })}
+  ${({ whiteText }) => whiteText && `color: #efefef;`}
+`;
+
+const RippleHeader = styled.div`
+  /*${({ showRipple }) => showRipple && RippleBackground()}*/
+`;
+
+const Accordion = styled(ACCORDION)`
+  ${({ showRipple }) => showRipple && RippleBackground()}
+  padding: 0;
+  margin: 0;
+`;

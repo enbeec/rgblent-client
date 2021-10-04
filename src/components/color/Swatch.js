@@ -48,13 +48,13 @@ export const Swatch = ({ sibling, ...props }) => {
 };
 
 const SWATCH = styled.div`
-  ${({ size }) => css`
-    height: ${size}rem;
+  ${({ size, squish }) => css`
+    height: ${size / (squish === "vertical" ? 2 : 1)}rem;
     width: ${size}rem;
   `}
   margin: auto;
   background-color: ${({ color }) => color};
-  border-radius: 100%;
+  border-radius: ${({ squish }) => (squish ? "4%" : "100%")};
   border: 1px solid darkgrey;
   box-shadow: 0px 2px 2px darkgrey;
 `;

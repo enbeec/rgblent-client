@@ -1,8 +1,13 @@
 import React, { createContext, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { authFetch, STATUS } from "../../utils/fetch.js";
-import { register, logout, login, authToken } from "../../utils/auth.js";
 import { KEYS } from "../../utils/query.js";
+import {
+  registerFetch,
+  loginFetch,
+  logout,
+  authToken,
+} from "../../utils/auth.js";
 
 export const AuthContext = createContext();
 
@@ -35,12 +40,12 @@ export const AuthProvider = (props) => {
   );
 
   const doRegister = (username, password, email, firstName, lastName) =>
-    register(username, password, email, firstName, lastName).then(() =>
-      client.refetchQueries(KEYS.PROFILE)
+    registerFetch(username, password, email, firstName, lastName).then(() =>
+      client.refetchQueries("profile")
     );
 
   const doLogin = (username, password) =>
-    login(username, password).then(() => client.refetchQueries(KEYS.PROFILE));
+    loginFetch(username, password).then(() => client.refetchQueries("profile"));
 
   const doLogout = () => {
     logout();
