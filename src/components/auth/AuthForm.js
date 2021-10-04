@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import {
-  Accordion,
+  Accordion as ACCORDION,
   AccordionGroup,
   Form,
   FormGroup,
@@ -11,6 +11,7 @@ import {
 } from "@bootstrap-styled/v4";
 import { AuthContext } from "./AuthProvider.js";
 import { isNobody } from "../../utils/auth.js";
+import { RippleBackground } from "../../utils/animation.js";
 
 export const AuthForm = (props) => {
   const { doLogin, doLogout, doRegister } = useContext(AuthContext);
@@ -21,10 +22,13 @@ export const AuthForm = (props) => {
     password: "",
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleLogin = (e) => {
     e.preventDefault();
     // look at login state one key at a time
-    // 	- if a field is empty (remember: "" is falsy), the reducer will return allFieldsValid
+    // 	- if a field is empty (remember: "" is falsy),
+    // 		the reducer will return allFieldsValid
     // 	- allFieldsValid starts as true (also falsy)
     // 	- whole statement evaluates to true if all entries in loginState are truthy
     // 	- alt explanation:
@@ -37,7 +41,11 @@ export const AuthForm = (props) => {
         true
       )
     ) {
-      doLogin(loginState.username, loginState.password);
+      setIsLoading(true);
+      doLogin(loginState.username, loginState.password).then(() => {
+        setLoginState({ username: "", password: "" });
+        setIsLoading(false);
+      });
     } else {
       // inputs invalid
     }
@@ -52,13 +60,17 @@ export const AuthForm = (props) => {
       ) &&
       registerState.password === registerState.confirm
     ) {
+      setIsLoading(true);
       doRegister(
         registerState.username,
         registerState.password,
         registerState.email,
         registerState.firstName,
         registerState.lastName
-      );
+      ).then(() => {
+        setLoginState({ username: "", password: "" });
+        setIsLoading(false);
+      });
     } else {
       // inputs invalid
     }
@@ -77,10 +89,11 @@ export const AuthForm = (props) => {
     isNobody() && (
       <AccordionGroup activeAccordionName={isLogin ? "login" : "register"}>
         <Accordion
+          showRipple={isLoading}
           heading={<div onClick={toggleLogin}>Login</div>}
           name="login"
         >
-          <Card>
+          <Card showRipple={isLoading}>
             <Form>
               <FormGroup>
                 <Input
@@ -113,6 +126,7 @@ export const AuthForm = (props) => {
           </Card>
         </Accordion>
         <Accordion
+          showRipple={isLoading}
           heading={<div onClick={toggleLogin}>Register</div>}
           name="register"
         >
@@ -200,5 +214,12 @@ export const AuthForm = (props) => {
 };
 
 const Card = styled(CARD)`
+  ${({ showRipple }) => showRipple && RippleBackground()}
   padding: 1rem;
+`;
+
+const Accordion = styled(ACCORDION)`
+  ${({ showRipple }) => showRipple && RippleBackground()}
+  padding: 0;
+  margin: 0;
 `;
