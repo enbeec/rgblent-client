@@ -5,7 +5,7 @@ export const authToken = () => localStorage.getItem(tokenKey);
 export const isNobody = () => !authToken();
 
 export const logout = () => localStorage.removeItem(tokenKey);
-export const login = (username, password) =>
+export const loginFetch = (username, password) =>
   authFetch("/login", {
     noAuth: true,
     method: "POST",
@@ -22,7 +22,7 @@ export const login = (username, password) =>
       }
     });
 
-export const register = (username, password, email, firstName, lastName) =>
+export const registerFetch = (username, password, email, firstName, lastName) =>
   authFetch("/register", {
     noAuth: true,
     method: "POST",
