@@ -10,6 +10,7 @@ import {
 } from "@bootstrap-styled/v4";
 import { HexColorPicker } from "react-colorful";
 import { ColorContext } from "./ColorProvider.js";
+import { ColorHistory } from "./ColorHistory.js";
 import { AuthContext } from "../auth/AuthProvider.js";
 import { isNobody } from "../../utils/auth.js";
 import {
@@ -141,6 +142,7 @@ export const Picker = (props) => {
             Favorite this Color
           </Button>
         </Row>
+        <ColorHistory />
       </Col>
       {isNobody() && (
         <>
