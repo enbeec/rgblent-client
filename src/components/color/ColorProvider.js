@@ -12,13 +12,6 @@ export const ColorProvider = (props) => {
 
   const [color, _setColor, colorHistory] = useStateWithHistory("#80ff80", 8, [
     "#80ff80",
-    "#000000",
-    "#ffffff",
-    "#000000",
-    "#ffffff",
-    "#000000",
-    "#ffffff",
-    "#000000",
   ]);
 
   const setColor = (newState) => {

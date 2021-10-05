@@ -35,7 +35,7 @@ export const NameWindow = (props) => {
             <Swatch
               noHover={true}
               color={newFavorite.rgb_hex}
-              size={1.7}
+              size={3}
               style={{
                 marginRight: "0.2rem",
                 marginTop: "0.5rem",
@@ -45,8 +45,8 @@ export const NameWindow = (props) => {
             <Input
               placeholder="name this color"
               id="favorite__input"
+              size="sm"
               onChange={updateFavoriteLabel}
-              style={{ marginRight: "0.2rem" }}
             />
             <Tooltip target="favorite__input" isOpen={!!errorMessage}>
               {errorMessage}
