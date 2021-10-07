@@ -79,7 +79,7 @@ export const PaletteCard = ({
           </FlexRow>
         </CardHeader>
         <Swatch
-          size={17}
+          size={16}
           squish="vertical"
           style={{
             margin: "1rem",
@@ -166,7 +166,7 @@ export const PaletteCard = ({
 
 const Card = styled(CARD)`
   margin-bottom: 4%;
-  width: auto;
+  width: 46%;
   margin-right: 0.5rem;
   margin-left: 0.5rem;
 `;

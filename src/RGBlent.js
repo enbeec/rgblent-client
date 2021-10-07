@@ -32,8 +32,8 @@ export const RGBlent = (props) => {
               <Sidebar>
                 <AuthForm />
                 <NameWindow />
-				<Profile />
-				<OtherUsers />
+                <Profile />
+                <OtherUsers />
               </Sidebar>
             </RightColumn>
           </Row>
@@ -61,7 +61,7 @@ const Sidebar = styled.div`
   margin-top: auto;
   margin-bottom: auto;
   padding: 1rem;
-  width: 28rem;
+  width: 30rem;
   height: 98%;
   border-radius: 8px;
   background-color: darkgrey;
