@@ -79,10 +79,11 @@ export const AuthProvider = (props) => {
     });
 
   const endFavorite = () => {
-    if (!newFavorite.label) return Promise.reject(new Error("missing name")); // down, Zalgo!
+    if (!newFavorite.label) {
+      return Promise.reject(new Error("missing name")); // down, Zalgo!
+    }
 
     return createFavorite.mutateAsync(newFavorite).then((res) => {
-      debugger;
       if (res.status === STATUS.ALREADY_EXISTS) {
         return res
           .json()

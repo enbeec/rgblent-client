@@ -8,6 +8,8 @@ import { Palette } from "./components/color/Palette.js";
 import { ColorProvider } from "./components/color/ColorProvider.js";
 import { Picker } from "./components/color/Picker.js";
 import { Detail } from "./components/color/Detail.js";
+import { Profile } from "./components/sidebar/Profile.js";
+import { OtherUsers } from "./components/sidebar/OtherUsers.js";
 
 export const RGBlent = (props) => {
   return (
@@ -30,6 +32,8 @@ export const RGBlent = (props) => {
               <Sidebar>
                 <AuthForm />
                 <NameWindow />
+				<Profile />
+				<OtherUsers />
               </Sidebar>
             </RightColumn>
           </Row>
@@ -51,15 +55,13 @@ const LeftColumn = styled(Col)`
 
 const LeftColumnRow = styled(Row)`
   margin-top: 10%;
-  margin-left: auto;
-  margin-right: auto;
 `;
 
 const Sidebar = styled.div`
   margin-top: auto;
   margin-bottom: auto;
   padding: 1rem;
-  width: 24rem;
+  width: 28rem;
   height: 98%;
   border-radius: 8px;
   background-color: darkgrey;
