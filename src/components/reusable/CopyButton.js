@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Button, Tooltip } from "@bootstrap-styled/v4";
+import styled from "styled-components";
+import { Button as BUTTON, Tooltip } from "@bootstrap-styled/v4";
 import { useTimeoutFn } from "react-use";
 import { useHover } from "../../hooks/useHover.js";
 
@@ -55,3 +56,8 @@ export const CopyButton = ({
     </>
   );
 };
+
+const Button = styled(BUTTON)`
+  margin-right: ${(props) => props.theme["$spacer-halved"]};
+  margin-bottom: ${(props) => props.theme["$spacer-halved"]};
+`;

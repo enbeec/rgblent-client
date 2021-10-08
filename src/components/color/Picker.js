@@ -158,16 +158,15 @@ export const Picker = (props) => {
 };
 
 const Button = styled(BUTTON)`
-  margin-right: 2%;
-  margin-bottom: 2%;
+  margin-right: ${(props) => props.theme["$spacer-halved"]};
+  margin-bottom: ${(props) => props.theme["$spacer-halved"]};
 `;
 
 const FakeButtonInput = styled(Input)`
   border: 0px;
   border-radius: 5px;
-  margin-left: 0;
-  margin-right: 0;
   width: 7.4rem;
+  margin-bottom: ${(props) => props.theme["$spacer-halved"]};
   padding-right: 1.2rem;
   padding-left: 1.5rem;
   padding-top: 0.6rem;

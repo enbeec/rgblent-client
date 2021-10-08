@@ -52,9 +52,9 @@ const SWATCH = styled.div`
     height: ${size / (squish === "vertical" ? 2 : 1)}rem;
     width: ${squish ? "auto" : `${size}rem`};
   `}
-  margin: auto;
   background-color: ${({ color }) => color};
   border-radius: ${({ squish }) => (squish ? "4%" : "100%")};
   border: 1px solid darkgrey;
-  box-shadow: 0px 2px 2px darkgrey;
+  box-shadow: 0px 2px 2px black;
+  margin: ${(props) => props.theme["$spacer-halved"]};
 `;

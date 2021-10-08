@@ -1,6 +1,11 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import { Card as CARD, Input, Button, Tooltip } from "@bootstrap-styled/v4";
+import {
+  Card as CARD,
+  Input as INPUT,
+  Button as BUTTON,
+  Tooltip,
+} from "@bootstrap-styled/v4";
 import { Swatch } from "../color/Swatch.js";
 import { isNobody } from "../../utils/auth.js";
 import { AuthContext } from "./AuthProvider.js";
@@ -32,16 +37,7 @@ export const NameWindow = (props) => {
       <FlexRow>
         {newFavorite ? (
           <>
-            <Swatch
-              noHover={true}
-              color={newFavorite.rgb_hex}
-              size={3}
-              style={{
-                marginRight: "0.2rem",
-                marginTop: "0.5rem",
-                marginBottom: "0.3rem",
-              }}
-            />
+            <Swatch noHover={true} color={newFavorite.rgb_hex} size={3} />
             <Input
               placeholder="name this color"
               id="favorite__input"
@@ -56,14 +52,8 @@ export const NameWindow = (props) => {
               children="Submit"
               disabled={favoriteIsSubmitting()}
               onClick={() => endFavorite().catch(setErrorMessage)}
-              style={{ marginRight: "0.2rem" }}
             />
-            <Button
-              size="sm"
-              children="Cancel"
-              onClick={cancelFavorite}
-              style={{ marginRight: "0.2rem" }}
-            />
+            <Button size="sm" children="Cancel" onClick={cancelFavorite} />
           </>
         ) : (
           <>
@@ -92,7 +82,23 @@ const FlexRow = styled.div`
 `;
 
 const Card = styled(CARD)`
-  padding-left: 2rem;
-  padding-right: 2rem;
-  padding-top: 0.3rem;
+  margin-top: ${(props) => props.theme["$spacer"]};
+  margin-bottom: ${(props) => props.theme["$spacer"]};
+  padding: ${(props) => props.theme["$spacer"]};
+`;
+
+const Button = styled(BUTTON)`
+  margin-top: ${(props) => props.theme["$spacer"]};
+  margin-bottom: ${(props) => props.theme["$spacer"]};
+  margin-right: ${(props) => props.theme["$spacer-halved"]};
+  padding: ${(props) => props.theme["$spacer-halved"]};
+  padding-top: ${(props) => props.theme["$spacer-halved"]};
+`;
+
+const Input = styled(INPUT)`
+  margin-top: ${(props) => props.theme["$spacer"]};
+  margin-bottom: ${(props) => props.theme["$spacer"]};
+  margin-right: ${(props) => props.theme["$spacer-halved"]};
+  padding: ${(props) => props.theme["$spacer-halved"]};
+  padding-top: ${(props) => props.theme["$spacer-halved"]};
 `;
