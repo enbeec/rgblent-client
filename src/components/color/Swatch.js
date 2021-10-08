@@ -16,7 +16,7 @@ export const Swatch = ({ sibling, ...props }) => {
   const { startFavorite } = useContext(AuthContext);
 
   return (
-    <div ref={hoverRef}>
+    <Hitbox ref={hoverRef}>
       <SWATCH {...props}>
         {props.noHover || (
           <ButtonDropdown
@@ -43,7 +43,7 @@ export const Swatch = ({ sibling, ...props }) => {
         )}
       </SWATCH>
       {sibling}
-    </div>
+    </Hitbox>
   );
 };
 
@@ -56,5 +56,13 @@ const SWATCH = styled.div`
   border-radius: ${({ squish }) => (squish ? "4%" : "100%")};
   border: 1px solid darkgrey;
   box-shadow: 0px 2px 2px black;
-  margin: ${(props) => props.theme["$spacer-halved"]};
+  margin-top: ${(props) => props.theme["$spacer"]};
+  margin-right: ${(props) => props.theme["$spacer"]};
+`;
+
+const Hitbox = styled.div`
+  margin: 0;
+  padding: 0;
+  flex-grow: 0;
+  border: 0px solid rgba(0, 0, 0, 0);
 `;

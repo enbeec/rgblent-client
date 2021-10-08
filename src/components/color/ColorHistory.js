@@ -15,9 +15,12 @@ export const ColorHistory = (props) => {
           .reverse()
           .map((c, i) => (
             // going to an offset negative index because we reversed history
-            <Col onClick={() => colorHistory.go(-i - 1)}>
-              <Swatch noHover={true} size={2.5} color={c} />
-            </Col>
+            <Swatch
+              onClick={() => colorHistory.go(-i - 1)}
+              noHover={true}
+              size={3}
+              color={c}
+            />
           ))}
       </Row>
     </Container>
