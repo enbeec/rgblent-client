@@ -73,7 +73,7 @@ export const Picker = (props) => {
         />
       </Col>
       <Col>
-        <Row>
+        <Row style={{ justifyContent: "center" }}>
           {isEditing ? (
             <FakeButtonInput
               size="lg"
@@ -118,7 +118,7 @@ export const Picker = (props) => {
             />
           )}
         </Row>
-        <Row style={{ marginTop: "10%" }}>
+        <Row style={{ justifyContent: "center", marginTop: "10%" }}>
           <Button
             onClick={() => setColor(pickerColor)}
             style={{

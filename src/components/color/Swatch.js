@@ -50,7 +50,7 @@ export const Swatch = ({ sibling, ...props }) => {
 const SWATCH = styled.div`
   ${({ size, squish }) => css`
     height: ${size / (squish === "vertical" ? 2 : 1)}rem;
-    width: ${size}rem;
+    width: ${squish ? "auto" : `${size}rem`};
   `}
   margin: auto;
   background-color: ${({ color }) => color};
