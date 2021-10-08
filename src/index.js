@@ -7,7 +7,6 @@ import { RGBlent } from "./RGBlent.js";
 
 const theme = {
   "$body-bg": "lightgrey",
-  "$card-columns-gaps-md": "1",
 };
 
 const queryClient = new QueryClient();

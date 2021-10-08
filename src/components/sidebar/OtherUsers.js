@@ -17,8 +17,8 @@ export const OtherUsers = (props) => {
   const { profile } = useContext(AuthContext);
   const users = useQuery(
     "users",
-    () => authFetch("/users").then((res) => res.json()),
-    { noAuth: true, keepPreviousData: true, initialData: [] }
+    () => authFetch("/users", { noAuth: true }).then((res) => res.json()),
+    { keepPreviousData: true, initialData: [] }
   );
 
   const [currentAccordion, _setCurrentAccordion] = useState("");
@@ -31,11 +31,11 @@ export const OtherUsers = (props) => {
   };
 
   return (
-    <Card>
+    <>
       <AccordionGroup activeAccordionName={currentAccordion}>
         {users.data.map((u) => {
           if (!u.colors.length && !u.palettes.length) return null;
-          if (!profile.data || u.id === profile?.data.id) return null;
+          if (u.id === profile?.data?.id) return null;
           return (
             <Card showRainbow={users.isLoading}>
               <Accordion
@@ -56,7 +56,7 @@ export const OtherUsers = (props) => {
           );
         })}
       </AccordionGroup>
-    </Card>
+    </>
   );
 };
 
@@ -68,6 +68,9 @@ const Accordion = styled(ACCORDION)`
 `;
 
 const Card = styled(CARD)`
+  margin: ${(props) => props.theme["$spacer-halved"]};
+  margin-right: ${(props) => props.theme["$spacer-halved"]};
+
   ${({ showRainbow }) =>
     showRainbow && RainbowBackground({ brightLimit: true })}
 `;

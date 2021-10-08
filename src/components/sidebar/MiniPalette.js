@@ -1,10 +1,10 @@
-import React, { useContext } from "react"
-import { Row, Col, Card, CardText } from "@bootstrap-styled/v4"
-import { ColorContext } from "../color/ColorProvider.js"
-import { Swatch } from "../color/Swatch.js"
+import React, { useContext } from "react";
+import { Row, Col, Card, CardText } from "@bootstrap-styled/v4";
+import { ColorContext } from "../color/ColorProvider.js";
+import { Swatch } from "../color/Swatch.js";
 
-export const MiniPalette = ({palette, ...props}) => {
-	const { setColor } = useContext(ColorContext);
+export const MiniPalette = ({ palette, ...props }) => {
+  const { setColor } = useContext(ColorContext);
   return palette ? (
     <Card>
       {palette.name !== "default" && (
@@ -14,12 +14,13 @@ export const MiniPalette = ({palette, ...props}) => {
       )}
       <Row style={{ padding: "1.2em" }}>
         {palette.colors.map((color) => (
-          <Col key={color?.label || color.color.rgb_hex}>
+          <Col md="3" key={color?.label || color.color.rgb_hex}>
             <Swatch
               style={{ margin: "0.6em" }}
               noHover
               color={color.color.rgb_hex}
-              size={3}
+              size={2}
+              squish="horizontal"
               onDoubleClick={() => setColor(color.color.rgb_hex)}
             />
             <CardText style={{ textAlign: "center", fontSize: 13 }}>
@@ -29,5 +30,5 @@ export const MiniPalette = ({palette, ...props}) => {
         ))}
       </Row>
     </Card>
-	) : null
-}
+  ) : null;
+};

@@ -1,6 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { Container, Col, Row, Hr } from "@bootstrap-styled/v4";
+import {
+  Container as CONTAINER,
+  Col,
+  Row,
+  Hr,
+  Card as CARD,
+} from "@bootstrap-styled/v4";
 import { AuthProvider } from "./components/auth/AuthProvider.js";
 import { AuthForm } from "./components/auth/AuthForm.js";
 import { NameWindow } from "./components/auth/NameWindow.js";
@@ -16,17 +22,23 @@ export const RGBlent = (props) => {
     <AuthProvider>
       <ColorProvider>
         <Container>
-          <Row>
+          <Row style={{ maxHeight: "100%" }}>
             <LeftColumn>
-              <LeftColumnRow className="picker__row">
-                <Picker style={{ marginTop: "10%", marginBottom: "0%" }} />
-              </LeftColumnRow>
-              <LeftColumnRow className="detail__row">
-                <Detail />
-              </LeftColumnRow>
-              {/* Palette renders it's own row */}
+              <Card style={{ background: "darkgrey" }}>
+                <Row className="picker__row">
+                  <Picker style={{ marginTop: "10%", marginBottom: "0%" }} />
+                </Row>
+              </Card>
+              <Card style={{ background: "darkgrey" }}>
+                <Row className="detail__row">
+                  <Detail />
+                </Row>
+              </Card>
               <Hr />
-              <Palette />
+              <Card style={{ background: "darkgrey" }}>
+                {/* Palette renders it's own row */}
+                <Palette />
+              </Card>
             </LeftColumn>
             <RightColumn>
               <Sidebar>
@@ -43,10 +55,13 @@ export const RGBlent = (props) => {
   );
 };
 
-const RightColumn = styled.div`
-  /*display: flex;
-  flex-direction: column;*/
-  width: 30rem;
+const Card = styled(CARD)`
+  padding: ${(props) => props.theme["$spacer"]};
+  margin: ${(props) => props.theme["$spacer"]};
+`;
+
+const Container = styled(CONTAINER)`
+  padding: ${(props) => props.theme["$spacer"]};
 `;
 
 const LeftColumn = styled(Col)`
@@ -54,21 +69,16 @@ const LeftColumn = styled(Col)`
   margin-right: auto;
 `;
 
-const LeftColumnRow = styled(Row)`
-  margin-top: 10%;
+const RightColumn = styled(Row)`
+  /*display: flex;
+  flex-direction: column;*/
+  width: 30rem;
+  height: auto;
 `;
 
 const Sidebar = styled.div`
-  margin-top: auto;
-  margin-bottom: auto;
-  padding: 1rem;
-  padding-bottom: 4rem;
-  width: 30rem;
-  height: 146%;
+  margin: ${(props) => props.theme["$spacer"]};
+  width: 32rem;
   border-radius: 8px;
   background-color: darkgrey;
-  overflow: auto;
-  position: absolute;
-  top: 3rem;
-  right: 6rem;
 `;

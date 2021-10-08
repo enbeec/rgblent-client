@@ -1,12 +1,13 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import {
+  Card,
   Col,
   ListGroup,
   ListGroupItem,
   AccordionGroup,
   Accordion as ACCORDION,
-  H4,
+  H4 as HEADING_4,
 } from "@bootstrap-styled/v4";
 import { Swatch } from "./Swatch.js";
 import { useQuery } from "react-query";
@@ -41,18 +42,13 @@ export const Detail = ({ ...props }) => {
   return (
     <>
       <Col>
-        <Swatch
-          color={color}
-          size={20}
-          style={{ margin: "auto", marginTop: "10%" }}
-        />
-        <H4 style={{ textAlign: "center", marginTop: "5%" }}>{color}</H4>
+        <Swatch color={color} size={24} squish="horizontal" />
+        <H4>{color}</H4>
       </Col>
       <Col>
         <AccordionGroup
           activeAccordionName={activeAccordion}
           onChange={setActiveAccordion}
-          style={{ paddingRight: "8%" }}
         >
           <Accordion
             showRipple={colorInfo.isFetching}
@@ -260,6 +256,10 @@ const RippleHeader = styled.div`
 
 const Accordion = styled(ACCORDION)`
   ${({ showRipple }) => showRipple && RippleBackground()}
-  padding: 0;
-  margin: 0;
+`;
+
+const H4 = styled(HEADING_4)`
+  text-align: center;
+  margin: ${(props) => props.theme["$spacer-halved"]};
+  margin-top: ${(props) => props.theme["$spacer"]};
 `;

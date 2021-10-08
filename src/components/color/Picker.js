@@ -73,7 +73,7 @@ export const Picker = (props) => {
         />
       </Col>
       <Col>
-        <Row style={{ justifyContent: "center" }}>
+        <Row style={{ margin: "auto" }}>
           {isEditing ? (
             <FakeButtonInput
               size="lg"
@@ -118,30 +118,28 @@ export const Picker = (props) => {
             />
           )}
         </Row>
-        <Row style={{ justifyContent: "center", marginTop: "10%" }}>
-          <Button
-            onClick={() => setColor(pickerColor)}
-            style={{
-              backgroundColor: pickerColor,
-              color: contrastColor,
-            }}
-          >
-            Load This Color
-          </Button>
-          <Button
-            onClick={() => {
-              startFavorite(pickerColor);
-            }}
-            disabled={isNobody()}
-            id="picker__favorite-button"
-            style={{
-              backgroundColor: pickerColor,
-              color: contrastColor,
-            }}
-          >
-            Favorite this Color
-          </Button>
-        </Row>
+        <Button
+          onClick={() => setColor(pickerColor)}
+          style={{
+            backgroundColor: pickerColor,
+            color: contrastColor,
+          }}
+        >
+          Load This Color
+        </Button>
+        <Button
+          onClick={() => {
+            startFavorite(pickerColor);
+          }}
+          disabled={isNobody()}
+          id="picker__favorite-button"
+          style={{
+            backgroundColor: pickerColor,
+            color: contrastColor,
+          }}
+        >
+          Favorite this Color
+        </Button>
         <ColorHistory />
       </Col>
       {isNobody() && (
