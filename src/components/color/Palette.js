@@ -99,7 +99,7 @@ export const Palette = ({ ...props }) => {
           paletteQuery={paletteQuery}
           setPaletteWithQueryData={setPaletteWithQueryData}
         />
-        <Row className="palette__row">
+        <Row className="palette__row" {...props}>
           {paletteState.colors.map((c, index) => (
             <PaletteCard
               key={index}

@@ -44,8 +44,9 @@ export const RGBlent = (props) => {
 };
 
 const RightColumn = styled.div`
-  display: flex;
-  flex-direction: column;
+  /*display: flex;
+  flex-direction: column;*/
+  width: 30rem;
 `;
 
 const LeftColumn = styled(Col)`
@@ -61,8 +62,13 @@ const Sidebar = styled.div`
   margin-top: auto;
   margin-bottom: auto;
   padding: 1rem;
+  padding-bottom: 4rem;
   width: 30rem;
-  height: 98%;
+  height: 146%;
   border-radius: 8px;
   background-color: darkgrey;
+  overflow: auto;
+  position: absolute;
+  top: 3rem;
+  right: 6rem;
 `;

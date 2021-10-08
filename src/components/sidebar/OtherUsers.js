@@ -34,7 +34,7 @@ export const OtherUsers = (props) => {
     <Card>
       <AccordionGroup activeAccordionName={currentAccordion}>
         {users.data.map((u) => {
-          if (!u.colors.length || !u.palettes.length) return null;
+          if (!u.colors.length && !u.palettes.length) return null;
           if (!profile.data || u.id === profile?.data.id) return null;
           return (
             <Card showRainbow={users.isLoading}>
