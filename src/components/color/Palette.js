@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useQuery } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import styled from "styled-components";
 import {
   Col,
@@ -18,10 +18,12 @@ import { KEYS } from "../../utils/query.js";
 import { AuthContext } from "../auth/AuthProvider.js";
 import { PaletteCard } from "./PaletteCard.js";
 import { PaletteHeader } from "./PaletteHeader.js";
+import { authFetch } from "../../utils/fetch.js";
 
 export const Palette = ({ ...props }) => {
   useContext(AuthContext);
-  const { getPalette, color, setColor } = useContext(ColorContext);
+  const { blankPalette, getPalette, postPalette, putPalette, color, setColor } =
+    useContext(ColorContext);
   const [name, setName] = useState("default");
 
   // initial state will be overridden by the query
@@ -55,6 +57,9 @@ export const Palette = ({ ...props }) => {
       staleTime: Infinity,
     }
   );
+
+  const [newPalette, setNewPalette] = useState(blankPalette);
+  const paletteCreate = useMutation(() => postPalette(newPalette), {});
 
   // these functions return a function
   // they are higher order functions that consume an argument

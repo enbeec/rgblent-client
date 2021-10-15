@@ -41,6 +41,59 @@ export const ColorProvider = (props) => {
     return authFetch(path, { noAuth: true }).then((res) => res.json());
   };
 
+  const postPalette = (paletteObj) =>
+    authFetch("/palette", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(paletteObj),
+    });
+
+  const putPalette = (paletteObj) => 
+    authFetch("/palette", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(paletteObj),
+    });
+
+
+  const blankPalette = {
+    label: "",
+    colors: [
+      {
+        label: "",
+        rgb_hex: "",
+      },
+      {
+        label: "",
+        rgb_hex: "",
+      },
+      {
+        label: "",
+        rgb_hex: "",
+      },
+      {
+        label: "",
+        rgb_hex: "",
+      },
+      {
+        label: "",
+        rgb_hex: "",
+      },
+      {
+        label: "",
+        rgb_hex: "",
+      },
+      {
+        label: "",
+        rgb_hex: "",
+      },
+      {
+        label: "",
+        rgb_hex: "",
+      },
+    ],
+  };
+
   return (
     <ColorContext.Provider
       value={{
@@ -50,6 +103,9 @@ export const ColorProvider = (props) => {
         setColor,
         colorHistory,
         getPalette,
+        postPalette,
+        putPalette,
+        blankPalette,
       }}
     >
       {props.children}
